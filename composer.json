@@ -1,0 +1,23 @@
+{
+    "name": "labeyadev/voitures",
+    "description": "vente de voiture en ligne",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "labeyadev",
+            "email": "labeyadev@gmail.com"
+        }
+    ],
+
+    "autoload": {
+        "files": [
+            "src/connect.php",
+            "src/Helpers.php",
+            "src/query/type.php",
+            "src/query/vehicule.php",
+            "src/query/marque.php",
+            "src/form.php"
+        ]
+    },
+    "require": {}
+}
