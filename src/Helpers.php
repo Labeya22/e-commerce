@@ -2,6 +2,7 @@
 
 
 function formatQuery(array $params) {
+    if (empty($params)) return "";
     return sprintf('?%s', http_build_query($params));
 }
 
@@ -156,4 +157,91 @@ function inc(string $path): string {
 
 function media($marque, $identify, $image) {
     return sprintf("%s/%s/%s/%s", UPLOADED_PATH, $marque, $identify, $image);
+}
+
+function layout($route) {
+    if (strpos($route, 'user')) {
+        $layout = "user";
+    } else {
+        $layout = "layout";
+    }
+
+    return sprintf("%s.php", $layout);
+}
+
+
+function createToastError(array $toasts) {
+    if (empty($toasts)) return  null;
+
+    $toast = "";
+
+    foreach (array_values($toasts) as $error) {
+        $toast .= "
+        <li class=\"toast danger\">
+            <div class=\"content\">
+                <span class=\"fa-solid fa-circle-xmark icon-type\"></span>
+                <span class=\"text\">
+                $error
+                </span>
+            </div>
+            <span class=\"fa-solid fa-xmark toast-close\"></span>
+        </li>
+        ";
+    }
+
+    return "
+    <ul class=\"toasts\"> $toast </ul>
+    ";
+}
+
+function generateToken($length = 25) {
+    $alphabet = '0123456789azertyuiopqsdfghjklmwxcvbnAZERTYUIOPQSDFGHJKLMWXCVBN';
+    return substr(str_shuffle(str_repeat($alphabet, $length)), 0, $length);
+}
+
+
+function formatQueryInsert(array $field) {
+    return implode(', ', array_map(function ($key) {
+        return sprintf("%s = :%s", $key, $key);
+    }, $field));
+}
+
+function hashPass($pass) {
+    return password_hash($pass, PASSWORD_BCRYPT);
+}
+
+
+function redirect($path): void
+{
+    header("Location: $path", false, 301);
+    exit();
+}
+
+function verifyPassword($pass, $hash) {
+    return password_verify($pass, $hash);
+}
+
+function onSession() {
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+}
+
+function setSession($key, $value) {
+    onSession();
+    $_SESSION[$key] = $value;
+}
+
+function getSession($key, $value) {
+    onSession();
+    if (hasSession($key)) {
+        return $_SESSION[$key];
+    }
+
+    return null;
+}
+
+function hasSession($key) {
+    onSession();
+    return isset($_SESSION[$key]);
 }

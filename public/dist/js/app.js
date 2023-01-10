@@ -2,9 +2,9 @@ import {
     showElement,
     scrollY, 
     closeElement} from "./modules/dom.js";
-import { Filter } from "./modules/filter.js";
 
 import { calculer, calculerAll } from "./modules/integer.js";
+import { createToast, optionToast } from "./modules/toast.js";
 
  // activate search nav
  const actionSearch = document.querySelector('#action-search')
@@ -102,3 +102,4 @@ if (tabs) {
     })
     
 }
+

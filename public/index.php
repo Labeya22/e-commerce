@@ -7,14 +7,14 @@ define("UPLOADED_PATH", dirname(dirname($_SERVER['SCRIPT_NAME']))  . "uploaded")
 define("VIEW_PATH", dirname(__DIR__) . DIRECTORY_SEPARATOR . "views");
 define("LAYOUT_PATH", dirname(__DIR__) . DIRECTORY_SEPARATOR . "templates");
 
+define('SESSION_USER', 'user__');
+// define('SESSION_ADMIn', 'admin__');
+
 function dist($source) {
     return sprintf("%s/%s", SOURCES, $source);
 }
 
 $route = explode("?", $_SERVER['REQUEST_URI'])[0] ?? '/';
-
-
-var_dump(file_exists(sprintf("%s%s", UPLOADED_PATH, 'public')));
 
 
 /**
@@ -26,6 +26,9 @@ define('ROUTES', [
     'store' => '/store',
     'store.eye' => '/store/voir-produit',
     '_store.filter' => '/_store/filter',
+    'user' => '/user/login',
+    'user.create' => '/user/create',
+    'user.confirm' => '/user/account/confirm',
 ]);
 
 
@@ -39,7 +42,10 @@ define('VIEWS', [
     'home' => 'index.php',
     'store' => '/store/store.php',
     'store.eye' => '/store/eye.php',
-    '_store.filter' => '/store/_store.php'
+    '_store.filter' => '/store/_store.php',
+    'user' => '/users/login.php',
+    'user.create' => '/users/create.php',
+    'user.confirm' => '/users/confirm.php',
 ]);
 
 
@@ -65,14 +71,15 @@ if (in_array($route, ROUTES)) {
     require sprintf("%s/%s", VIEW_PATH, $notFound);
 }
 
-if (strpos($route, '_') !== 1) {
-    
+if (!strpos($route, '_') !== 1) {
+
+
     $content = ob_get_clean();
 
     /**
      * on charge le template
      */
 
-    require sprintf("%s/%s", LAYOUT_PATH, 'layout.php');
+    require sprintf("%s/%s", LAYOUT_PATH, layout($route));
 }
 

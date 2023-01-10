@@ -14,8 +14,11 @@
             "src/connect.php",
             "src/Helpers.php",
             "src/query/type.php",
+            "src/query/user.php",
             "src/query/vehicule.php",
             "src/query/marque.php",
+            "src/validator/userValidator.php",
+            "src/validator/validator.php",
             "src/form.php"
         ]
     },

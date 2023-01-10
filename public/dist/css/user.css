@@ -1,0 +1,244 @@
+
+/* root */
+:root {
+    --white: #fff;
+    --primary: #696cff;
+    --border-primary: #3c3ff5e8;
+    --light: #f1f2f9;
+    --dark: #495057;
+    --primary-hover: #696cffc2;
+    --black: #000;
+    --color: #1A3760;
+    --color-light: #121c4299;
+    --border: #d5e3ec;
+    --border-light: #e6eff4;
+    --background: #f7fafb;
+    --shadow: #d8e1e8;
+    --e: rgb(105, 108, 255);
+
+
+    --shadow-dark: 73, 80, 87;
+    --shadow-primary: 105, 108, 255;
+    --shadow-input: 0 0 0 1px var(--light), 0 0 0 0.25rem rgba(var(--shadow-primary), 0.25);
+
+    /* --e: rgb(157, 158, 255); */
+
+
+    --container: calc(100% - 60px);
+
+
+    --color-inversed: #effbec;
+    --color-inversed60: #effbec99;
+    --color-transparent: rgba(18, 28, 66, 0);
+    --gap: 20px;
+    --space: 8px;
+
+    --list-hover: var(--background);
+    --play: #f3f9fb;
+    --space-section: 150px;
+    --card: #f7fafd;
+    --card-padding: 16px;
+    --header-height: 137px;
+    --red: #f25353;
+    --green: #41cf7c;
+    --yellow: #feb32b;
+    --yellow-alpha: #feb32b4c;
+    --skeleton: var(--border-light);
+    --skeleton-wave: var(--border-light);
+    --selection-background: var(--border);
+    --header-background: #FFFFFFF2;
+    --header-background-inversed: #4869eeF2;
+
+
+
+    --font: 'Poppins', sans-serif;
+    --font-input: 'Inter', 'Roboto', sans-serif;
+}
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+img {
+    display: inline-block;
+    object-fit: cover;
+    object-position: center;
+    background-attachment: fixed;
+}
+
+ul {
+    list-style-type: none;
+}
+
+a {
+    text-decoration: none;
+    color: var(--color);
+    transition: 0.3s;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+
+select,
+input,
+textarea {
+    font-family: var(--font-input);
+}
+
+button,
+select,
+input,
+textarea {
+    font-family: inherit;
+    display: inline-block;
+    outline: none;
+    border: none;
+    /* font-family: 'Inter'; */
+}
+
+input::placeholder {
+    color: var(--color);
+}
+
+button {
+    cursor: pointer;
+}
+
+body {
+    background-color: var(--light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    font-family: var(--font);
+    font-size: 15px;
+}
+
+.container {
+    height: auto;
+    width: 300px;
+    background-color: var(--white);
+    border-radius: 5px;
+    box-shadow: 0 0 8px 1px rgba(var(--shadow-dark), 0.10);
+    padding: 20px;
+}
+
+.container h2 {
+    color: var(--primary);
+    padding: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 26px;
+}
+
+.container h2 + p {
+    margin-bottom: 25px;
+}
+
+.container .desc {
+    font-size: 15px;
+    color: #565a5e;
+    font-weight: 400;
+}
+
+.container .desc strong {
+    color: var(--primary);
+}
+
+.container .form {
+    margin-bottom: 30px;
+}
+
+.container.is-error {
+    animation: anime 0.30s forwards alternate;
+}
+
+.container .form .form-group {
+    margin-bottom: 21px;
+}
+
+.container .form .form-group .field {
+    display: block;
+    width: 100%;
+    padding: 8px 12px;
+    border-radius: 5px;
+    box-shadow: 0 0 1px 1px rgba(var(--shadow-dark), 0.10);
+    transition: 0.4s;
+    margin-bottom: 5px;
+}
+
+.container .form .form-group .field:focus {
+    box-shadow: var(--shadow-input);
+}
+
+.container .form .form-group .field + .error-field {
+    font-size: 12px;
+    color: rgb(241, 136, 136);
+    font-weight: 500px;
+}
+
+.container .form .form-group .field + .error-field p {
+    margin-bottom: 8px;
+}
+
+.container .form .form-group label {
+    margin-bottom: 5px;
+    color: var(--dark);
+    font-size: 14px;
+}
+
+
+.container .form  button {
+    padding: 6px 10px;
+    font-size: 15px;
+    background-color: var(--primary);
+    border-radius: 5px;
+    color: var(--white);
+    transition: 0.3s;
+    display: block;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.container .form .form-btn button:hover {
+    background-color: var(--primary-hover);
+}
+
+.container .options {
+    font-size: 14px;
+}
+
+.container .options a {
+    display: block;
+    margin-bottom: 5px;
+    color: #707070;
+}
+
+
+@keyframes anime {
+    0% {
+        transform: translateX(-20px);
+    }
+
+    25% {
+        transform: translateX(0px);
+    }
+
+    50% {
+        transform: translateX(15px);
+    }
+
+    75% {
+        transform: translateX(5px);
+    }
+
+    100% {
+        transform: translateX(0px);
+    }
+}

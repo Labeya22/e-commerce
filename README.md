@@ -26,7 +26,9 @@ vente de vehicule en ligne
     - [ok] promotion
 - [ok] voir le détail du produit
 - [] utilisateur
-    - connecter
+    - [ok] créer un utilisateur
+    - [ok] confirmer l'utlisateur
+    - [ok] connecter
     - déconnnecter
     - editer son compte
         - change le mot de passe

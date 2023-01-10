@@ -40,6 +40,24 @@ function input(string $key, array $attributes, $data): string {
    return "<input name=\"$key\" id=\"$key\" value=\"$value\" {$string}>";
 }
 
+function inputField(string $key, array $attributes, $data, array $errors = []): string {
+    $string = arrayToString($attributes);
+    $value = $data[$key] ?? null;
+
+    if (empty($errors)) {
+        return "<input name=\"$key\" id=\"$key\" value=\"$value\" {$string}>";
+    }
+
+    $error = $errors[$key] ?? '';
+    return "
+    <input name=\"$key\" id=\"$key\" value=\"$value\" {$string}>
+    <div class=\"error-field\">
+        {$error}
+    </div>
+    ";
+
+}
+
 /**
  * checkbox
  *
