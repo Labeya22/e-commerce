@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="<?= dist('vendor/fontawesome/css/all.css') ?>">
     <link rel="shortcut icon" href="<?= dist('images/favicon.svg') ?>" type="image/x-icon">
     <title> Utilisateur <?= isset($title) ? sprintf(" | %s", $title) : ''  ?></title>
-    <script src="<?= dist('js/user.js') ?>" type="module" defer></script>
+    <script src="<?= dist('js/message.js') ?>" type="module" defer></script>
 
     <title>Document</title>
 </head>

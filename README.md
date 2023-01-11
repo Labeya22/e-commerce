@@ -25,7 +25,7 @@ vente de vehicule en ligne
     - [ok] marque
     - [ok] promotion
 - [ok] voir le détail du produit
-- [] utilisateur
+- [ok] utilisateur
     - [ok] créer un utilisateur
     - [ok] confirmer l'utlisateur
     - [ok] connecter
@@ -39,12 +39,28 @@ vente de vehicule en ligne
         - [ok] trouver le compte de l'utilisateur à l'aide de son email
         - [ok] envoi code
         - [ok] modifier le mot de passe
-    - message flash
+    - [ok] message flash
 - [] panier
+    - [ok] voir le detail du produit
+    - [ok] calcul du montant à payer
+    - [ok] lister les produits dans le panier
+    - [ok] paginer les résultats
     - ajouter le produit dans le panier
     - supprimer un ou plusieurs produit dans le panier (AJAX)
-    - voir le detail du produit
-    - calcul du montant à payer
+- [] mode de paiement
+    - paypal ou stripe
+
+- [] admins
+    - [] marques
+        - [] ajouter une marque de voiture
+        - [] editer une marque de voiture
+        - [] supprimer une marque de voiture
+        - [] lister tous les marques
+    - [] types
+        - [] ajouter un type de voiture
+        - [] editer un type de voiture
+        - [] supprimer un type de voiture
+        - [] lister tous les types
 
 ## Technologie utilisée
 

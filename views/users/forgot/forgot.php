@@ -1,4 +1,6 @@
 <?php
+isConnected();
+
 $title = 'confirmation du code de réinitialisation';
 
 $pdo = getPDO();

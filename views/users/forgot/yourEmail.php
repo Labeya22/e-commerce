@@ -1,4 +1,6 @@
 <?php
+isConnected();
+
 $title = 'mot de passe oublié';
 
 

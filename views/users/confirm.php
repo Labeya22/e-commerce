@@ -1,4 +1,6 @@
 <?php
+isConnected();
+
 $title = 'confirmation du compte';
 
 $username = getQueryParamsString('utilisateur');

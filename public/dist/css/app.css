@@ -775,6 +775,7 @@ a.button {
     height: 350px;
     object-fit: contain;
     object-position: center;
+    animation: up-down 2s ease-in-out infinite alternate-reverse both;
 }
 
 @media screen and (max-width: 1120px) {
@@ -1515,7 +1516,6 @@ a.button {
 
 
 
-/* animation: up-down 2s ease-in-out infinite alternate-reverse both; */
 
 @-webkit-keyframes up-down {
     0% {
@@ -1535,12 +1535,12 @@ a.button {
     100% {
       transform: translateY(-10px);
     }
-  }
+}
 
 
-  .w-80 {
+.w-80 {
     width: 80% !important;
-  }
+}
 
   .w-60 {
     width: 60% !important;

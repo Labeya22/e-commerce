@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?= dist('css/app.css') ?>">
+    <link rel="stylesheet" href="<?= dist('css/toast.css') ?>">
     <link rel="stylesheet" href="<?= dist('vendor/fontawesome/css/all.css') ?>">
     <link rel="shortcut icon" href="<?= dist('images/favicon.svg') ?>" type="image/x-icon">
     <title> vente de vehicule<?= isset($title) ? sprintf(" | %s", $title) : ''  ?></title>
@@ -24,12 +25,11 @@
                     <?=  li('Stores', generate('store')) ?>
                     <?=  li('Stores', generate('contact')) ?>
                 </ul>
-
                 <span class="fa fa-xmark close-nav-menu" id="close-nav"></span>
             </div>
             <div class="nav-options">
                 <div class="nav-option">
-                    <a href="panier.html" class="link-option no-eye"><i class="fa fa-shopping-cart"></i></a>
+                    <?= linkOption(generate('cart'), 'fa fa-shopping-cart', [], 'no-eye') ?>
                 </div>
                 <div class="nav-option">
                     <a href="#" class="link-option no-eye" id="option-bell"><i class="fa fa-bell"></i></a>
@@ -88,6 +88,7 @@
     <main class="main"><?= $content ?></main>
 
     <script src="<?= dist('js/app.js') ?>" type="module"></script>
+    <script src="<?= dist('js/message.js') ?>" type="module"></script>
 
     <script src="<?= dist('vendor/typewriterjs/dist/core.js') ?>"></script>
 

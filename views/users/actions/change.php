@@ -21,6 +21,8 @@ if (empty($errors) && !empty($_POST)) {
     if (changePasswordUser($pdo, $_POST, $user['utilisateur_id'])) {
         $userEdit = getUser($pdo, 'utilisateur_id', $user['utilisateur_id']);
         setSession(SESSION_USER, $userEdit);
+        $message = "votre mot de passe a été modifier.";
+        setFlash('success', $message , generate('user.profil'));
         redirect(generate('user.profil'));
     }
 }

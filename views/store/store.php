@@ -16,7 +16,7 @@ $vehicules = VehiculesPaginer($pdo, 12, getQueryParamsInteger('page'));
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci praesentium similique maiores. Facere laudantium at maiores eius id praesentium vero quam. Distinctio atque consequuntur soluta, dicta obcaecati voluptatem magnam recusandae.
                 </p>
             </div>
-
+            <?= flash() ?>
             <div class="products" id="js-filter">
                 <form class="filter js-filter-form" id="filter" action="<?= generate('store')  ?>">
                     <div class="filter-element">

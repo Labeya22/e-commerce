@@ -19,6 +19,8 @@ $user = getSession(SESSION_USER);
                 <h2>Mon profil</h2>
             </div>
 
+            <?= flash() ?>
+
             <div class="myprofil">
                 <p class="myprofil-info"><strong>nom</strong> : <?= $user['nom'] ?></p>
                 <p class="myprofil-info"><strong>prénom</strong> : <?= $user['prenom'] ?></p>

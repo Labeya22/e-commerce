@@ -33,7 +33,13 @@ $id = getQueryParamsString('vehicule');
     
                         </div>
                         <h5 class="price"><?= sprintf("%s$", $product['prix']) ?></h5>
-                        <a class="button button-primary " href=""><i class="fa fa-shopping-cart"></i> Ajouter</a>
+                        <a 
+                        class="button button-primary" 
+                        href="<?= generate('cart', [
+                            'add-product' => $product['vehicule_id'
+                        ]]) ?>">
+                            <i class="fa fa-shopping-cart"></i> Ajouter
+                        </a>
                     </div>
                 </div>
                 <div class="details-eye">

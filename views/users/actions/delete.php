@@ -18,6 +18,8 @@ if ($userid != $user['utilisateur_id']) {
 
 if (deleteUser($pdo, $user['utilisateur_id'])) {
     deleteSession(SESSION_USER);
+    $message = sprintf("au revoir %s.", $user['utilisateur']);
+    setFlash('success', $message , generate('user'));
     redirect(generate('user'));
 }
 

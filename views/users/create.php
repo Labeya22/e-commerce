@@ -1,4 +1,6 @@
 <?php
+isConnected();
+
 $title = 'nouveau compte';
 
 $errors = getErrorUser($_POST);

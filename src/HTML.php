@@ -95,17 +95,21 @@ function warning($message): string {
     </li>";
 }
 
-function linkOption(?string $link = null, string $icon = 'link', array $attribute = []): ?string {
+function linkOption(
+    ?string $link = null, 
+    string $icon = '', 
+    array $attribute = [], 
+    string $class = ''): ?string {
     
     if (is_null($link)) return null;
 
     $attributes = empty($attribute) ? '' : arrayToString($attribute);
 
     if ($link === $_SERVER['REQUEST_URI']) {
-        return "<a href=\"$link\" class=\"link-option active\" $attributes><i class=\"$icon\"></i></a>";
+        return "<a href=\"$link\" class=\"link-option $class active\" $attributes><i class=\"$icon\"></i></a>";
     }
 
-    return "<a href=\"$link\" class=\"link-option\" $attributes><i class=\"$icon\"></i></a>";
+    return "<a href=\"$link\" class=\"link-option $class\" $attributes><i class=\"$icon\"></i></a>";
 }
 
 
@@ -184,4 +188,15 @@ function pagination(array $options): ?string {
         {$li}
         {$nextContent}
     </ul>";
+}
+
+
+function star(int $star) {
+    $li = "";
+    for ($index = 1; $index <= 5; $index++) {
+        $li .=  $index <= $star 
+        ? "<li class=\"is\"><i class=\"fa fa-star\"></i></li>"
+        : "<li><i class=\"fa fa-star\"></i></li>";
+    }
+    return "<div class=\"stars\"><ul> $li </ul></div>";
 }

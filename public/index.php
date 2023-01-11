@@ -10,6 +10,8 @@ define("LAYOUT_PATH", dirname(__DIR__) . DIRECTORY_SEPARATOR . "templates");
 define('SESSION_USER', 'user__');
 define('SESSION_FORGOT', 'forgot__');
 define('SESSION_FLASH', 'flash');
+define('COOKIE_USER', 'cookie_user__');
+
 // define('SESSION_ADMIn', 'admin__');
 
 function dist($source) {
@@ -39,9 +41,8 @@ define('ROUTES', [
     'user.your-email' => '/user/forgot/your-email/sendcode',
     'user.code' => '/user/forgot/code-reset',
     'user.forgot' => '/user/forgot/change-pass',
+    'cart' => '/cart'
 ]);
-
-
 
 
 /**
@@ -64,6 +65,7 @@ define('VIEWS', [
     'user.your-email' => '/users/forgot/yourEmail.php',
     'user.code' => '/users/forgot/code.php',
     'user.forgot' => '/users/forgot/forgot.php',
+    'cart' => 'cart/cart.php',
 
 ]);
 

@@ -21,6 +21,9 @@ if (empty($errors) && !empty($_POST)) {
     if (editUser($pdo, $_POST, $user['utilisateur_id'])) {
         $userEdit = getUser($pdo, 'utilisateur_id', $user['utilisateur_id']);
         setSession(SESSION_USER, $userEdit);
+        $message = "vos informations ont été mis à jour.";
+        setFlash('success', $message , generate('user.profil'));
+
         redirect(generate('user.profil'));
     }
 }

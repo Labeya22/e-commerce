@@ -1,4 +1,6 @@
 <?php
+isConnected();
+
 $title = 'se connecter';
 
 $errors = getErrorUserLogin($_POST);
@@ -11,12 +13,12 @@ if (empty($errors) && !empty($_POST)) {
     if (!$verifyPassword) {
         $errors['password'] = "le mot de passe est incorrect.";
     } else {
+        $message = sprintf("vous êtes connecté %s", $user['utilisateur']);
+        setFlash('success', $message, generate('store'));
         setSession(SESSION_USER, $user);
         redirect(generate('store'));
-        // connect l'user
     }
 }
-
 ?>
 <div class="container <?= !empty($errors) ? 'is-error' : '' ?>">
         <h2>Se connecter</h2>
@@ -35,10 +37,6 @@ if (empty($errors) && !empty($_POST)) {
                     'class' => 'field',
                     'placeholder' => "mot de passe"
                 ], $_POST, $errors) ?>
-            </div>
-            <div class="form-group">
-                <?= checkbox('password', 'remember-me' , $_POST) ?>
-                <label for=""> se souvenir de moi</label>
             </div>
             <button type="submit">se connecter</button>
 
