@@ -8,6 +8,7 @@ define("VIEW_PATH", dirname(__DIR__) . DIRECTORY_SEPARATOR . "views");
 define("LAYOUT_PATH", dirname(__DIR__) . DIRECTORY_SEPARATOR . "templates");
 
 define('SESSION_USER', 'user__');
+define('SESSION_FORGOT', 'forgot__');
 // define('SESSION_ADMIn', 'admin__');
 
 function dist($source) {
@@ -34,7 +35,9 @@ define('ROUTES', [
     'user.edit' => '/edit/account',
     'user.change-pass' => '/change/password',
     'user.delete' => '/delete/account',
-
+    'user.your-email' => '/user/forgot/your-email/sendcode',
+    'user.code' => '/user/forgot/code-reset',
+    'user.forgot' => '/user/forgot/change-pass',
 ]);
 
 
@@ -57,6 +60,10 @@ define('VIEWS', [
     'user.edit' => '/users/actions/edit.php',
     'user.change-pass' => '/users/actions/change.php',
     'user.delete' => '/users/actions/delete.php',
+    'user.your-email' => '/users/forgot/yourEmail.php',
+    'user.code' => '/users/forgot/code.php',
+    'user.forgot' => '/users/forgot/forgot.php',
+
 ]);
 
 

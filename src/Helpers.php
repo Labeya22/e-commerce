@@ -300,3 +300,11 @@ function checkUser(string $redirect): void {
 function dateFormat(string $date, string $format = 'd-m-Y à H:i:s'): string {
     return (new DateTime($date))->format($format);
 }
+
+function sendMail(string $recipient, string $subject, string $message, $sender = "labeyadev@gmail.com") {
+    $headers = [
+        "Content-Type: text/html;charset=utf-8",
+        "From: $sender"
+    ];
+    return mail($recipient, $subject, $message, implode("\r\n", $headers));
+}

@@ -43,7 +43,7 @@ if (empty($errors) && !empty($_POST)) {
 
         </form>
         <div class="options">
-            <a href="">créer un compte</a>
-            <a href="">mot de passe oublié</a>
+            <a href="<?= generate('user.create') ?>">créer un compte</a>
+            <a href="<?= generate('user.your-email') ?>">mot de passe oublié</a>
         </div>
     </div>

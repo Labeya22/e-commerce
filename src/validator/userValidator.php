@@ -269,3 +269,26 @@ function getErrorUserPass($data) {
 
     return $errors;
 }
+
+function getErrorUserYourEmail($data) {
+    if (empty($data)) return [];
+
+    $errors = [];
+
+    if (empty($data['email'])) {
+        $errors['email'] = "Le champs email est requis.";
+    } else {
+        $email = $data['email'];
+        $isEmail = isEmail($email);
+        if (!$isEmail) {
+            $errors['email'] = "l'email '$email' n'est pas valide.";
+        } else {
+            $hasEmail = hasFieldUser('email', $email);
+            if (!$hasEmail) {
+                $errors['email'] = "aucun compte associé à cette adresse email.";
+            }
+        }
+    }
+
+    return $errors;
+}

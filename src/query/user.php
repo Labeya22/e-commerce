@@ -105,3 +105,31 @@ function deleteUser(PDO $pdo, $id) {
     return false;
  
 }
+
+
+function userYourMail(PDO $pdo, $email) {
+    $user = getUser($pdo, 'email', $email);
+
+    if (!empty($user)) {
+        $code = generateToken(8);
+        $query = "UPDATE utilisateurs SET code = :code, expirate = NOW() WHERE utilisateur_id = :id";
+        $send =  $pdo->prepare($query)->execute([
+            ':code' => $code,
+            ':id' => $user['utilisateur_id']
+        ]);
+
+        return !$send ? null : [$code, $user];
+    }
+
+    return null;
+}
+
+function userCodeResetOk (PDO $pdo, $id, $token) {
+    $query = "UPDATE utilisateurs SET  code = NULL, 
+    expirate = NULL, token = :token
+    WHERE utilisateur_id = :id ";
+    return $pdo->prepare($query)->execute([
+        ':token' => $token,
+        ':id' => $id
+    ]);
+}

@@ -35,7 +35,10 @@ vente de vehicule en ligne
         - [ok] change ces informations
         - [ok] change le mot de passe
     - [ok] supprimer son compte
-    - mot de passe oublier
+    - [ok] mot de passe oublier
+        - [ok] trouver le compte de l'utilisateur à l'aide de son email
+        - [ok] envoi code
+        - [ok] modifier le mot de passe
     - message flash
 - [] panier
     - ajouter le produit dans le panier
