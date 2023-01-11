@@ -24,7 +24,8 @@ if (empty($errors) && !empty($_POST)) {
         redirect(generate('user.code'));
     }
 
-    // falsh erreur
+    $error = "nous n'avons pas pu envoyé le code, merci de réessayer";
+    setFlash($error, 'danger', generate('user.your-email'));
 }
 
 

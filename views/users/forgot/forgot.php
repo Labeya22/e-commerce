@@ -18,7 +18,8 @@ $errors = getErrorUserPass($_POST);
 
 if (empty($errors) && !empty($_POST)) {
     if (changePasswordUser($pdo, $_POST, $user['utilisateur_id'])) {
-        // message
+        $message = "votre mot de passe a été mis à jour";
+        setFlash('success', $message , generate('user'));
         redirect(generate('user'));
     }
 }

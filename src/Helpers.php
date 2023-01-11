@@ -23,38 +23,6 @@ function urlGenerate(string $route, string $key, string $value): string {
     return sprintf("%s%s", $route, queryParams($key, $value));
 }
 
-function linkOption(?string $link = null, string $icon = 'link', array $attribute = []): ?string {
-    
-    if (is_null($link)) return null;
-
-    $attributes = empty($attribute) ? '' : arrayToString($attribute);
-
-    if ($link === $_SERVER['REQUEST_URI']) {
-        return "<a href=\"$link\" class=\"link-option active\" $attributes><i class=\"$icon\"></i></a>";
-    }
-
-    return "<a href=\"$link\" class=\"link-option\" $attributes><i class=\"$icon\"></i></a>";
-}
-
-
-/**
- * Permet de générer un lien 
- *
- * @param string $title
- * @param string|null $link
- * @return string|null
- */
-function li(string $title, ?string $link = null) {
-
-    if (is_null($link)) return null;
-
-    if ($link === $_SERVER['REQUEST_URI']) {
-        return "<li class=\"nav-item\"><a href=\"$link\" class=\"nav-link active\">$title</a></li>";
-    }
-
-    return "<li class=\"nav-item\"><a href=\"$link\" class=\"nav-link \">$title</a></li>";
-}
-
 /**
  * vérifie si un key existe dans le params
  *
@@ -100,64 +68,6 @@ function getQueryParamsString(string $key): ?string {
     return $_GET[$key];
 }
 
-/**
- * Pagine les résultats en page (1, 2, 3, etc.)
- *
- * @param array $options
- * @return string|null
- */
-function pagination(array $options): ?string {
-    $pages = $options['pages'] ?? 0;
-    $page = $options['page'] ?? 1;
-    
-    if (is_string($page) && empty($page)) {
-        $page = 1;
-    }
-    $limit = 5;
-
-    if ($pages <= 1) {
-        return null;
-    }
-
-    $li = "";
-    for ($start = ($page - $limit); $start  <= $page - 1; $start++) {
-        if ($start > 0) {
-            $route = queryParams('page', $start);
-            $li .= "<li><a href=\"{$route}\">{$start}</a></li>";
-        }
-    }
-
-    $route = queryParams('page', $page);
-
-    $li .= "<li><a href=\"{$route} \" class=\"active\">{$page}</a></li>";
-
-    for ($end = $page + 1; $end  < ($page + $limit); $end++) {
-        if ($end <= $pages) {
-            $route = queryParams('page', $end);
-            $li .= "<li><a href=\"{$route}\">{$end}</a></li>";
-        }
-    }
-
-
-    $prevContent = null;
-    $nextContent = null;
-    if ($page < $pages) {
-        $next = queryParams('page', ($page + 1));
-        $nextContent = "<a href=\"{$next}\" class=\"prev\">&raquo;</a>";
-    }
-
-    if ($page > 1) {
-        $prev = queryParams('page', ($page - 1));
-        $prevContent = "<a href=\"{$prev}\" class=\"prev\">&laquo;</a>";
-    }
-
-    return "
-    <ul>
-        {$prevContent}
-        {$li}
-        {$nextContent}
-    </ul>";
-}
 
 /**
  * permet de donnée le chemin d'un fichier à inclure
@@ -184,29 +94,6 @@ function layout($route) {
 }
 
 
-function createToastError(array $toasts) {
-    if (empty($toasts)) return  null;
-
-    $toast = "";
-
-    foreach (array_values($toasts) as $error) {
-        $toast .= "
-        <li class=\"toast danger\">
-            <div class=\"content\">
-                <span class=\"fa-solid fa-circle-xmark icon-type\"></span>
-                <span class=\"text\">
-                $error
-                </span>
-            </div>
-            <span class=\"fa-solid fa-xmark toast-close\"></span>
-        </li>
-        ";
-    }
-
-    return "
-    <ul class=\"toasts\"> $toast </ul>
-    ";
-}
 
 function generateToken($length = 25) {
     $alphabet = '0123456789azertyuiopqsdfghjklmwxcvbnAZERTYUIOPQSDFGHJKLMWXCVBN';
@@ -308,3 +195,4 @@ function sendMail(string $recipient, string $subject, string $message, $sender =
     ];
     return mail($recipient, $subject, $message, implode("\r\n", $headers));
 }
+

@@ -13,6 +13,7 @@
         "files": [
             "src/connect.php",
             "src/Helpers.php",
+            "src/HTML.php",
             "src/query/type.php",
             "src/query/user.php",
             "src/query/vehicule.php",

@@ -9,6 +9,7 @@ define("LAYOUT_PATH", dirname(__DIR__) . DIRECTORY_SEPARATOR . "templates");
 
 define('SESSION_USER', 'user__');
 define('SESSION_FORGOT', 'forgot__');
+define('SESSION_FLASH', 'flash');
 // define('SESSION_ADMIn', 'admin__');
 
 function dist($source) {

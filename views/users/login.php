@@ -20,6 +20,7 @@ if (empty($errors) && !empty($_POST)) {
 ?>
 <div class="container <?= !empty($errors) ? 'is-error' : '' ?>">
         <h2>Se connecter</h2>
+        <?= flash() ?>
         <form action="" class="form" method="post">
             <div class="form-group">
                 <?= inputField('utilisateur', [

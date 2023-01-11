@@ -18,5 +18,3 @@ if (toasts) {
     }
 }
 
-
-createToast(null, 'success', "vous")
