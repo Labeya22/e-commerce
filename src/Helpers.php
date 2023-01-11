@@ -23,6 +23,18 @@ function urlGenerate(string $route, string $key, string $value): string {
     return sprintf("%s%s", $route, queryParams($key, $value));
 }
 
+function linkOption(?string $link = null, string $icon = 'link'): ?string {
+    
+    if (is_null($link)) return null;
+
+    if ($link === $_SERVER['REQUEST_URI']) {
+        return "<a href=\"$link\" class=\"link-option active\"><i class=\"$icon\"></i></a>";
+    }
+
+    return "<a href=\"$link\" class=\"link-option\"><i class=\"$icon\"></i></a>";
+}
+
+
 /**
  * Permet de générer un lien 
  *
@@ -232,7 +244,7 @@ function setSession($key, $value) {
     $_SESSION[$key] = $value;
 }
 
-function getSession($key, $value) {
+function getSession($key) {
     onSession();
     if (hasSession($key)) {
         return $_SESSION[$key];
@@ -244,4 +256,19 @@ function getSession($key, $value) {
 function hasSession($key) {
     onSession();
     return isset($_SESSION[$key]);
+}
+
+/**
+ * Permet de vérifié si l'utilisateur est connecté
+ * 
+ * @param string $redirect
+ * 
+ * @return void
+ */
+function checkUser(string $redirect): void {
+    //  on vérifie que l'utilisateur est enregistré dans la session.
+    if (!hasSession(SESSION_USER)) {
+        // on fait une redirection (header location)
+        redirect($redirect);
+    }
 }

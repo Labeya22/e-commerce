@@ -67,7 +67,7 @@
                     <span class="separator">|</span>
                 </div>
                 <div class="nav-option">
-                    <a href="#" class="link-option"><i class="fa fa-user"></i></a>
+                    <?= linkOption(generate('user.profil'), 'fa fa-user') ?>
                 </div>
                 <div class="nav-option">
                     <a href="#" class="link-option"><i class="fa fa-sign-in"></i></a>

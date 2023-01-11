@@ -28,6 +28,7 @@ define('ROUTES', [
     '_store.filter' => '/_store/filter',
     'user' => '/user/login',
     'user.create' => '/user/create',
+    'user.profil' => '/myprofil',
     'user.confirm' => '/user/account/confirm',
 ]);
 
@@ -46,6 +47,7 @@ define('VIEWS', [
     'user' => '/users/login.php',
     'user.create' => '/users/create.php',
     'user.confirm' => '/users/confirm.php',
+    'user.profil' => '/users/myprofil.php',
 ]);
 
 
