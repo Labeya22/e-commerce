@@ -72,3 +72,36 @@ function confirmUser($pdo, $id) {
     WHERE utilisateur_id = ? ";
     return $pdo->prepare($query)->execute([$id]);
 }
+
+function editUser(PDO $pdo, array $data, string $id) {
+    $query = "UPDATE utilisateurs SET nom = :nom, prenom = :prenom , email = :email,
+    utilisateur = :utilisateur, update_at = NOW() WHERE utilisateur_id = :id";
+    return $pdo->prepare($query)->execute([
+        ':nom' => $data['nom'],
+        ':prenom' => $data['prenom'],
+        ':utilisateur' => $data['utilisateur'],
+        ':email' => $data['email'],
+        ':id' => $id,
+    ]);
+}
+
+
+function changePasswordUser(PDO $pdo, array $data, string $id) {
+    $query = "UPDATE utilisateurs SET password = :password, update_at = NOW() WHERE utilisateur_id = :id";
+    return $pdo->prepare($query)->execute([
+        ':password' => hashPass($data['password']),
+        ':id' => $id
+    ]);
+}
+
+
+function deleteUser(PDO $pdo, $id) {
+    $user = getUser($pdo, 'utilisateur_id', $id);
+    if (!empty($user)) {
+        $query = "DELETE FROM utilisateurs WHERE utilisateur_id = ?";
+        return $pdo->prepare($query)->execute([$user['utilisateur_id']]);
+    }
+
+    return false;
+ 
+}

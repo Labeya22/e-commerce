@@ -71,10 +71,12 @@
                         <?= linkOption(generate('user.profil'), 'fa fa-user') ?>
                     </div>
                     <div class="nav-option">
-                        <?= linkOption(generate('user.logout'), 'fa fa-sign-in', [
+                        <?= linkOption(generate('user.logout'), 'fa fa-sign-out', [
                             'onclick' => "return confirm('Vous voulez vraiment effectuer cette action.')"
                         ]) ?>
                     </div>
+                <?php else: ?>
+                    <?= linkOption(generate('user'), 'fa fa-sign-in') ?>
                 <?php endif ?>
                 <div class="nav-option screen-sm" id="navbar">
                     <a href="#" class="link-option"><i class="fa fa-bars"></i></a>

@@ -31,6 +31,10 @@ define('ROUTES', [
     'user.profil' => '/myprofil',
     'user.confirm' => '/user/account/confirm',
     'user.logout' => '/user/logout',
+    'user.edit' => '/edit/account',
+    'user.change-pass' => '/change/password',
+    'user.delete' => '/delete/account',
+
 ]);
 
 
@@ -50,6 +54,9 @@ define('VIEWS', [
     'user.confirm' => '/users/confirm.php',
     'user.profil' => '/users/myprofil.php',
     'user.logout' => '/users/logout.php',
+    'user.edit' => '/users/actions/edit.php',
+    'user.change-pass' => '/users/actions/change.php',
+    'user.delete' => '/users/actions/delete.php',
 ]);
 
 

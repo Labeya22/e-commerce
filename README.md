@@ -29,13 +29,14 @@ vente de vehicule en ligne
     - [ok] créer un utilisateur
     - [ok] confirmer l'utlisateur
     - [ok] connecter
-    - [] affiche les informations de l'utilisateur
-    - déconnnecter
-    - editer son compte
-        - change le mot de passe
-        - change son nom d'utilisateur
-    - supprimer son compte
+    - [ok] affiche les informations de l'utilisateur
+    - [ok] déconnnecter
+    - [ok] editer son compte
+        - [ok] change ces informations
+        - [ok] change le mot de passe
+    - [ok] supprimer son compte
     - mot de passe oublier
+    - message flash
 - [] panier
     - ajouter le produit dans le panier
     - supprimer un ou plusieurs produit dans le panier (AJAX)
@@ -44,7 +45,7 @@ vente de vehicule en ligne
 
 ## Technologie utilisée
 
-- Apifetch de javascript : pour faire de requête en ajax
+- Apifetch de javascript : pour faire des requêtes en ajax
 - composer : pour charge le fichier automatique sans utilisé le require ou include
 - nodejs : pour le animation
 - fontawesome : pour générer les icons

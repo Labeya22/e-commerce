@@ -20,10 +20,13 @@ function arrayToString(array $array): string
  *
  * @param string $key
  * @param array $data
+ * @param string|null $update
  * @return string|null
  */
-function getData(string $key, array $data): ?string {
-    return isset($data[$key]) ? $data[$key] : null;
+function getData(string $key, array $data, ?string $update = null): ?string {
+    if (!isset($data[$key]) && is_null($update)) return null;
+    if (!isset($data[$key]) && !is_null($update)) return $update;
+    else return $data[$key];
 }
 
 /**
@@ -40,9 +43,14 @@ function input(string $key, array $attributes, $data): string {
    return "<input name=\"$key\" id=\"$key\" value=\"$value\" {$string}>";
 }
 
-function inputField(string $key, array $attributes, $data, array $errors = []): string {
+function inputField(
+    string $key, 
+    array $attributes, 
+    array $data, 
+    array $errors = [], 
+    ?string $updateValue = null): string {
     $string = arrayToString($attributes);
-    $value = $data[$key] ?? null;
+    $value = getData($key, $data, $updateValue);
 
     if (empty($errors)) {
         return "<input name=\"$key\" id=\"$key\" value=\"$value\" {$string}>";
