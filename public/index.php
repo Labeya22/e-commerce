@@ -30,6 +30,7 @@ define('ROUTES', [
     'user.create' => '/user/create',
     'user.profil' => '/myprofil',
     'user.confirm' => '/user/account/confirm',
+    'user.logout' => '/user/logout',
 ]);
 
 
@@ -48,6 +49,7 @@ define('VIEWS', [
     'user.create' => '/users/create.php',
     'user.confirm' => '/users/confirm.php',
     'user.profil' => '/users/myprofil.php',
+    'user.logout' => '/users/logout.php',
 ]);
 
 

@@ -66,12 +66,16 @@
                 <div class="nav-option">
                     <span class="separator">|</span>
                 </div>
-                <div class="nav-option">
-                    <?= linkOption(generate('user.profil'), 'fa fa-user') ?>
-                </div>
-                <div class="nav-option">
-                    <a href="#" class="link-option"><i class="fa fa-sign-in"></i></a>
-                </div>
+                <?php if (hasSession(SESSION_USER)) : ?>
+                    <div class="nav-option">
+                        <?= linkOption(generate('user.profil'), 'fa fa-user') ?>
+                    </div>
+                    <div class="nav-option">
+                        <?= linkOption(generate('user.logout'), 'fa fa-sign-in', [
+                            'onclick' => "return confirm('Vous voulez vraiment effectuer cette action.')"
+                        ]) ?>
+                    </div>
+                <?php endif ?>
                 <div class="nav-option screen-sm" id="navbar">
                     <a href="#" class="link-option"><i class="fa fa-bars"></i></a>
                 </div>

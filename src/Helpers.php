@@ -23,15 +23,17 @@ function urlGenerate(string $route, string $key, string $value): string {
     return sprintf("%s%s", $route, queryParams($key, $value));
 }
 
-function linkOption(?string $link = null, string $icon = 'link'): ?string {
+function linkOption(?string $link = null, string $icon = 'link', array $attribute = []): ?string {
     
     if (is_null($link)) return null;
 
+    $attributes = empty($attribute) ? '' : arrayToString($attribute);
+
     if ($link === $_SERVER['REQUEST_URI']) {
-        return "<a href=\"$link\" class=\"link-option active\"><i class=\"$icon\"></i></a>";
+        return "<a href=\"$link\" class=\"link-option active\" $attributes><i class=\"$icon\"></i></a>";
     }
 
-    return "<a href=\"$link\" class=\"link-option\"><i class=\"$icon\"></i></a>";
+    return "<a href=\"$link\" class=\"link-option\" $attributes><i class=\"$icon\"></i></a>";
 }
 
 
@@ -259,6 +261,19 @@ function hasSession($key) {
 }
 
 /**
+ * Permet de supprimer la session
+ *
+ * @param string $key
+ * @return void
+ */
+function deleteSession(string $key) {
+    onSession();
+    if (hasSession($key)) {
+        unset($_SESSION[$key]);
+    }
+}
+
+/**
  * Permet de vérifié si l'utilisateur est connecté
  * 
  * @param string $redirect
@@ -271,4 +286,17 @@ function checkUser(string $redirect): void {
         // on fait une redirection (header location)
         redirect($redirect);
     }
+}
+
+
+
+/**
+ * Permet de formater une date
+ *
+ * @param string $date
+ * @param string $format
+ * @return string
+ */
+function dateFormat(string $date, string $format = 'd-m-Y à H:i:s'): string {
+    return (new DateTime($date))->format($format);
 }
