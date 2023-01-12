@@ -1,10 +1,10 @@
+import { fetchJson } from "./modules/apifetch.js";
 import { 
     showElement,
-    scrollY, 
-    closeElement} from "./modules/dom.js";
+    scrollY} from "./modules/dom.js";
 
-import { calculer, calculerAll } from "./modules/integer.js";
-import { createToast, optionToast } from "./modules/toast.js";
+import { calculRemoveCart, calculer, calculerAll } from "./modules/integer.js";
+import { createToast } from "./modules/toast.js";
 
  // activate search nav
  const actionSearch = document.querySelector('#action-search')
@@ -65,11 +65,24 @@ import { createToast, optionToast } from "./modules/toast.js";
         })
 
         const cartRemove = cart.querySelector('#cart-remove')
-        cartRemove.addEventListener('click', (e) => {
-            e.preventDefault()
-            cart.classList.add('anime-remove')
-            calculerAll(carts, prices)
-        })
+        if (cartRemove) {
+            cartRemove.addEventListener('click', (e) => {
+                e.preventDefault()
+                const url = cartRemove.getAttribute('href')
+                const r = fetchJson(url)
+                r.then(response => {
+                    if (response.success) {
+                        calculRemoveCart(cart, prices)
+                        cart.remove()
+                        createToast(null, 'success', "un produit a été supprimé.")
+                    } else {
+                        createToast(null, 'danger', "nous n'avons pas pu effectuer cette action.")
+                    }
+                }).catch(error => {
+                    createToast(null, 'danger', error)
+                })
+            })
+        }
     })
 
     calculerAll(carts, prices)

@@ -62,3 +62,32 @@ function cartPaginer(PDO $pdo, string $userid, int $limit = 12, int $page = 1) :
         ]
     ];
 }
+
+
+/**
+ * @param PDO $pdo
+ * @param string $key
+ * @param mixed $value
+ * 
+ * @return array
+ */
+function getCart(PDO $pdo, string $key, mixed $value): array {
+    $query = "SELECT * FROM paniers WHERE $key = ?";
+    $req = $pdo->prepare($query);
+    $req->execute([$value]);
+    return $req->fetch();
+}
+
+
+/**
+ * @param PDO $pdo
+ * @param mixed $userid
+ * @param mixed $id
+ * 
+ * @return bool
+ */
+function deleteCart(PDO $pdo, mixed $userid, mixed $id): bool {
+    $query = "DELETE FROM paniers WHERE utilisateurid = ? AND panier_id = ?";
+    $req = $pdo->prepare($query);
+    return $req->execute([$userid, $id]);
+}

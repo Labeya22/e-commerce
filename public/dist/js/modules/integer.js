@@ -63,3 +63,16 @@ export function calculerAll(carts, prices) {
     prices.setAttribute('prices', data)
     prices.innerHTML = `${data}$`
 }
+
+/**
+ * 
+ * @param {Element} cart 
+ * @param {Element} total 
+ */
+export function calculRemoveCart(cart, total) {
+    const priceCart = parseFloat(cart.getAttribute('forbuy'))
+    const prices = parseFloat(total.getAttribute('prices'))
+    const price = (prices - priceCart)
+    total.setAttribute('prices', price)
+    total.innerHTML = `${price}$`
+}

@@ -41,7 +41,8 @@ define('ROUTES', [
     'user.your-email' => '/user/forgot/your-email/sendcode',
     'user.code' => '/user/forgot/code-reset',
     'user.forgot' => '/user/forgot/change-pass',
-    'cart' => '/cart'
+    'cart' => '/cart',
+    'cart.delete' => '/_cart/delete',
 ]);
 
 
@@ -66,6 +67,7 @@ define('VIEWS', [
     'user.code' => '/users/forgot/code.php',
     'user.forgot' => '/users/forgot/forgot.php',
     'cart' => 'cart/cart.php',
+    'cart.delete' => 'cart/delete.php',
 
 ]);
 
@@ -92,8 +94,8 @@ if (in_array($route, ROUTES)) {
     require sprintf("%s/%s", VIEW_PATH, $notFound);
 }
 
-if (!strpos($route, '_') !== 1) {
 
+if (strpos($route, '_') === false) {
 
     $content = ob_get_clean();
 

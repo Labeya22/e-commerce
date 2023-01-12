@@ -27,13 +27,13 @@
                 <div class="c-option"><span id="price-total"></span></div>
         
                 <div class="c-option ft-right">
-                    <a href="" 
+                    <a href="<?= generate('cart.delete', ['cartid' => $cart['panier_id']]) ?>" 
                     id="cart-remove" 
                     class="button button-sm button-danger">
                         <i class="fa fa-trash"></i>
                     </a> &emsp;
                     <a href="" 
-                    id="cart-remove" 
+                    id="cart-update" 
                     class="button button-sm button-light">
                         <i class="fa fa-edit"></i>
                     </a>
