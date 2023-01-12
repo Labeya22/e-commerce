@@ -4,6 +4,7 @@ import {
     scrollY} from "./modules/dom.js";
 
 import { calculRemoveCart, calculer, calculerAll } from "./modules/integer.js";
+import { regex } from "./modules/string.js";
 import { createToast } from "./modules/toast.js";
 
  // activate search nav
@@ -59,16 +60,27 @@ import { createToast } from "./modules/toast.js";
 
         calculer(cart)
 
-        quantity.addEventListener('keyup', () => {
+        quantity.addEventListener('input', () => {
             calculer(cart)
             calculerAll(carts, prices)
-            const reqFetch = quantity.getAttribute('reqFetch')
-            fetchJson(reqFetch).then(response => {
-                console.log(response);
-            }).catch(error => {
-                console.log(error);
-            })
         })
+
+        quantity.addEventListener('keyup', () => {
+            setTimeout(() => {
+                const value = quantity.value
+                const parseQuantity = parseInt(value)            
+                if (!isNaN(parseQuantity) && parseQuantity >= 1 && regex(value)) {
+                    const reqFetch = quantity.getAttribute('reqFetch') + `&quantity=${parseQuantity}`
+                    const r = fetchJson(reqFetch)
+                    r.then(c => {
+                        console.log(c);
+                    }).catch(error => {
+                        console.log(error);
+                    })
+                }
+            }, 1000)
+        })
+        
 
         const cartRemove = cart.querySelector('#cart-remove')
         if (cartRemove) {
@@ -123,7 +135,6 @@ function removeActive (el) {
 // }
 
 const addProduct = document.querySelector("#add-product")
-console.log(addProduct);
 if (addProduct) {
     addProduct.addEventListener('click', (e) => {
         e.preventDefault()
@@ -142,3 +153,13 @@ if (addProduct) {
         })
     })
 }
+
+ /**
+   * Preloader
+   */
+ const preloader = document.querySelector('#preloader');
+ if (preloader) {
+   window.addEventListener('load', () => {
+     preloader.remove();
+   });
+ }

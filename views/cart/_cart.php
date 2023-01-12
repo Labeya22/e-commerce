@@ -22,14 +22,14 @@
                 </div>
                 <div class="c-option">
                     <label for="quantity">quantité</label>
-                    <input 
-                    type="number"  
-                    id="quantity" 
-                    name="quentity-1" 
-                    value="<?= $cart['quantite'] ?>" 
+                    <input
                     reqFetch="<?= generate('cart.quantity', [
                         'cartid' => $cart['panier_id']
-                    ]) ?>">
+                    ]) ?>"
+                    type="text"
+                    id="quantity" 
+                    name="quentity-1" 
+                    value="<?= $cart['quantite'] ?>" >
                 </div>
                 <div class="c-option"><span id="price-total"></span></div>
         

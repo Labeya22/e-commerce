@@ -105,5 +105,7 @@
             }
         }())
     </script>
+    <div id="preloader"></div>
+
 </body>
 </html>

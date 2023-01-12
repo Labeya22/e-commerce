@@ -6,18 +6,20 @@ $pdo = getPDO();
 
 $user = getSession(SESSION_USER);
 
-$cardid = getQueryParamsString('cardid');
+$cartid = getQueryParamsString('cartid');
 
-if (is_null($cardid) || empty($cardid)) {
-    throw new Exception("nous n'avons pas pu trouver le panier #$cardid");
+if (is_null($cartid) || empty($cartid)) {
+    throw new Exception("nous n'avons pas pu trouver le panier #$cartid");
 }
 
-$card = getCart($pdo, 'panier_id', $cardid);
+$cart = getCart($pdo, 'panier_id', $cartid);
 
-if (empty($card)) {
-    throw new Exception("nous n'avons pas pu trouver le panier #$cardid");
+if (empty($cart)) {
+    throw new Exception("nous n'avons pas pu trouver le panier #$cartid");
 }
 
-$change = changeQuantity($pdo, $card['panier_id'], 4);
-
-echo json_encode(['success' => true]);
+$quantity = getQueryParamsInteger('quantity');
+if (empty($quantity) || is_null($quantity)) {
+    throw new Exception("la quantité ne doit pas être vide.");
+}
+echo json_encode(['success' => changeQuantity($pdo, $cart, $quantity)]);

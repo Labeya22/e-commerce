@@ -1,3 +1,5 @@
+import { regex } from "./string.js"
+import { createToast } from "./toast.js"
 
 /**
  * Permet de faire la somme des valeurs dans un tableau
@@ -35,19 +37,26 @@ export function calculer(cart) {
     const stock = parseInt(stocks.getAttribute('stock'))
     const quantity = cart.querySelector("#quantity")
 
-    quantity.setAttribute('max', stock)
-    quantity.setAttribute('min', 1)
+    const price = parseInt(unit.getAttribute('price'))
+
+    cart.setAttribute('forbuy', price)
+    total.innerHTML = `${price}$`
+
     let value = quantity.value
-    if (value !== "") {
+    if (value !== "" && regex(value)) {
         let valueParse = parseInt(value)
+        if (isNaN(valueParse)) {
+            createToast(null, 'danger', "vous devez saisir un nombre.")
+            return
+        }
         if (valueParse <= 0) value = 1
         if (valueParse > stock) value = stock
-        const price = parseInt(unit.getAttribute('price'))
         let p = priceSum(price, value)
         if (p <= 0) p = price
         total.innerHTML = `${p}$`
         cart.setAttribute('forbuy', p)
         quantity.value = value
+
     }
 
 }

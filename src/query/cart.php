@@ -129,6 +129,12 @@ function hasPanier(PDO $pdo, $vehicule, $user): bool {
     return !empty($fetch);
 }
 
-function changeQuantity(PDO $pdo, $panier_id, $quantity): bool {
-    return true;
+function changeQuantity(PDO $pdo, $cart, $quantity): bool {
+    if ($cart['quantite'] !== $quantity) {
+        $query = "UPDATE paniers SET quantite = ? WHERE panier_id = ?";
+        $req = $pdo->prepare($query);
+        return $req->execute([$quantity, $cart['panier_id']]);
+    }
+
+    return false;
 }
