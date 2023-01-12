@@ -144,13 +144,25 @@ function VehiculesPaginer(PDO $pdo, $limit = 12, $page = 1) :array {
 }
 
 
-function getMedia(PDO $pdo, $id) {
+/**
+ * @param PDO $pdo
+ * @param mixed $id
+ * 
+ * @return array
+ */
+function getMedia(PDO $pdo, mixed $id): array {
     $query = "SELECT * FROM medias WHERE vehiculeid = ?";
     $req = $pdo->prepare($query);
     $req->execute([$id]);
     return $req->fetchAll();
 }
 
+/**
+ * @param PDO $pdo
+ * @param string $id
+ * 
+ * @return array
+ */
 function voirVehicule(PDO $pdo, string $id): array {
 
     $query = "    SELECT 
@@ -177,4 +189,19 @@ function voirVehicule(PDO $pdo, string $id): array {
         'media' => $medias
     ];
 
+}
+
+
+/**
+ * @param PDO $pdo
+ * @param string $key
+ * @param mixed $value
+ * 
+ * @return array
+ */
+function getVehicule(PDO $pdo, string $key, mixed $value): array {
+    $query = "SELECT * FROM vehicules WHERE $key = ?";
+    $req = $pdo->prepare($query);
+    $req->execute([$value]);
+    return $req->fetch();
 }

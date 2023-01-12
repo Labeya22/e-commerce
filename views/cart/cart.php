@@ -23,7 +23,7 @@ $carts = cartPaginer($pdo, $user['utilisateur_id'], 12, $page);
                     Velit enim facere error explicabo inventore quo fuga!
                 </p>
             </div>
-            <form action="panier.html" method="post" class="carts" id="carts">
+            <form action="" method="GET" class="carts" id="carts">
                 <div class="cart-group">
                     <?php require inc('cart/_cart.php') ?>
                 </div>
@@ -42,7 +42,9 @@ $carts = cartPaginer($pdo, $user['utilisateur_id'], 12, $page);
                         <label for="tva-ok" title="généré une facture directement.">Généré une facture</label>
                         <input type="checkbox" id="tva-ok" name="tva-ok" class="checkbox">
                     </div>
-                    <div class="prices" id="prices">4000$</div>
+                    <div class="prices" id="prices"></div>
+
+                    <input type="hidden" value="0" name="prices" id="price-input">
                     
                     <button type="submit" class="button button-dark d-block" id="buy"> 
                         <i class="fa fa-money-bill"></i> 

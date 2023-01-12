@@ -91,3 +91,44 @@ function deleteCart(PDO $pdo, mixed $userid, mixed $id): bool {
     $req = $pdo->prepare($query);
     return $req->execute([$userid, $id]);
 }
+
+
+function addCart(PDO $pdo, array $options): array {
+    $product = $options['product'];
+    $user = $options['user'];
+    $queryExist = "SELECT * FROM paniers WHERE  utilisateurid = ? AND vehiculeid = ?";
+    $req = $pdo->prepare($queryExist);
+    $req->execute([$user, $product]);
+    $exist = $req->fetch();
+
+
+    if (empty($exist)) {
+        $query = "INSERT INTO paniers SET utilisateurid = ? , vehiculeid = ?, create_at = NOW()";
+        $req = $pdo->prepare($query);
+        $ok = $req->execute([$user, $product]);
+        return ['query' => 'INSERT', 'ok' => $ok];
+
+    } else {
+        $query = "UPDATE paniers SET create_at = NOW() WHERE panier_id = ?";
+        $req = $pdo->prepare($query);
+        $ok = $req->execute([$exist['panier_id']]);
+        return ['query' => 'UPDATE', 'ok' => $ok];
+    }
+}
+
+function getPanier(PDO $pdo, $vehicule, $user): array {
+    $query = "SELECT * FROM paniers WHERE utilisateurid = ? AND vehiculeid = ?";
+    $req = $pdo->prepare($query);
+    $req->execute([$user, $vehicule]);
+    $fetch = $req->fetch();
+    return $fetch === false ? [] : $fetch;
+}
+
+function hasPanier(PDO $pdo, $vehicule, $user): bool {
+    $fetch = getPanier($pdo, $vehicule, $user);
+    return !empty($fetch);
+}
+
+function changeQuantity(PDO $pdo, $panier_id, $quantity): bool {
+    return true;
+}

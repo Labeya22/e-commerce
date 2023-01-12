@@ -6,17 +6,21 @@ $pdo = getPDO();
 
 $user = getSession(SESSION_USER);
 
-$cartid = getQueryParamsString('cartid');
+$vehiculeid = getQueryParamsString('vehiculeid');
 
-if (is_null($cartid) || empty($cartid)) {
-    throw new Exception("nous n'avons pas pu trouver le panier #$cartid");
+if (is_null($vehiculeid) || empty($vehiculeid)) {
+    throw new Exception("nous n'avons pas pu trouver le vehicule #$vehiculeid");
 }
 
-$cart = getCart($pdo, 'panier_id', $cartid);
+$vehicule = getVehicule($pdo, 'vehicule_id', $vehiculeid);
 
-if (empty($cart)) {
-    throw new Exception("nous n'avons pas pu trouver le panier #$cartid");
+if (empty($vehicule)) {
+    throw new Exception("nous n'avons pas pu trouver le vehicule #$vehiculeid");
 }
 
-$delete = deleteCart($pdo, $user['utilisateur_id'], $cart['panier_id']);
-echo json_encode(['success' => true]);
+$add = addCart($pdo, [
+    'user' => $user['utilisateur_id'],
+    'product' => $vehicule['vehicule_id']
+]);
+
+echo json_encode($add);

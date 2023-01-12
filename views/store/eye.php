@@ -5,6 +5,12 @@ $pdo = getPDO();
 $id = getQueryParamsString('vehicule');
 
 ['product' => $product, 'media' => $medias] = voirVehicule($pdo, $id);
+
+$user = getSession(SESSION_USER);
+
+if (is_null($user)) $isAdd = false;
+$isAdd = hasPanier($pdo, $id, $user['utilisateur_id']);
+
 ?>
 
 
@@ -34,12 +40,18 @@ $id = getQueryParamsString('vehicule');
                         </div>
                         <h5 class="price"><?= sprintf("%s$", $product['prix']) ?></h5>
                         <a 
-                        class="button button-primary" 
-                        href="<?= generate('cart', [
-                            'add-product' => $product['vehicule_id'
+                        id="add-product"
+                        class="button button-dark" 
+                        href="<?= generate('cart.add', [
+                            'vehiculeid' => $product['vehicule_id'
                         ]]) ?>">
-                            <i class="fa fa-shopping-cart"></i> Ajouter
+                            <?php if ($isAdd): ?>
+                            <i class="fa fa-check-double"></i> est dans le panier
+                            <?php else: ?>
+                                <i class="fa fa-shopping-cart"></i> ajouter
+                            <?php endif ?>
                         </a>
+                    
                     </div>
                 </div>
                 <div class="details-eye">

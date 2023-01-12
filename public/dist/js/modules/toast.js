@@ -29,7 +29,6 @@ export const removeToast = (target) => {
 
 
 
-
 /**
  * Permet de créer un toast
  * 

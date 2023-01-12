@@ -22,7 +22,14 @@
                 </div>
                 <div class="c-option">
                     <label for="quantity">quantité</label>
-                    <input type="number"  id="quantity" name="quentity-1" value="<?= $cart['quantite'] ?>">
+                    <input 
+                    type="number"  
+                    id="quantity" 
+                    name="quentity-1" 
+                    value="<?= $cart['quantite'] ?>" 
+                    reqFetch="<?= generate('cart.quantity', [
+                        'cartid' => $cart['panier_id']
+                    ]) ?>">
                 </div>
                 <div class="c-option"><span id="price-total"></span></div>
         
@@ -30,12 +37,7 @@
                     <a href="<?= generate('cart.delete', ['cartid' => $cart['panier_id']]) ?>" 
                     id="cart-remove" 
                     class="button button-sm button-danger">
-                        <i class="fa fa-trash"></i>
-                    </a> &emsp;
-                    <a href="" 
-                    id="cart-update" 
-                    class="button button-sm button-light">
-                        <i class="fa fa-edit"></i>
+                        <i class="fa fa-minus"></i>
                     </a>
                 </div>
             </div>

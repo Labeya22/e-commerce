@@ -46,7 +46,8 @@ vente de vehicule en ligne
     - [ok] lister les produits dans le panier
     - [ok] paginer les résultats
     - [ok] supprimer un ou plusieurs produit dans le panier (AJAX)
-    - ajouter le produit dans le panier
+    - [ok] ajouter le produit dans le panier
+    - [] calculer les résultats à payer + options de payment
 - [] mode de paiement
     - paypal ou stripe  
 - [] admins

@@ -37,11 +37,19 @@ export function calculer(cart) {
 
     quantity.setAttribute('max', stock)
     quantity.setAttribute('min', 1)
-    let value = quantity.value === "" || quantity.value <= 0 ? 1 : parseInt(quantity.value)
-    const price = parseInt(unit.getAttribute('price'))
-    const p = priceSum(price, value)
-    total.innerHTML = `${p}$`
-    cart.setAttribute('forbuy', p)
+    let value = quantity.value
+    if (value !== "") {
+        let valueParse = parseInt(value)
+        if (valueParse <= 0) value = 1
+        if (valueParse > stock) value = stock
+        const price = parseInt(unit.getAttribute('price'))
+        let p = priceSum(price, value)
+        if (p <= 0) p = price
+        total.innerHTML = `${p}$`
+        cart.setAttribute('forbuy', p)
+        quantity.value = value
+    }
+
 }
 
 /**
@@ -59,6 +67,11 @@ export function calculerAll(carts, prices) {
         }
 
     })
+
+    const input = document.querySelector("#price-input")
+    if (input) {
+        input.value = data
+    }
 
     prices.setAttribute('prices', data)
     prices.innerHTML = `${data}$`

@@ -43,6 +43,8 @@ define('ROUTES', [
     'user.forgot' => '/user/forgot/change-pass',
     'cart' => '/cart',
     'cart.delete' => '/_cart/delete',
+    'cart.add' => '/_cart/add',
+    'cart.quantity' => '/_cart/update/quantity',
 ]);
 
 
@@ -68,6 +70,8 @@ define('VIEWS', [
     'user.forgot' => '/users/forgot/forgot.php',
     'cart' => 'cart/cart.php',
     'cart.delete' => 'cart/delete.php',
+    'cart.add' => 'cart/add.php',
+    'cart.quantity' => 'cart/quantity.php',
 
 ]);
 

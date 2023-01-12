@@ -59,9 +59,15 @@ import { createToast } from "./modules/toast.js";
 
         calculer(cart)
 
-        quantity.addEventListener('input', () => {
+        quantity.addEventListener('keyup', () => {
             calculer(cart)
             calculerAll(carts, prices)
+            const reqFetch = quantity.getAttribute('reqFetch')
+            fetchJson(reqFetch).then(response => {
+                console.log(response);
+            }).catch(error => {
+                console.log(error);
+            })
         })
 
         const cartRemove = cart.querySelector('#cart-remove')
@@ -100,19 +106,39 @@ function removeActive (el) {
     })
 }
 
-const tabs = document.querySelector('#tabs')
-if (tabs) {
-    tabs.querySelectorAll("#tab-menus a").forEach(link => {
-        link.addEventListener("click", (e) => {
-            e.preventDefault()
-            link.classList.add('active')
-            const id = link.getAttribute('href')
-            const tab = tabs.querySelector(`${id}`)
-            if (!tab) return
-            removeActive(tabs)
-            tab.classList.add('active')
+// const tabs = document.querySelector('#tabs')
+// if (tabs) {
+//     tabs.querySelectorAll("#tab-menus a").forEach(link => {
+//         link.addEventListener("click", (e) => {
+//             e.preventDefault()
+//             link.classList.add('active')
+//             const id = link.getAttribute('href')
+//             const tab = tabs.querySelector(`${id}`)
+//             if (!tab) return
+//             removeActive(tabs)
+//             tab.classList.add('active')
+//         })
+//     })
+    
+// }
+
+const addProduct = document.querySelector("#add-product")
+console.log(addProduct);
+if (addProduct) {
+    addProduct.addEventListener('click', (e) => {
+        e.preventDefault()
+        const url = addProduct.getAttribute('href')
+        const r = fetchJson(url)
+        r.then(response => {
+            if (response.ok === true && response.query === 'INSERT') {
+                addProduct.innerHTML = `<i class="fa fa-check-double"></i> est dans le panier`
+                createToast(null, 'success', 'le produit a été ajouté dans le panier.')
+            }
+        }).catch(error => {
+            createToast(null, 'danger', `
+            une erreur est survenue, merci de réessayer.
+            (${error})
+            `)
         })
     })
-    
 }
-
