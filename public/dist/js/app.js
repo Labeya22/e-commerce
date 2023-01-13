@@ -72,10 +72,11 @@ import { createToast } from "./modules/toast.js";
                 if (!isNaN(parseQuantity) && parseQuantity >= 1 && regex(value)) {
                     const reqFetch = quantity.getAttribute('reqFetch') + `&quantity=${parseQuantity}`
                     const r = fetchJson(reqFetch)
-                    r.then(c => {
-                        console.log(c);
+                    r.then(response => {
+                        if (response.success) createToast(null, 'success', 'la quantité a été mis à jour.')
                     }).catch(error => {
-                        console.log(error);
+                        createToast(null, 'danger', "nous n'avons pas pu mettre la quantité à jour.")
+                        quantity.value = 1
                     })
                 }
             }, 1000)

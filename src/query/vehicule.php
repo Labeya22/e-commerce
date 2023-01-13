@@ -94,7 +94,7 @@ function  Nproduct(PDO $pdo): int {
 function querySelectVehicule(int $limit, int $offset, $filter = '') :string {
     return " 
     SELECT 
-    v.vehicule_id, v.prix, v.vehicule, 
+    v.vehicule_id, v.prix, v.vehicule, v.star,
     v.promo, v.image, m.marque, p.auto, p.carburant,
     p.kilometrage
     FROM vehicules v

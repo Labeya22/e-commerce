@@ -28,7 +28,7 @@ function hasFieldUser($field, $value , $id = null) {
 
 }
 
-function createUser(PDO $pdo, array $data): bool
+function createUser(PDO $pdo, array $data, $code): bool
 {
     $query = "INSERT INTO utilisateurs SET nom = :nom, prenom = :prenom ,
     utilisateur = :utilisateur, token = :token, code = :code,
@@ -40,7 +40,7 @@ function createUser(PDO $pdo, array $data): bool
         ':utilisateur' => $data['utilisateur'],
         ':email' => $data['email'],
         ':token' => generateToken(60),
-        ':code' => generateToken(8),
+        ':code' => $code,
         ':password' => hashPass($data['password']),
     ]);
 }

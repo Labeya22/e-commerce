@@ -26,7 +26,7 @@ function querySelectCart(int $limit, int $offset) :string {
     INNER JOIN vehicules v ON v.vehicule_id = p.vehiculeid
     INNER JOIN stocks s ON s.vehiculeid = v.vehicule_id
     INNER JOIN marques mr ON v.marqueid = mr.marque_id
-    WHERE p.utilisateurid = :id LIMIT $limit OFFSET $offset";
+    WHERE p.utilisateurid = :id  ORDER BY p.create_at DESC LIMIT $limit OFFSET $offset";
 }
 
 

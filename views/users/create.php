@@ -8,8 +8,12 @@ $errors = getErrorUser($_POST);
 if (empty($errors)) {
     $pdo = getPDO();
     if (!empty($_POST)) {
-        createUser($pdo, $_POST);
-        redirect(generate("user.confirm", ['utilisateur' => $_POST['utilisateur']]));
+        $code = generateToken(8);
+        $create = createUser($pdo, $_POST, $code);
+        if ($create) {
+            sendMail($_POST['email'], "code de confirmation", "votre code est : $code");
+            redirect(generate("user.confirm", ['utilisateur' => $_POST['utilisateur']]));
+        }
     }
 }
 ?>

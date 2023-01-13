@@ -13,12 +13,17 @@ if (empty($user)) {
     throw new Exception("L'utilisateur '$username' n'existe pas");
 }
 
+if (is_null($user['code'])) redirect(generate('user'));
+
+
 $errors = getErrorUserConfirm($_POST);
 
 if (empty($errors)) {
     $pdo = getPDO();
     if (!empty($_POST)) {
         if (confirmUser($pdo, $user['utilisateur_id'])) {
+            $message = sprintf("%s votre compte a été créé avec succès, connectez-vous pour y acceder.", $user['utilisateur']);
+            setFlash('success', $message, generate('user'));
             redirect(generate("user"));
         }
     }

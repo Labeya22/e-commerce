@@ -21,15 +21,8 @@ $vehicules = VehiculesPaginer($pdo, 12, getQueryParamsInteger('page'));
                 <?php if ($vehicule['promo']): ?>
                 <p class="promo">promotion</p>
                 <?php endif ?>
-                <div class="stars">
-                    <ul>
-                        <li class="is"><i class="fa fa-star"></i></li>
-                        <li class="is"><i class="fa fa-star"></i></li>
-                        <li class="is"><i class="fa fa-star"></i></li>
-                        <li class="is"><i class="fa fa-star"></i></li>
-                        <li><i class="fa fa-star"></i></li>
-                    </ul>
-                </div>
+                <?= star($vehicule['star']) ?>
+
             </div>
             <div class="c-footer">
                 <a href="#">
