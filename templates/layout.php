@@ -23,7 +23,7 @@
                     <?=  li('Accueil', generate('home')) ?>
                     <?=  li('A propos', generate('about')) ?>
                     <?=  li('Stores', generate('store')) ?>
-                    <?=  li('Stores', generate('contact')) ?>
+                    <?=  li('Contact', generate('contact')) ?>
                 </ul>
                 <span class="fa fa-xmark close-nav-menu" id="close-nav"></span>
             </div>

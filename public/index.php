@@ -45,6 +45,8 @@ define('ROUTES', [
     'cart.delete' => '/_cart/delete',
     'cart.add' => '/_cart/add',
     'cart.quantity' => '/_cart/update/quantity',
+    'contact' => '/contact',
+    'about' => '/about',
 ]);
 
 
@@ -72,6 +74,8 @@ define('VIEWS', [
     'cart.delete' => 'cart/delete.php',
     'cart.add' => 'cart/add.php',
     'cart.quantity' => 'cart/quantity.php',
+    'contact' => 'contact.php',
+    'about' => 'about.php',
 
 ]);
 

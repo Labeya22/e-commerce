@@ -58,40 +58,31 @@ function flash() {
 
 
 function success($message) {
-    return "<li class=\"toast success\" id=\"toast-generate\" deleteTime=\"10000\"  duration=\"10s\">
-    <div class=\"content\">
-        <span class=\"fa-solid fa-circle-check icon-type\"></span>
-        <span class=\"text\">
-            <strong> succès :</strong> $message
-        </span>
-    </div>
-    <span class=\"fa-solid fa-xmark toast-close\"></span>
-</li>";
+    return "<li class=\"toast\" id=\"toast-generate\" deleteTime=\"10000\"  duration=\"10s\">
+        <p class=\"toast-message\">
+            <i class=\"fa fa-check-circle toast-success toast-icon\"></i>
+            {$message}
+        </p>
+    </li>";
 }
 
 
 function danger($message): string {
-    return "<li class=\"toast danger\" id=\"toast-generate\" deleteTime=\"10000\" duration=\"10s\">
-        <div class=\"content\">
-            <span class=\"fa-solid fa-circle-xmark icon-type\"></span>
-            <span class=\"text\">
-                <strong> Erreur :</strong> $message
-            </span>
-        </div>
-        <span class=\"fa-solid fa-xmark toast-close\"></span>
+    return "<li class=\"toast\" id=\"toast-generate\" deleteTime=\"10000\"  duration=\"10s\">
+        <p class=\"toast-message\">
+            <i class=\"fa fa-xmark-circle toast-danger toast-icon\"></i>
+            {$message}
+        </p>
     </li>";
 }
 
 
 function warning($message): string {
-    return "<li class=\"toast warning\" id=\"toast-generate\" deleteTime=\"10000\" duration=\"10s\">
-        <div class=\"content\">
-            <span class=\"fa-solid fa-triangle-exclamation icon-type\"></span>
-            <span class=\"text\">
-                <strong> avertissement :</strong> $message
-            </span>
-        </div>
-        <span class=\"fa-solid fa-xmark toast-close\"></span>
+    return "<li class=\"toast\" id=\"toast-generate\" deleteTime=\"10000\"  duration=\"10s\">
+        <p class=\"toast-message\">
+            <i class=\"fa fa-triangle-exclamation toast-warning toast-icon\"></i>
+            {$message}
+        </p>
     </li>";
 }
 

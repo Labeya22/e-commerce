@@ -39,12 +39,12 @@ export const removeToast = (target) => {
 export const createToast = (nodeAppend, id, message = null) => {
     const toasts = {
         success: {
-            legend: 'succès',
+            legend: 'bravo',
             icon: 'fa fa-circle-check',
             text: "votre compte a bien été supprimé."
         },
         danger: {
-            legend: 'erreur',
+            legend: 'echoué',
             icon: 'fa-solid fa-circle-xmark',
             text: "votre compte n'existe plus."
         },
@@ -64,23 +64,50 @@ export const createToast = (nodeAppend, id, message = null) => {
         nodeAppend = createToastParent()
     }
     const toast = document.createElement('li')
-    toast.className = `toast ${id}`
+    toast.className = `toast`
     let {legend, text, icon} = toasts[id]
     if (!message) {
         message = text
     }
     toast.innerHTML = `
-            <div class="content">
-                <span class="${icon} icon-type"></span>
-                <span class="text">
-                    <strong> ${legend} :</strong> ${message}
-                </span>
-            </div>
-            <span class="fa-solid fa-xmark toast-close"></span>`
+        <p class="toast-message">
+            <i class="${icon} toast-${id} toast-icon"></i>
+            ${message}
+        </p>`
 
     optionToast(nodeAppend, toast)
 }
 
+
+{/* <ul class="toasts">
+<li class="toast">
+    <p class="toast-message">
+        <i class="fa fa-check-circle toast-success toast-icon"></i>
+        <strong class="toast-legend">labeya</strong> votre compte
+    </p>
+</li>
+<li class="toast">
+    <p class="toast-message">
+        <i class="fa fa-xmark-circle toast-danger toast-icon"></i>
+        <strong class="toast-legend">labeya</strong> votre compte
+    </p>
+</li>
+
+<li class="toast show">
+    <p class="toast-message">
+        <i class="fa fa-circle-exclamation toast-warning toast-icon"></i>
+        <strong class="toast-legend">labeya</strong> votre compte
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati illo illum cupiditate eligendi, nam voluptatibus dignissimos totam provident alias dolorum
+    </p>
+</li>
+
+<li class="toast">
+    <p class="toast-message">
+        <i class="fa fa-check-circle toast-success toast-icon"></i>
+        <strong class="toast-legend">labeya</strong> votre compte
+    </p>
+</li>
+</ul> */}
 
 export function createToastParent() {
     let toast = document.querySelector("ul.toasts")

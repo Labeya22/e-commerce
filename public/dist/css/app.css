@@ -503,11 +503,13 @@ a.button {
     padding-left: 25px;
     padding-right: 25px;
     
-    transition: 0.5;
+    transition: 0.5s;
     z-index: 150;
 }
 
 .header.active {
+    background-color: var(--background);
+
     box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
 }
 
