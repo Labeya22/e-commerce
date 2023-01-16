@@ -31,6 +31,7 @@ export function priceSum(value, mult) {
  */
 export function calculer(cart) {
 
+
     const unit = cart.querySelector("#price-unit")
     const total = cart.querySelector("#price-total")
     const stocks = cart.querySelector('#stock')
@@ -67,23 +68,26 @@ export function calculer(cart) {
  * @param {Element} prices 
  */
 export function calculerAll(carts, prices) {
-    let data = 0
-    prices.setAttribute('prices', '0')
-    carts.forEach(cart => {
-        const v = cart.getAttribute('forbuy')
-        if (v) {
-            data += parseInt(v)
+    if (prices) {
+        let data = 0
+        prices.setAttribute('prices', '0')
+        carts.forEach(cart => {
+            const v = cart.getAttribute('forbuy')
+            if (v) {
+                data += parseInt(v)
+            }
+    
+        })
+    
+        const input = document.querySelector("#price-input")
+        if (input) {
+            input.value = data
         }
-
-    })
-
-    const input = document.querySelector("#price-input")
-    if (input) {
-        input.value = data
+    
+        prices.setAttribute('prices', data)
+        prices.innerHTML = `${data}$`
     }
-
-    prices.setAttribute('prices', data)
-    prices.innerHTML = `${data}$`
+    
 }
 
 /**

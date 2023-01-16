@@ -32,3 +32,18 @@ function updateSoldeBanque($userid, $solde) {
     $req = $pdo->prepare("UPDATE banques SET solde = ?, update_at = NOW() WHERE utilisateurid = ?");
     return $req->execute([$solde, $userid]);
 }
+
+function createBanque(string $userid): bool {
+    $pdo = DATABASE;
+    $banque = getBanque($userid);
+    if (empty($banque)) {
+        $numberAccount = generateToken(8);
+        $query = "INSERT INTO banques 
+        SET utilisateurid = ?, 
+        numberAccount = ?,
+        update_at = NOW()";
+        $req = $pdo->prepare($query);
+        return $req->execute([$userid, $numberAccount]);
+    }
+    return false;
+}

@@ -16,3 +16,9 @@ export async function fetchPostJson(url, body) {
     if (r.ok) return r.json()
     throw new Error("une erreur est survenue")
 }
+
+export async function fetchText(url) {
+    const r = await fetch(url)
+    if (r.ok) return r.text()
+    throw new Error("une erreur est survenue")
+}

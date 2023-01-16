@@ -1,3 +1,7 @@
+<?php
+$user = getSession(SESSION_USER);
+
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -27,51 +31,24 @@
                     <?=  li('Accueil', generate('home')) ?>
                     <?=  li('A propos', generate('about')) ?>
                     <?=  li('Stores', generate('store')) ?>
-                    <?=  li('Personnelles', '') ?>
+                    <?=  li('Factures', generate('facture.all')) ?>
                     <?=  li('Contact', generate('contact')) ?>
                 </ul>
                 <span class="fa fa-xmark close-nav-menu" id="close-nav"></span>
             </div>
             <div class="nav-options">
+             <?php if (hasSession(SESSION_USER)) : ?>
+           
+
                 <div class="nav-option">
                     <?= linkOption(generate('cart'), 'fa fa-shopping-cart', [], 'no-eye') ?>
                 </div>
-                <div class="nav-option">
-                    <a href="#" class="link-option no-eye" id="option-bell"><i class="fa fa-bell"></i></a>
-                  
-                    <div class="absolute-list nav-bell " id="nav-bell">
-                        <h4>notifications</h4>
-                        <div class="bell-body">
-                            <a href="#">
-                                <h5>Panier</h5>
-                                <p>
-                                    vous avez un nouveau produit dans le panier
-                                </p>
-                                <span class="date">19 mai 2022</span>
-                            </a>
-                            <a href="#">
-                                <h5>Panier</h5>
-                                <p >
-                                    vous avez un nouveau produit dans le panier
-                                </p>
-                                <span class="date">19 mai 2022</span>
-                            </a>
-                            <a href="#">
-                                <h5>Panier</h5>
-                                <p >
-                                    vous avez un nouveau produit dans le panier
-                                </p>
-                                <span class="date">19 mai 2022</span>
-                            </a>
-                        </div>
-                        <a class="bell-footer" href="#">Toutes les notifications</a>
-                    </div>
-                </div>
+                
+                <?= bell($user['utilisateur_id']) ?>
              
                 <div class="nav-option">
                     <span class="separator">|</span>
                 </div>
-                <?php if (hasSession(SESSION_USER)) : ?>
                     <div class="nav-option">
                         <?= linkOption(generate('user.profil'), 'fa fa-user') ?>
                     </div>

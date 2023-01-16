@@ -3,7 +3,7 @@
 checkUser(generate('user'));
 
 $title = "stores";
-$pdo = getPDO();
+$pdo = DATABASE;
 
 $userid = getQueryParamsString('userid');
 if (is_null($userid) || empty($userid)) {

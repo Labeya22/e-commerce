@@ -2,7 +2,7 @@
 
 checkUser(generate('user'));
 
-$pdo = getPDO();
+$pdo = DATABASE;
 
 $user = getSession(SESSION_USER);
 
@@ -15,7 +15,13 @@ if (!empty($_POST)) {
         $solde = (float)$banque['solde'];
         $total = (float)$_POST['total'];
         if ($total > $solde) {
-            echo json_encode(['warning' => "il vous reste que {$solde}$ dans votre compte."]);
+            $warning = "il vous reste que {$solde}$ dans votre compte.";
+            createNotification([
+                'user' => $user['utilisateur_id'],
+                'title' => NOTIFICATION['checkout'],
+                'content' => $warning
+            ]);
+            echo json_encode(compact('warning'));
         } else {
     
             $paye = $solde - $total;
@@ -26,7 +32,12 @@ if (!empty($_POST)) {
                     stockUpdate($product['vehiculeid'], $product['quantite']);
                 }
                 okCart([$userid, $total]);
-                setFlash('success', "paiement effectuer.", generate('facture'));
+                $success = "paiement effectuer, $total$ a été retirer dans votre compte.";
+                createNotification([
+                    'user' => $user['utilisateur_id'],
+                    'title' => NOTIFICATION['checkout'],
+                    'content' => $success
+                ]);
                 echo json_encode(['success' => generate('facture')]);
             } else {
                 echo json_encode(['danger' => "nous n'avons pas pu effectuer l'achat, merci de réessayer."]);

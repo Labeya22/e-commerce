@@ -11,6 +11,11 @@ define('SESSION_USER', 'user__');
 define('SESSION_FORGOT', 'forgot__');
 define('SESSION_FLASH', 'flash');
 define('COOKIE_USER', 'cookie_user__');
+define('NOTIFICATION', [
+    'primary' => 'panier',
+    'account' => 'compte',
+    'checkout' => 'compte banquaire'
+]);
 /**
  * @var PDO
  */
@@ -55,6 +60,11 @@ define('ROUTES', [
     'facture' => '/@facture/generer',
     'facture.all' => '/factures',
     'facture.eye' => '/@facture/eye',
+    'notif.all' => '/notifications',
+    'notif.eye' => '/notification/eye',
+    'notif.delete' => '/_notification/delete',
+    'notif.navbell' => '/_notification/refresh/navbell',
+    'notif.optionbell' => '/_notification/refresh/optionbell',
 ]);
 
 
@@ -88,7 +98,11 @@ define('VIEWS', [
     'facture' => '/invoices/lastFacture.php',
     'facture.all' => '/invoices/factures.php',
     'facture.eye' => '/invoices/facture.php',
-
+    'notif.all' => 'notifications/notification.php',
+    'notif.eye' => '/notifications/eye.php',
+    'notif.delete' => '/notifications/delete.php',
+    'notif.navbell' => '/notifications/navbell.php',
+    'notif.optionbell' => '/notifications/optionbell.php',
 ]);
 
 

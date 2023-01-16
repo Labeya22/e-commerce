@@ -80,3 +80,13 @@ export function preloader() {
     const preloader = createElement('div', {id: 'preloader'})
     document.body.append(preloader)
 }
+
+/**
+ * 
+ * @param {Element} el 
+ * @param {string} leaver
+ */
+export function leaveEnter(el, leaver = 'no-fetch') {
+    el.addEventListener('mouseenter', () => el.classList.add(leaver))
+    el.addEventListener('mouseleave', () => el.classList.remove(leaver))
+}

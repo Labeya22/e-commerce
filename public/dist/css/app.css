@@ -1776,3 +1776,53 @@ a.button {
     background-color: var(--primary);
     color: var(--white);
 }
+
+
+/* block */
+
+.block {
+    margin-bottom: 16px;
+    padding: 20px;
+    box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.02), 0 0 1px 1px rgba(0, 0, 0, 0.06);
+    border-radius: 10px;
+    width: 740px;
+    margin-left: auto;
+    margin-right: auto;
+    transition: 0.4s ease;
+    background-color: var(--white);
+}
+
+.block:hover {
+    box-shadow: var(--shadow-input);
+}
+
+.block .block-title {
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: var(--primary);
+}
+
+.block .block-content {
+    color: var(--color);
+    margin-bottom: 13px;
+}
+
+.block .block-tag {
+    margin-bottom: 10px;
+}
+
+.block .block-date {
+    font-size: 14px;
+    font-weight: 400;
+    color: #4d4f5a;
+    margin-bottom: 5px;
+}
+
+@media screen and (max-width: 1000px) {
+    .block {
+        width: 100%;
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+}

@@ -297,3 +297,15 @@ function isConnected() {
         redirect(generate('store'));
     }
 }
+
+
+/**
+ * @param string $string
+ * @param int $limit
+ * 
+ * @return string
+ */
+function exercept(string $string, int $limit = 50): string {
+    if (strlen($string) <= $limit) return $string;
+    return substr($string, 0, $limit) . '...';
+}

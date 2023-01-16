@@ -16,6 +16,7 @@ if (empty($errors) && !empty($_POST)) {
         $message = sprintf("vous êtes connecté %s", $user['utilisateur']);
         setFlash('success', $message, generate('store'));
         setSession(SESSION_USER, $user);
+        createBanque($user['utilisateur_id']);
         redirect(generate('store'));
     }
 }

@@ -49,11 +49,19 @@ vente de vehicule en ligne
     - [ok] ajouter le produit dans le panier
     - [ok] modifier la quantité (AJAX)
     - [ok] calculer les résultats à payer + options de payment
-- [] mode de paiement par banque (fake banque) 
+- [ok] mode de paiement par banque [simulation]
 - [ok] système de facturation.
     - [ok] lister tous les factures
     - [ok] voir une facture 
     - [ok] voir tous les factures
+- [ok] système de notifications
+    - [ok] lister les notifications dans le header
+    - [ok] supprimer une notification [ajax]
+    - [ok] voir une notification
+    - [ok] detecter les nouvelles notifications [ajax]
+- [] système de transaction (historique de mes achats) [simulation]
+- [ok] système de popnew (cas on a un message non lu ou un vehicule  ajouté)
+- [] nous contacter (en AJAX)
 - [] admins
     - [] marques
         - [] ajouter une marque de voiture

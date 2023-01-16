@@ -1,7 +1,5 @@
 import { fetchJson, fetchPostJson } from "./modules/apifetch.js"
-import { preloader, setErrorInput } from "./modules/dom.js"
 import { calculRemoveCart, calculer, calculerAll } from "./modules/integer.js"
-import { isEmptyObject } from "./modules/standard.js"
 import { isMatch } from "./modules/string.js"
 import { createToast } from "./modules/toast.js"
 
@@ -10,7 +8,8 @@ import { createToast } from "./modules/toast.js"
  */
 const carts = document.querySelectorAll('#carts #cart')
 const prices = document.querySelector('#prices')
-if (carts && prices) {
+const totalElement = document.querySelector(".cart-total")
+if (carts && totalElement && prices) {
 
    carts.forEach((cart) => {
        const quantity = cart.querySelector(".quantity")
@@ -56,6 +55,7 @@ if (carts && prices) {
                    if (response.success) {
                        calculRemoveCart(cart, prices)
                        cart.remove()
+                       if (prices.getAttribute('prices') == '0') totalElement.remove()
                        createToast(null, 'success', "un produit a été supprimé.")
                    } else {
                        createToast(null, 'danger', "nous n'avons pas pu effectuer cette action.")

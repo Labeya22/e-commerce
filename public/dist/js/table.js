@@ -11,3 +11,11 @@ if (table) {
         td.setAttribute('data-label', th[index % th.length])
     })
 }
+
+const printFacture = document.querySelector("facture-print")
+if (printFacture) {
+    printFacture.addEventListener('click', (e) => {
+        e.preventDefault()
+        window.print()
+    })
+}

@@ -199,3 +199,40 @@ function dump(...$vars) {
     }
     echo "<pre>";
 }
+
+
+function bell($user, $toajax = false): ?string
+{
+    
+    $notifications = getNotificationLimit($user);
+    $bell = "";
+    if (empty($notifications)) return null;
+    $eye = '';
+    foreach ($notifications as $notification) {
+        if ($notification['eye'] !== 1) $eye = 'no-eye';
+        $id = $notification['notif_id'];
+        $generate = generate('notif.eye', ['notifid' => $id]);
+        $content = exercept($notification['content'], 50);
+        $title = exercept($notification['title'], 20);
+        $bell .= "<a href=\"$generate\" id=\"generate-{$id}\">
+            <h5>{$title}</h5>
+            <p>{$content}</p>
+            <span class=\"date\">{$notification['create_at']}</span>
+        </a>";
+    }
+
+    $bell = empty($bell) ? "pas de notification" : $bell;
+    $linkFooter = generate('notif.all');
+    $bellFetch = generate('notif.navbell');
+    $optionFetch = generate('notif.optionbell');
+    return $toajax ? $bell :  "
+    <div class=\"nav-option notification-refresh\"> 
+        <a href=\"#\" class=\"link-option $eye\" id=\"option-bell\" url=\"$optionFetch\"><i class=\"fa fa-bell\"></i></a>
+        <div class=\"absolute-list nav-bell \" id=\"nav-bell\" url=\"$bellFetch\">
+            <h4>notifications</h4>
+            <div class=\"bell-body\"> $bell </div>
+            <a class=\"bell-footer\" href=\"{$linkFooter}\">Toutes les notifications</a>
+        </div>
+    </div>
+    ";
+}

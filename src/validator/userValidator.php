@@ -13,7 +13,7 @@ function getErrorUser($data) {
             if ($lenghtBetweenNom) {
                 $errors['nom'] = "doit contenir entre 3 à 255 caractères";
             } else {
-                $regexNom = regex($nom, "(^[0-9a-zA-Z_]+$)");
+                $regexNom = regex($nom, "(^[0-9a-zA-Zçéèâôîû_]+$)");
                 if (!$regexNom) {
                     $errors['nom'] = "contient des caractères invalide.";
                 }
@@ -28,7 +28,7 @@ function getErrorUser($data) {
             if ($lenghtBetweenPrenom) {
                 $errors['prenom'] = "doit contenir entre 3 à 255 caractères";
             } else {
-                $regexPrenom = regex($prenom, "(^[0-9a-zA-Z_]+$)");
+                $regexPrenom = regex($prenom, "(^[0-9a-zA-Zçéèâôîû_]+$)");
                 if (!$regexPrenom) {
                     $errors['prenom'] = "contient des caractères invalide.";
                 }
