@@ -29,6 +29,7 @@ $taux = getTaux();
                 <div class="cart-group">
                     <?php require inc('cart/_cart.php') ?>
                 </div>
+                <?php if (!empty($carts['data'])): ?>
                 <div class="cart-total">
                     <h4>Total à payer</h4>
                     <input 
@@ -47,6 +48,7 @@ $taux = getTaux();
                         Acheter
                     </buttton>
                 </div>
+                <?php endif; ?>
             </form>
 
             <div class="pagination js-filter-pagine">
@@ -55,7 +57,7 @@ $taux = getTaux();
         </div>
     </div>
 
-    <div class="modal" element="buy">
+    <!-- <div class="modal" element="buy">
         <i class="fa fa-xmark close-modal"></i>
 
         <div class="modal-content">
@@ -94,7 +96,7 @@ $taux = getTaux();
                 </form>
             </div>
         </div>
-    </div>
+    </div> -->
 </main>
 
 <a href="#" class="scrolltop" id="scrolltop"><i class="fa fa-circle-chevron-up"></i></a>

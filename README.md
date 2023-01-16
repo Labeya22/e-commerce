@@ -49,8 +49,11 @@ vente de vehicule en ligne
     - [ok] ajouter le produit dans le panier
     - [ok] modifier la quantité (AJAX)
     - [ok] calculer les résultats à payer + options de payment
-- [] mode de paiement
-    - paypal ou stripe  
+- [] mode de paiement par banque (fake banque) 
+- [ok] système de facturation.
+    - [ok] lister tous les factures
+    - [ok] voir une facture 
+    - [ok] voir tous les factures
 - [] admins
     - [] marques
         - [] ajouter une marque de voiture

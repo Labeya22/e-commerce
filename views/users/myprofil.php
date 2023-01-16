@@ -37,6 +37,7 @@ $user = getSession(SESSION_USER);
                 <?php if (!is_null($user['update_at'])): ?>
                     <p class="myprofil-info"><strong>dernière modification</strong> : <?= dateFormat($user['update_at']) ?></p>
                 <?php endif ?>
+                <p class="myprofil-info"> <a href="<?= generate('facture.all') ?>">voir les factures</a> </p> 
 
                 <div class="myprofil-action">
                     <a 

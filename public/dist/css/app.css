@@ -1718,3 +1718,61 @@ a.button {
 .modal .modal-content .modal-body h5 {
     margin-bottom: 16px;
 }
+
+
+.invoices {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.invoices .invoice {
+    display: block;
+    text-decoration: none;
+    padding: 10px;
+    width: 150px;
+    background-color: var(--white);
+    text-align: center;
+    box-shadow: 0 0 10px 4px rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+    transition: 0.4s box-shadow ease;
+}
+
+.invoices .invoice:hover {
+    box-shadow: var(--shadow-input);
+}
+
+.invoices .invoice .invoice-title {
+    font-size: 15px;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.invoices .invoice .invoice-date {
+    display: block;
+    width: 100%;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--color);
+    margin-bottom: 5px;
+}
+
+.invoices .invoice .invoice-button {
+    display: inline-block;
+    text-decoration: none;
+    font-size: 13px;
+    padding: 3px 4px;
+    background-color: var(--white);
+    border-radius: 3px;
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.05);
+    text-align: center;
+}
+
+.invoices .invoice .invoice-button:hover {
+    background-color: var(--primary);
+    color: var(--white);
+}

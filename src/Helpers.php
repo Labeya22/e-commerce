@@ -264,7 +264,7 @@ function denied(string $redirect): void {
  * @param string $format
  * @return string
  */
-function dateFormat(string $date, string $format = 'd-m-Y à H:i:s'): string {
+function dateFormat(string $date, string $format = 'd-m-Y à H:i'): string {
     return (new DateTime($date))->format($format);
 }
 

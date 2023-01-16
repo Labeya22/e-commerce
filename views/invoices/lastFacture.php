@@ -6,15 +6,8 @@ $pdo = getPDO();
 $user = getSession(SESSION_USER);
 
 $userid = $user['utilisateur_id'];
-$factureid = getQueryParamsInteger('factureid');
-if (is_null($factureid)) {
-    throw new Exception("le paramètre factureid est incorrect");
-}
 
-$facture = getFactureEye([$userid, $factureid]);
-if (empty($facture)) {
-    throw new Exception("Aucune facture trouvée.");
-}
+$facture = getFacture($userid);
 $products = json_decode($facture['cart'], true);
 ?>
 

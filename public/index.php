@@ -53,6 +53,8 @@ define('ROUTES', [
     'contact' => '/contact',
     'about' => '/about',
     'facture' => '/@facture/generer',
+    'facture.all' => '/factures',
+    'facture.eye' => '/@facture/eye',
 ]);
 
 
@@ -83,7 +85,9 @@ define('VIEWS', [
     'cart.quantity' => 'cart/quantity.php',
     'contact' => 'contact.php',
     'about' => 'about.php',
-    'facture' => '/invoices/facture.php',
+    'facture' => '/invoices/lastFacture.php',
+    'facture.all' => '/invoices/factures.php',
+    'facture.eye' => '/invoices/facture.php',
 
 ]);
 
@@ -110,15 +114,8 @@ if (in_array($route, ROUTES)) {
     require sprintf("%s/%s", VIEW_PATH, $notFound);
 }
 
-
 if (strpos($route, '_') === false) {
-
     $content = ob_get_clean();
-
-    /**
-     * on charge le template
-     */
-
     require sprintf("%s/%s", LAYOUT_PATH, layout($route));
 }
 
