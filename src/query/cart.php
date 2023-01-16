@@ -87,7 +87,8 @@ function getCart(PDO $pdo, string $key, mixed $value): array {
     $query = "SELECT * FROM paniers WHERE $key = ?";
     $req = $pdo->prepare($query);
     $req->execute([$value]);
-    return $req->fetch();
+    $fetch = $req->fetch();
+    return $fetch;
 }
 
 function getCartAll(PDO $pdo, string $key, mixed $value): array {

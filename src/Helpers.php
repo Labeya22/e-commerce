@@ -275,7 +275,7 @@ function dateFormat(string $date, string $format = 'd-m-Y à H:i'): string {
  * @param string $subject
  * @param string $message
  * @param string $sender
- * @return void
+ * @return bool
  */
 function sendMail(string $recipient, string $subject, string $message, $sender = "labeyadev@gmail.com") {
     $headers = [

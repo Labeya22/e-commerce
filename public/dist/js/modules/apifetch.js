@@ -22,3 +22,11 @@ export async function fetchText(url) {
     if (r.ok) return r.text()
     throw new Error("une erreur est survenue")
 }
+
+
+
+export async function fetchTextPost(url, body) {
+    const r = await fetch(url, { method: 'POST', body})
+    if (r.ok) return r.text()
+    throw new Error("une erreur est survenue")
+}

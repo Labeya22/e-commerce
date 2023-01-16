@@ -63,7 +63,6 @@ function inputField(
         {$error}
     </div>
     ";
-
 }
 
 /**
@@ -116,3 +115,24 @@ function select(string $key, array $options): string {
     </select>
     ";
 } 
+
+
+
+function textarea(
+    string $key,
+    array $data, 
+    array $errors = [], 
+    ?string $updateValue = null): string {
+    $value = getData($key, $data, $updateValue);
+
+    if (empty($errors)) {
+        return "<textarea name=\"$key\" id=\"$key\" class=\"input-form\">$value</textarea>";
+    }
+    $error = $errors[$key] ?? '';
+    return "
+    <textarea name=\"$key\" id=\"$key\" class=\"input-form\">$value</textarea>
+    <div class=\"error-field\"> 
+        {$error}
+    </div>
+    ";
+}

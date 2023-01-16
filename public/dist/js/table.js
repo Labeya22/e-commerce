@@ -1,3 +1,5 @@
+import { screenPrint } from "./modules/dom.js"
+
 const table = document.querySelector("#table-responsive")
 if (table) {
     const th = Array.from(table.querySelectorAll('th')).map((t) => {
@@ -12,10 +14,4 @@ if (table) {
     })
 }
 
-const printFacture = document.querySelector("facture-print")
-if (printFacture) {
-    printFacture.addEventListener('click', (e) => {
-        e.preventDefault()
-        window.print()
-    })
-}
+screenPrint('#print')

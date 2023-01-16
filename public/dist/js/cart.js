@@ -135,3 +135,19 @@ if (checkout) {
         })
     })
 }
+
+const cartShop = document.querySelector("#cart-shop")
+if (cartShop) {
+    const url = cartShop.getAttribute('url')
+    setInterval(() => {
+        const r = fetchJson(url)
+        r.then(res => {
+            if (res.news) {
+                cartShop.classList.add('no-eye')
+            } else {
+                cartShop.classList.remove('no-eye')
+            }
+        })
+
+    }, 1000)
+}

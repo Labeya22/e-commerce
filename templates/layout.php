@@ -39,9 +39,14 @@ $user = getSession(SESSION_USER);
             <div class="nav-options">
              <?php if (hasSession(SESSION_USER)) : ?>
            
-
                 <div class="nav-option">
-                    <?= linkOption(generate('cart'), 'fa fa-shopping-cart', [], 'no-eye') ?>
+                    <?= linkOption(
+                        generate('cart'), 
+                        'fa fa-shopping-cart', 
+                        [
+                            'id' => 'cart-shop',
+                            'url' => generate('cart.news')
+                        ], '') ?>
                 </div>
                 
                 <?= bell($user['utilisateur_id']) ?>

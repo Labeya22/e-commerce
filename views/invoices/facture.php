@@ -25,7 +25,7 @@ $products = json_decode($facture['cart'], true);
                 <i class="fa fa-car"></i> vente-vehicule</strong>
             </div>
             <div class="header-options">
-                <a href="" id="facture-print"><i class="fa fa-print"></i> imprimer</a>
+                <a href="" id="print"><i class="fa fa-print"></i> imprimer</a>
             </div>
         </div>
         <!-- divised -->

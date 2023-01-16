@@ -59,9 +59,8 @@ vente de vehicule en ligne
     - [ok] supprimer une notification [ajax]
     - [ok] voir une notification
     - [ok] detecter les nouvelles notifications [ajax]
-- [] système de transaction (historique de mes achats) [simulation]
 - [ok] système de popnew (cas on a un message non lu ou un vehicule  ajouté)
-- [] nous contacter (en AJAX)
+- [ok] nous contacter
 - [] admins
     - [] marques
         - [] ajouter une marque de voiture

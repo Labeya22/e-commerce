@@ -90,3 +90,17 @@ export function leaveEnter(el, leaver = 'no-fetch') {
     el.addEventListener('mouseenter', () => el.classList.add(leaver))
     el.addEventListener('mouseleave', () => el.classList.remove(leaver))
 }
+
+/**
+ * 
+ * @param {string} id 
+ */
+export function screenPrint(id) {
+    const el = document.querySelector(id)
+    if (el) {
+        el.addEventListener('click', (e) => {
+            e.preventDefault()
+            print()
+        })
+    }
+}

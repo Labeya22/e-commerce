@@ -2,7 +2,7 @@ import {
     showElement,
     scrollY,
     leaveEnter} from "./modules/dom.js";
-import { fetchJson, fetchText } from "./modules/apifetch.js"
+import { fetchJson, fetchPostJson, fetchText, fetchTextPost } from "./modules/apifetch.js"
 import { createToast } from "./modules/toast.js";
 
 /**
@@ -10,14 +10,7 @@ import { createToast } from "./modules/toast.js";
  */
  const preloader = document.querySelector('#preloader');
  if (preloader) window.addEventListener('load', () => preloader.remove())
- 
- // activate search nav
-//  const actionSearch = document.querySelector('#action-search')
-//  const navSearch = document.querySelector('#nav-search')
-//  if (navSearch && actionSearch) {
-//     (actionSearch, navSearch)
-//  }
- 
+
  // activate notification nav
  const actionBell = document.querySelector('#option-bell')
  const navBell = document.querySelector('#nav-bell')

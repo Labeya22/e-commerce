@@ -55,6 +55,7 @@ define('ROUTES', [
     'cart.delete' => '/_cart/delete',
     'cart.add' => '/_cart/add',
     'cart.quantity' => '/_cart/update/quantity',
+    'cart.news' => '/_cart/news',
     'contact' => '/contact',
     'about' => '/about',
     'facture' => '/@facture/generer',
@@ -65,6 +66,8 @@ define('ROUTES', [
     'notif.delete' => '/_notification/delete',
     'notif.navbell' => '/_notification/refresh/navbell',
     'notif.optionbell' => '/_notification/refresh/optionbell',
+    'trans.home' => '/transactions',
+
 ]);
 
 
@@ -90,19 +93,21 @@ define('VIEWS', [
     'user.forgot' => '/users/forgot/forgot.php',
     'cart' => 'cart/cart.php',
     'cart.checkout' => 'cart/checkout.php',
+    'cart.news' => 'cart/news.php',
     'cart.delete' => 'cart/delete.php',
     'cart.add' => 'cart/add.php',
     'cart.quantity' => 'cart/quantity.php',
-    'contact' => 'contact.php',
+    'contact' => 'contact/contact.php',
     'about' => 'about.php',
-    'facture' => '/invoices/lastFacture.php',
-    'facture.all' => '/invoices/factures.php',
-    'facture.eye' => '/invoices/facture.php',
+    'facture' => 'invoices/lastFacture.php',
+    'facture.all' => 'invoices/factures.php',
+    'facture.eye' => 'invoices/facture.php',
     'notif.all' => 'notifications/notification.php',
-    'notif.eye' => '/notifications/eye.php',
-    'notif.delete' => '/notifications/delete.php',
-    'notif.navbell' => '/notifications/navbell.php',
-    'notif.optionbell' => '/notifications/optionbell.php',
+    'notif.eye' => 'notifications/eye.php',
+    'notif.delete' => 'notifications/delete.php',
+    'notif.navbell' => 'notifications/navbell.php',
+    'notif.optionbell' => 'notifications/optionbell.php',
+    'trans.home' => 'transactions/home.php',
 ]);
 
 
