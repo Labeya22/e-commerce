@@ -11,6 +11,10 @@ define('SESSION_USER', 'user__');
 define('SESSION_FORGOT', 'forgot__');
 define('SESSION_FLASH', 'flash');
 define('COOKIE_USER', 'cookie_user__');
+/**
+ * @var PDO
+ */
+define('DATABASE', getPDO());
 
 // define('SESSION_ADMIn', 'admin__');
 
@@ -30,23 +34,25 @@ define('ROUTES', [
     'store' => '/store',
     'store.eye' => '/store/voir-produit',
     '_store.filter' => '/_store/filter',
-    'user' => '/user/login',
-    'user.create' => '/user/create',
+    'user' => '/@user/login',
+    'user.create' => '/@user/create',
     'user.profil' => '/myprofil',
-    'user.confirm' => '/user/account/confirm',
-    'user.logout' => '/user/logout',
+    'user.confirm' => '/@user/account/confirm',
+    'user.logout' => '/@user/logout',
     'user.edit' => '/edit/account',
     'user.change-pass' => '/change/password',
     'user.delete' => '/delete/account',
-    'user.your-email' => '/user/forgot/your-email/sendcode',
-    'user.code' => '/user/forgot/code-reset',
-    'user.forgot' => '/user/forgot/change-pass',
+    'user.your-email' => '/@user/forgot/your-email/sendcode',
+    'user.code' => '/@user/forgot/code-reset',
+    'user.forgot' => '/@user/forgot/change-pass',
     'cart' => '/cart',
+    'cart.checkout' => '/_cart/checkout',
     'cart.delete' => '/_cart/delete',
     'cart.add' => '/_cart/add',
     'cart.quantity' => '/_cart/update/quantity',
     'contact' => '/contact',
     'about' => '/about',
+    'facture' => '/@facture/generer',
 ]);
 
 
@@ -71,11 +77,13 @@ define('VIEWS', [
     'user.code' => '/users/forgot/code.php',
     'user.forgot' => '/users/forgot/forgot.php',
     'cart' => 'cart/cart.php',
+    'cart.checkout' => 'cart/checkout.php',
     'cart.delete' => 'cart/delete.php',
     'cart.add' => 'cart/add.php',
     'cart.quantity' => 'cart/quantity.php',
     'contact' => 'contact.php',
     'about' => 'about.php',
+    'facture' => '/invoices/facture.php',
 
 ]);
 

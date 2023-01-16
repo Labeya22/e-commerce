@@ -191,3 +191,11 @@ function star(int $star) {
     }
     return "<div class=\"stars\"><ul> $li </ul></div>";
 }
+
+function dump(...$vars) {
+    echo "<pre>";
+    foreach ($vars as $var) {
+        print_r($var);
+    }
+    echo "<pre>";
+}

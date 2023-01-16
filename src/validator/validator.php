@@ -24,5 +24,6 @@ function isEmail($email) {
 }
 
 function isEqual($k, $v) {
+    if (is_string($k)) return strlen($k) === $v;
     return $k === $v;
 }

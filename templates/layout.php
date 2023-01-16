@@ -8,6 +8,10 @@
     <link rel="stylesheet" href="<?= dist('css/toast.css') ?>">
     <link rel="stylesheet" href="<?= dist('vendor/fontawesome/css/all.css') ?>">
     <link rel="shortcut icon" href="<?= dist('images/favicon.svg') ?>" type="image/x-icon">
+    
+    <script src="<?= dist('js/app.js') ?>" type="module" defer></script>
+    <script src="<?= dist('js/cart.js') ?>" type="module" defer></script>
+    <script src="<?= dist('js/message.js') ?>" type="module" defer></script>
     <title> vente de vehicule<?= isset($title) ? sprintf(" | %s", $title) : ''  ?></title>
 </head>
 <body>
@@ -87,8 +91,6 @@
     <!-- end header -->
     <main class="main"><?= $content ?></main>
 
-    <script src="<?= dist('js/app.js') ?>" type="module"></script>
-    <script src="<?= dist('js/message.js') ?>" type="module"></script>
 
     <script src="<?= dist('vendor/typewriterjs/dist/core.js') ?>"></script>
 

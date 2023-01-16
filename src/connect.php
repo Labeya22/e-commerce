@@ -7,7 +7,7 @@
  */
 function getPDO(): PDO
 {
-    $dbname = "ventes_vehicules";
+    $dbname = "ecommercevehicules";
     $host = "127.0.0.1";
     $user = "root";
     $pass = "";

@@ -490,6 +490,10 @@ a.button {
     box-shadow: var(--shadow-input);
 }
 
+.form .group-form .input-form:disabled {
+    opacity: 0.9;
+    cursor: not-allowed;
+}
 
 /* header */
 .header {
@@ -1078,14 +1082,13 @@ a.button {
 
 .carts .cart-total {
     display: block;
-    height: 310px;
+    height: 250px;
     width: 100%;
-    background-color: var(--light);
+    background-color: var(--white);
     padding: 30px;
     border-radius: 5px;
-    border: 1px solid var(--border-light);
     color: var(--dark);
-
+    box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.075);
 }
 
 
@@ -1632,4 +1635,86 @@ a.button {
 
 .error-field  {
     margin-bottom: 8px;
+}
+
+
+
+.modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 7000;
+    background-color: rgba(18, 28, 66, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.modal.active {
+    visibility: visible;
+    opacity: 1;
+}
+
+.modal .modal-content {
+    background-color: var(--white);
+    width: 480px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px 3px rgba(0, 0, 0, 0.1);
+    padding: 22px;
+    transform: translateY(-40px);
+    transition: 0.4s transform cubic-bezier(0.455, 0.03, 0.515, 0.955);
+}
+
+.modal .close-modal {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    display: block;
+    padding: 10px;
+    color: var(--white);
+    background-color: var(--red);
+    font-size: 20px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.modal.active .modal-content {
+    transform: translateY(0px);
+}
+
+.modal .modal-content .modal-title {
+    margin-bottom: 25px;
+    padding: 16px 10px;
+    background-color: var(--white);
+    font-size: 25px;
+    text-align: center;
+}
+
+.modal .modal-content .modal-title h4 {
+    font-weight: 400;
+    color: var(--color);
+}
+
+.modal .modal-content .modal-divised {
+    display: block;
+    width: 100%;
+    background-color: var(--light);
+}
+
+.modal .modal-content .modal-body {
+    padding: 10px 20px;
+}
+
+.modal .modal-content .modal-body p {
+    margin-bottom: 10px;
+}
+
+.modal .modal-content .modal-body h4,
+.modal .modal-content .modal-body h5 {
+    margin-bottom: 16px;
 }

@@ -1,0 +1,282 @@
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+
+/* root */
+:root {
+    --white: #fff;
+    --primary: #696cff;
+    --border-primary: #3c3ff5e8;
+    --light: #f1f2f9;
+    --dark: #495057;
+    --primary-hover: #696cffc2;
+    --black: #000;
+    --color: #1A3760;
+    --color-light: #121c4299;
+    --border: #d5e3ec;
+    --border-light: #e6eff4;
+    --background: #f7fafb;
+    --shadow: #d8e1e8;
+    --e: rgb(105, 108, 255);
+
+
+    --shadow-dark: 73, 80, 87;
+    --shadow-primary: 105, 108, 255;
+    --shadow-input: 0 0 0 1px var(--light), 0 0 0 0.25rem rgba(var(--shadow-primary), 0.25);
+
+    /* --e: rgb(157, 158, 255); */
+
+
+    --container: calc(100% - 60px);
+
+
+    --color-inversed: #effbec;
+    --color-inversed60: #effbec99;
+    --color-transparent: rgba(18, 28, 66, 0);
+    --gap: 20px;
+    --space: 8px;
+
+    --list-hover: var(--background);
+    --play: #f3f9fb;
+    --space-section: 150px;
+    --card: #f7fafd;
+    --card-padding: 16px;
+    --header-height: 137px;
+    --red: #f25353;
+    --green: #41cf7c;
+    --yellow: #feb32b;
+    --yellow-alpha: #feb32b4c;
+    --skeleton: var(--border-light);
+    --skeleton-wave: var(--border-light);
+    --selection-background: var(--border);
+    --header-background: #FFFFFFF2;
+    --header-background-inversed: #4869eeF2;
+
+
+
+    --font: 'Poppins', sans-serif;
+    --font-input: 'Inter', 'Roboto', sans-serif;
+}
+
+body {
+    font-family: 'Poppins';
+    font-size: 15px;
+    color: #101a20;
+    background-color: var(--light);
+}
+
+a {
+    text-decoration: none;
+}
+
+ul {
+    list-style-type: none;
+}
+
+
+.container {
+    padding: 2rem 5%;
+    margin: auto;
+    width: calc(100% - 2rem);
+}
+
+.header {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+
+.header .ref {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.header .options {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    column-gap: 10px;
+}
+
+.header .options a {
+    display: inline-block;
+    padding: 5px;
+    background-color: #fff;
+    box-shadow:  0 0 4px rgba(0, 0, 0, .60);
+    font-size: 12px;
+    color: #101a20;
+    transition: all .12s ease;
+    border-radius: 5px;
+}
+
+.header .options a:hover {
+    color: #fff;
+    background-color: var(--color-links-hover);
+}
+
+.divided {
+    display: block;
+    width: 80%;
+    margin: 10px auto;
+    height: 1px;
+    background-color: #191e202d;
+}
+
+
+@media screen and (max-width: 800px) {
+    .header {
+        justify-content: center;
+        flex-direction: column;
+        row-gap: 20px;
+    }
+
+    .divided {
+        width: 100%;
+    }
+}
+
+
+.title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    row-gap: 5px;
+    margin-bottom: 10px;
+}
+
+
+.title img {
+    display: block;
+    object-fit: cover;
+    object-position: center;
+    width: 60px;
+}
+
+.title .text {
+    font-size: 19px;
+    font-weight: bold;
+    color: var(--color-links);
+}
+
+
+.desc {
+    width: 100%;
+    margin-bottom: 10px;
+
+}
+
+
+.desc::after {
+    content: "";
+    display: block;
+    width: 100%;
+    clear: both;
+    font-size: 15px;
+}
+
+
+.desc .desc-client {
+    float: left;
+    width: 40%;
+}
+
+
+.desc .desc-company .status.ok {
+    color: green;
+}
+
+.desc .desc-company .status.no,
+.error{
+    color: red;
+}
+
+.desc .desc-client .client-response,
+.desc .desc-company .company-response {
+    font-weight: bold;
+}
+
+.desc .desc-company {
+    float: right;
+}
+
+.rule {
+    width: 70%;
+    margin-bottom: 16px;
+}
+
+@media screen and (max-width: 680px) {
+    .desc .desc-client,
+    .desc .desc-company {
+        float: none;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .rule {
+        width: 100%;
+        text-align: justify;
+    }
+}
+
+
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    margin-bottom: 10px;
+    margin-right: auto;
+    margin-left: auto;
+
+}
+
+table thead {
+    background: black;
+    color: #fff;
+}
+
+table td,
+table th{
+    border: 1px solid #ddd;
+
+}
+
+
+table td,
+table th {
+    padding: 9px;
+}
+
+
+.prices {
+    margin-bottom: 20px;
+    font-size: 16px;
+}
+.prices  .p {
+    font-weight: bold;
+}
+
+.check {
+    clear: both;
+    display: inline-block;
+    padding: 5px;
+    color: #101a20;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .6);
+    background-color: #fff;
+    border-radius: 5px;
+    margin-bottom: 5px;   
+}
+
+.check:hover {
+    background-color: var(--color-links);
+    color: white;
+}

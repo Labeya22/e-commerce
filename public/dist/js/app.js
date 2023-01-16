@@ -1,12 +1,13 @@
-import { fetchJson } from "./modules/apifetch.js";
 import { 
     showElement,
     scrollY} from "./modules/dom.js";
 
-import { calculRemoveCart, calculer, calculerAll } from "./modules/integer.js";
-import { regex } from "./modules/string.js";
-import { createToast } from "./modules/toast.js";
-
+/**
+ * preloader
+ */
+ const preloader = document.querySelector('#preloader');
+ if (preloader) window.addEventListener('load', () => preloader.remove())
+ 
  // activate search nav
  const actionSearch = document.querySelector('#action-search')
  const navSearch = document.querySelector('#nav-search')
@@ -17,15 +18,11 @@ import { createToast } from "./modules/toast.js";
  // activate notification nav
  const actionBell = document.querySelector('#option-bell')
  const navBell = document.querySelector('#nav-bell')
- 
- if (actionBell && navBell) {
-    showElement(actionBell, navBell)
- }
+ if (actionBell && navBell) showElement(actionBell, navBell)
  
  const navShow = document.querySelector('#navbar a')
  const nav = document.querySelector('#nav-menu')
  const navClose = nav.querySelector('#close-nav')
- 
  if (navShow && navClose && nav) {
      navShow.addEventListener('click', (e) => {
          e.preventDefault()
@@ -38,129 +35,9 @@ import { createToast } from "./modules/toast.js";
      })
  }
  
- const header = document.querySelector('#header')
- if (header) {
-     scrollY(header, 60)
- }
+const header = document.querySelector('#header')
+if (header) scrollY(header, 60)
 
- const scrolltop = document.querySelector('#scrolltop')
- if (scrolltop) {
-     scrollY(scrolltop, 400)
- }
+const scrolltop = document.querySelector('#scrolltop')
+if (scrolltop) scrollY(scrolltop, 400)
 
-/**
- * Permet de calculer les prix total d'un produit
- */
- const carts = document.querySelectorAll('#carts #cart')
- const prices = document.querySelector('#prices')
- if (carts && prices) {
-
-    carts.forEach((cart) => {
-        const quantity = cart.querySelector("#quantity")
-
-        calculer(cart)
-
-        quantity.addEventListener('input', () => {
-            calculer(cart)
-            calculerAll(carts, prices)
-        })
-
-        quantity.addEventListener('keyup', () => {
-            setTimeout(() => {
-                const value = quantity.value
-                const parseQuantity = parseInt(value)            
-                if (!isNaN(parseQuantity) && parseQuantity >= 1 && regex(value)) {
-                    const reqFetch = quantity.getAttribute('reqFetch') + `&quantity=${parseQuantity}`
-                    const r = fetchJson(reqFetch)
-                    r.then(response => {
-                        if (response.success) createToast(null, 'success', 'la quantité a été mis à jour.')
-                    }).catch(error => {
-                        createToast(null, 'danger', "nous n'avons pas pu mettre la quantité à jour.")
-                        quantity.value = 1
-                    })
-                }
-            }, 1000)
-        })
-        
-
-        const cartRemove = cart.querySelector('#cart-remove')
-        if (cartRemove) {
-            cartRemove.addEventListener('click', (e) => {
-                e.preventDefault()
-                const url = cartRemove.getAttribute('href')
-                const r = fetchJson(url)
-                r.then(response => {
-                    if (response.success) {
-                        calculRemoveCart(cart, prices)
-                        cart.remove()
-                        createToast(null, 'success', "un produit a été supprimé.")
-                    } else {
-                        createToast(null, 'danger', "nous n'avons pas pu effectuer cette action.")
-                    }
-                }).catch(error => {
-                    createToast(null, 'danger', error)
-                })
-            })
-        }
-    })
-
-    calculerAll(carts, prices)
-   
-    // on récupère un produit en particulière.
- }
-
-/**
- * 
- * @param {Elemnt} el 
- */
-function removeActive (el) {
-    el.querySelectorAll(".active").forEach(link => {
-        link.classList.remove('active')
-    })
-}
-
-// const tabs = document.querySelector('#tabs')
-// if (tabs) {
-//     tabs.querySelectorAll("#tab-menus a").forEach(link => {
-//         link.addEventListener("click", (e) => {
-//             e.preventDefault()
-//             link.classList.add('active')
-//             const id = link.getAttribute('href')
-//             const tab = tabs.querySelector(`${id}`)
-//             if (!tab) return
-//             removeActive(tabs)
-//             tab.classList.add('active')
-//         })
-//     })
-    
-// }
-
-const addProduct = document.querySelector("#add-product")
-if (addProduct) {
-    addProduct.addEventListener('click', (e) => {
-        e.preventDefault()
-        const url = addProduct.getAttribute('href')
-        const r = fetchJson(url)
-        r.then(response => {
-            if (response.ok === true && response.query === 'INSERT') {
-                addProduct.innerHTML = `<i class="fa fa-check-double"></i> est dans le panier`
-                createToast(null, 'success', 'le produit a été ajouté dans le panier.')
-            }
-        }).catch(error => {
-            createToast(null, 'danger', `
-            une erreur est survenue, merci de réessayer.
-            (${error})
-            `)
-        })
-    })
-}
-
- /**
-   * Preloader
-   */
- const preloader = document.querySelector('#preloader');
- if (preloader) {
-   window.addEventListener('load', () => {
-     preloader.remove();
-   });
- }

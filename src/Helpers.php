@@ -100,13 +100,17 @@ function media(string $marque, mixed $identify, string $image): string {
  * @return string
  */
 function layout(string $route): string {
-    if (strpos($route, 'user')) {
-        $layout = "user";
+
+    if (strpos($route, '@user/') !== false) {
+        $layout = "user.php";
+    } elseif (strpos($route, '/@facture/') !== false) {
+        $layout = "facture.php";
     } else {
-        $layout = "layout";
+        $layout = "layout.php";
     }
 
-    return sprintf("%s.php", $layout);
+
+    return $layout;
 }
 
 
@@ -229,11 +233,28 @@ function checkUser(string $redirect): void {
     //  on vérifie que l'utilisateur est enregistré dans la session.
     if (!hasSession(SESSION_USER)) {
         // on fait une redirection (header location)
-        setFlash('danger', "accès refusé", $redirect);
-        redirect($redirect);
+        denied($redirect);
+    } else {
+        $pdo = getPDO();
+        $userSession = getSession(SESSION_USER);
+        $user = getUser($pdo, 'utilisateur_id', $userSession['utilisateur_id']);
+        if (is_null($user) || empty($user)) {
+            deleteSession(SESSION_USER);
+            denied($redirect);
+        } 
     }
 }
 
+
+/**
+ * @param string $redirect
+ * 
+ * @return void
+ */
+function denied(string $redirect): void {
+    setFlash('danger', "accès refusé", $redirect);
+    redirect($redirect);
+}
 
 
 /**

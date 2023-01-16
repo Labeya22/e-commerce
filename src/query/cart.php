@@ -26,7 +26,7 @@ function querySelectCart(int $limit, int $offset) :string {
     INNER JOIN vehicules v ON v.vehicule_id = p.vehiculeid
     INNER JOIN stocks s ON s.vehiculeid = v.vehicule_id
     INNER JOIN marques mr ON v.marqueid = mr.marque_id
-    WHERE p.utilisateurid = :id  ORDER BY p.create_at DESC LIMIT $limit OFFSET $offset";
+    WHERE p.utilisateurid = :id ORDER BY p.create_at DESC LIMIT $limit OFFSET $offset";
 }
 
 
@@ -63,6 +63,18 @@ function cartPaginer(PDO $pdo, string $userid, int $limit = 12, int $page = 1) :
     ];
 }
 
+function getCartJson($user) {
+    $pdo = DATABASE;
+    $query = "SELECT v.prix, mr.marque, v.vehicule_id, v.vehicule, p.quantite
+    FROM paniers p
+    INNER JOIN vehicules v ON v.vehicule_id = p.vehiculeid
+    INNER JOIN marques mr ON v.marqueid = mr.marque_id
+    WHERE p.utilisateurid = ?";
+    $req = $pdo->prepare($query);
+    $req->execute([$user]);
+    return json_encode($req->fetchAll());
+}
+
 
 /**
  * @param PDO $pdo
@@ -77,6 +89,14 @@ function getCart(PDO $pdo, string $key, mixed $value): array {
     $req->execute([$value]);
     return $req->fetch();
 }
+
+function getCartAll(PDO $pdo, string $key, mixed $value): array {
+    $query = "SELECT * FROM paniers WHERE $key = ?";
+    $req = $pdo->prepare($query);
+    $req->execute([$value]);
+    return $req->fetchAll();
+}
+
 
 
 /**
@@ -137,4 +157,23 @@ function changeQuantity(PDO $pdo, $cart, $quantity): bool {
     }
 
     return false;
+}
+
+function okCart($data) {
+    $pdo = DATABASE;
+    list($user, $total) = $data;
+    $cart = getCartJson($user);
+    $create = createFacture([$cart, $total, $user]);
+    if ($create) {
+        return deleteCartAll($user);
+    }
+
+    return false;
+}
+
+function deleteCartAll($user) {
+    $pdo = DATABASE;
+    $query = "DELETE FROM paniers WHERE utilisateurid = ?";
+    $req = $pdo->prepare($query);
+    return $req->execute([$user]);
 }

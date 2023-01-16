@@ -1,4 +1,4 @@
-import { regex } from "./string.js"
+import { isMatch } from "./string.js"
 import { createToast } from "./toast.js"
 
 /**
@@ -35,7 +35,7 @@ export function calculer(cart) {
     const total = cart.querySelector("#price-total")
     const stocks = cart.querySelector('#stock')
     const stock = parseInt(stocks.getAttribute('stock'))
-    const quantity = cart.querySelector("#quantity")
+    const quantity = cart.querySelector(".quantity")
 
     const price = parseInt(unit.getAttribute('price'))
 
@@ -43,7 +43,7 @@ export function calculer(cart) {
     total.innerHTML = `${price}$`
 
     let value = quantity.value
-    if (value !== "" && regex(value)) {
+    if (value !== "" && isMatch(value)) {
         let valueParse = parseInt(value)
         if (isNaN(valueParse)) {
             createToast(null, 'danger', "vous devez saisir un nombre.")
@@ -97,4 +97,8 @@ export function calculRemoveCart(cart, total) {
     const price = (prices - priceCart)
     total.setAttribute('prices', price)
     total.innerHTML = `${price}$`
+    const input = document.querySelector("#price-input")
+    if (input) {
+        input.value = price
+    }
 }

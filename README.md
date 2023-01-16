@@ -40,7 +40,7 @@ vente de vehicule en ligne
         - [ok] envoi code
         - [ok] modifier le mot de passe
     - [ok] message flash
-- [] panier
+- [ok] panier
     - [ok] voir le detail du produit
     - [ok] calcul du montant à payer
     - [ok] lister les produits dans le panier
@@ -48,7 +48,7 @@ vente de vehicule en ligne
     - [ok] supprimer un ou plusieurs produit dans le panier (AJAX)
     - [ok] ajouter le produit dans le panier
     - [ok] modifier la quantité (AJAX)
-    - [] calculer les résultats à payer + options de payment
+    - [ok] calculer les résultats à payer + options de payment
 - [] mode de paiement
     - paypal ou stripe  
 - [] admins

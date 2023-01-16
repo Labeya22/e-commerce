@@ -7,9 +7,6 @@
     --shadow: rgba(0, 0, 0, 0.082);
 }
 
-
-
-
 .toasts {
     position: fixed;
     bottom: 20px;
@@ -18,10 +15,10 @@
 }
 
 .toasts .toast {
-    padding: 20px;
+    padding: 13px 15px;
     background-color: #fff;
     border-radius: 5px;
-    width: 300px;
+    width: 320px;
     box-shadow: 0px 1.6px 3.6px rgba(0, 0, 0, 0.18), 0px 0px 2.9px rgba(0, 0, 0, 0.14);
     margin-bottom: 30px;
     transition: 0.3s transform ease;
@@ -41,7 +38,6 @@
     animation: toast-hide 0.3s ease forwards;
 }
 
-
 .toasts .toast .toast-icon {
     margin-right: 5px;
 }
@@ -57,8 +53,6 @@
 .toasts .toast .toast-warning {
     color: var(--warning);
 }
-
-
 
 @keyframes toast-show {
     0% {
@@ -78,7 +72,6 @@
     }
 }
 
-
 @keyframes toast-hide {
     0% {
         transform: translateX(-10%);
@@ -96,6 +89,3 @@
         transform: translateX(calc(100% + 25px));
     }
 }
-
-
-

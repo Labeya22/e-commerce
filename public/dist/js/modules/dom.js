@@ -1,4 +1,4 @@
-import { priceSum } from "./integer.js"
+import { isEmptyObject } from "./standard.js"
 
 /**
  * 
@@ -41,4 +41,42 @@ export function scrollY(el, max = 60, activate = 'active') {
     window.addEventListener('scroll', () => {
         window.scrollY >= max ? el.classList.add(activate) : el.classList.remove(activate)
     })
+}
+
+
+/**
+ * 
+ * @param {Object} errors 
+ * @param {HTMLElement|null} form 
+ */
+export function setErrorInput(errors, form) {
+    if (!form) return
+    const inputs = form.querySelectorAll('.input-form')
+    if (inputs) {
+        inputs.forEach(input => {
+            const node = input.parentNode
+            let error = node.querySelector('.error-field')
+            const message = !errors || !errors[input.id] ? '' : errors[input.id]
+            if (error) error.innerHTML = message
+            else {
+                error =  createElement('div', {class: 'error-field'})
+                error.innerHTML = message
+                node.append(error)
+            }
+        })
+    }
+}
+
+export function createElement(tag, attributes) {
+    const element = document.createElement(tag)
+    for (const key in attributes) {
+        const attribute = attributes[key]
+        element.setAttribute(key, attribute)
+    }
+    return element
+}
+
+export function preloader() {
+    const preloader = createElement('div', {id: 'preloader'})
+    document.body.append(preloader)
 }

@@ -1,7 +1,5 @@
 <?php
 
-
-
 function hasFieldOrField($value, ...$fields) {
     $field = implode(' OR ', array_map(function ($field) {
         return "$field = :field";
@@ -27,6 +25,7 @@ function hasFieldUser($field, $value , $id = null) {
     return !empty($req->fetch());
 
 }
+
 
 function createUser(PDO $pdo, array $data, $code): bool
 {
@@ -132,4 +131,9 @@ function userCodeResetOk (PDO $pdo, $id, $token) {
         ':token' => $token,
         ':id' => $id
     ]);
+}
+
+
+function expirate($pdo) {
+
 }

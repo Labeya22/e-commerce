@@ -16,9 +16,14 @@
             "src/query/type.php",
             "src/query/user.php",
             "src/query/vehicule.php",
+            "src/query/banque.php",
+            "src/query/taux.php",
+            "src/query/stock.php",
+            "src/query/facture.php",
             "src/query/cart.php",
             "src/query/marque.php",
             "src/validator/userValidator.php",
+            "src/validator/banqueValidator.php",
             "src/validator/validator.php",
             "src/form.php"
         ]

@@ -7,7 +7,6 @@
             <div class="box">
                 <h5 class="price" id="price-unit" price="<?= $cart['prix'] ?>"><?= $cart['prix'] ?>$</h5>
                 <h6 class="title">
-                    
                     <a 
                     href="<?= generate('store.eye', ['vehicule' => $cart['vehicule_id']]) ?>"  
                     class="cd-name"> 
@@ -27,8 +26,7 @@
                         'cartid' => $cart['panier_id']
                     ]) ?>"
                     type="text"
-                    id="quantity" 
-                    name="quentity-1" 
+                    class="quantity" 
                     value="<?= $cart['quantite'] ?>" >
                 </div>
                 <div class="c-option"><span id="price-total"></span></div>
@@ -37,7 +35,7 @@
                     <a href="<?= generate('cart.delete', ['cartid' => $cart['panier_id']]) ?>" 
                     id="cart-remove" 
                     class="button button-sm button-danger">
-                        <i class="fa fa-minus"></i>
+                        <i class="fa fa-trash"></i>
                     </a>
                 </div>
             </div>

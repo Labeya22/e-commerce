@@ -1,4 +1,4 @@
--- Active: 1670697101741@@127.0.0.1@3306@ventes_vehicules
+-- Active: 1670697101741@@127.0.0.1@3306@ecommercevehicule
 -- --------------------------------------------------------
 -- Hôte:                         127.0.0.1
 -- Version du serveur:           8.0.30 - MySQL Community Server - GPL
@@ -17,8 +17,8 @@
 
 
 -- Listage de la structure de la base pour ventes_vehicules
-CREATE DATABASE IF NOT EXISTS `ventes_vehicules` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
-USE `ventes_vehicules`;
+CREATE DATABASE IF NOT EXISTS `ecommercevehicules` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `ecommercevehicules`;
 
 -- Listage de la structure de table ventes_vehicules. admin
 CREATE TABLE IF NOT EXISTS `admin` (
@@ -32,22 +32,39 @@ CREATE TABLE IF NOT EXISTS `admin` (
   UNIQUE KEY `username` (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Les données exportées n'étaient pas sélectionnées.
+-- Listage des données de la table ventes_vehicules.admin : ~0 rows (environ)
+
+-- Listage de la structure de table ventes_vehicules. banques
+CREATE TABLE IF NOT EXISTS `banques` (
+  `banque_id` varchar(50) NOT NULL,
+  `solde` double NOT NULL DEFAULT '100000',
+  `numberAccount` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `update_at` datetime DEFAULT NULL,
+  `utilisateurid` int NOT NULL,
+  UNIQUE KEY `banque_id` (`banque_id`),
+  KEY `utilisateurid` (`utilisateurid`),
+  CONSTRAINT `FK_banques_utilisateurs` FOREIGN KEY (`utilisateurid`) REFERENCES `utilisateurs` (`utilisateur_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Listage des données de la table ventes_vehicules.banques : ~1 rows (environ)
+INSERT INTO `banques` (`banque_id`, `solde`, `numberAccount`, `update_at`, `utilisateurid`) VALUES
+	('1', 20999558000, '14141414', '2023-01-16 05:51:11', 18);
 
 -- Listage de la structure de table ventes_vehicules. factures
 CREATE TABLE IF NOT EXISTS `factures` (
   `facture_id` int NOT NULL AUTO_INCREMENT,
-  `sommes` float NOT NULL,
-  `panierid` int NOT NULL,
+  `total` float NOT NULL,
+  `cart` json NOT NULL,
   `utilisateurid` int NOT NULL,
+  `create_at` datetime NOT NULL,
   PRIMARY KEY (`facture_id`),
-  KEY `panierid` (`panierid`),
   KEY `utilisateurid` (`utilisateurid`),
-  CONSTRAINT `factures_ibfk_1` FOREIGN KEY (`panierid`) REFERENCES `paniers` (`panier_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `factures_ibfk_2` FOREIGN KEY (`utilisateurid`) REFERENCES `utilisateurs` (`utilisateur_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Les données exportées n'étaient pas sélectionnées.
+-- Listage des données de la table ventes_vehicules.factures : ~2 rows (environ)
+INSERT INTO `factures` (`facture_id`, `total`, `cart`, `utilisateurid`, `create_at`) VALUES
+	(1, 9500, '[{"prix": 1500, "marque": "TOYOTA", "quantite": 10, "vehicule": "YARIS", "vehicule_id": 2}, {"prix": 3000, "marque": "BMV", "quantite": 2, "vehicule": "Louper", "vehicule_id": 3}, {"prix": 2000, "marque": "TOYOTA", "quantite": 1, "vehicule": "COROLLA", "vehicule_id": 1}]', 18, '2023-01-16 05:51:11');
 
 -- Listage de la structure de table ventes_vehicules. marques
 CREATE TABLE IF NOT EXISTS `marques` (
@@ -58,7 +75,12 @@ CREATE TABLE IF NOT EXISTS `marques` (
   UNIQUE KEY `marque` (`marque`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Les données exportées n'étaient pas sélectionnées.
+-- Listage des données de la table ventes_vehicules.marques : ~4 rows (environ)
+INSERT INTO `marques` (`marque_id`, `marque`, `create_at`) VALUES
+	(1, 'TOYOTA', '2023-01-09 14:00:00'),
+	(2, 'Honda', '2023-01-09 14:00:17'),
+	(3, 'Nissan', '2023-01-09 14:00:17'),
+	(4, 'BMV', '2023-01-09 14:00:17');
 
 -- Listage de la structure de table ventes_vehicules. medias
 CREATE TABLE IF NOT EXISTS `medias` (
@@ -70,7 +92,11 @@ CREATE TABLE IF NOT EXISTS `medias` (
   CONSTRAINT `medias_ibfk_1` FOREIGN KEY (`vehiculeid`) REFERENCES `vehicules` (`vehicule_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Les données exportées n'étaient pas sélectionnées.
+-- Listage des données de la table ventes_vehicules.medias : ~2 rows (environ)
+INSERT INTO `medias` (`media_id`, `vehiculeid`, `media`) VALUES
+	(1, 3, 'store-1.jpg'),
+	(2, 3, 'store-2.jpg'),
+	(3, 3, 'store-3.jpg');
 
 -- Listage de la structure de table ventes_vehicules. paniers
 CREATE TABLE IF NOT EXISTS `paniers` (
@@ -78,14 +104,15 @@ CREATE TABLE IF NOT EXISTS `paniers` (
   `vehiculeid` int NOT NULL,
   `utilisateurid` int NOT NULL,
   `quantite` int NOT NULL DEFAULT '1',
+  `create_at` datetime NOT NULL,
   PRIMARY KEY (`panier_id`),
   KEY `vehiculeid` (`vehiculeid`),
   KEY `utilisateurid` (`utilisateurid`),
   CONSTRAINT `paniers_ibfk_1` FOREIGN KEY (`vehiculeid`) REFERENCES `vehicules` (`vehicule_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `paniers_ibfk_2` FOREIGN KEY (`utilisateurid`) REFERENCES `utilisateurs` (`utilisateur_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Les données exportées n'étaient pas sélectionnées.
+-- Listage des données de la table ventes_vehicules.paniers : ~3 rows (environ)
 
 -- Listage de la structure de table ventes_vehicules. parametres
 CREATE TABLE IF NOT EXISTS `parametres` (
@@ -99,19 +126,39 @@ CREATE TABLE IF NOT EXISTS `parametres` (
   CONSTRAINT `parametres_ibfk_1` FOREIGN KEY (`vehiculeid`) REFERENCES `vehicules` (`vehicule_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Les données exportées n'étaient pas sélectionnées.
+-- Listage des données de la table ventes_vehicules.parametres : ~2 rows (environ)
+INSERT INTO `parametres` (`param_id`, `carburant`, `kilometrage`, `auto`, `vehiculeid`) VALUES
+	(1, 'essence', '0kh', 1, 3),
+	(2, 'essence', '0kh', 1, 2),
+	(3, 'essence', '0kh', 1, 1);
 
 -- Listage de la structure de table ventes_vehicules. stocks
 CREATE TABLE IF NOT EXISTS `stocks` (
   `stock_id` int NOT NULL AUTO_INCREMENT,
-  `stock` int NOT NULL,
+  `stock` int NOT NULL DEFAULT '0',
   `vehiculeid` int NOT NULL,
   PRIMARY KEY (`stock_id`),
   KEY `vehiculeid` (`vehiculeid`),
   CONSTRAINT `stock` FOREIGN KEY (`vehiculeid`) REFERENCES `vehicules` (`vehicule_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Les données exportées n'étaient pas sélectionnées.
+-- Listage des données de la table ventes_vehicules.stocks : ~3 rows (environ)
+INSERT INTO `stocks` (`stock_id`, `stock`, `vehiculeid`) VALUES
+	(1, 13, 1),
+	(2, -9, 2),
+	(3, 897, 3);
+
+-- Listage de la structure de table ventes_vehicules. taux
+CREATE TABLE IF NOT EXISTS `taux` (
+  `taux_id` int NOT NULL AUTO_INCREMENT,
+  `franc` varchar(255) NOT NULL,
+  `dollard` int NOT NULL DEFAULT '1',
+  PRIMARY KEY (`taux_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- Listage des données de la table ventes_vehicules.taux : ~0 rows (environ)
+INSERT INTO `taux` (`taux_id`, `franc`, `dollard`) VALUES
+	(1, '2150', 1);
 
 -- Listage de la structure de table ventes_vehicules. types
 CREATE TABLE IF NOT EXISTS `types` (
@@ -121,7 +168,11 @@ CREATE TABLE IF NOT EXISTS `types` (
   PRIMARY KEY (`type_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Les données exportées n'étaient pas sélectionnées.
+-- Listage des données de la table ventes_vehicules.types : ~2 rows (environ)
+INSERT INTO `types` (`type_id`, `type`, `create_at`) VALUES
+	(1, 'sport', '2023-01-09 14:27:00'),
+	(2, 'wagon', '2023-01-09 14:27:00'),
+	(3, 'bus', '2023-01-09 14:27:00');
 
 -- Listage de la structure de table ventes_vehicules. utilisateurs
 CREATE TABLE IF NOT EXISTS `utilisateurs` (
@@ -140,9 +191,11 @@ CREATE TABLE IF NOT EXISTS `utilisateurs` (
   `expirate` datetime DEFAULT NULL,
   PRIMARY KEY (`utilisateur_id`),
   UNIQUE KEY `utilisateur` (`utilisateur`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Les données exportées n'étaient pas sélectionnées.
+-- Listage des données de la table ventes_vehicules.utilisateurs : ~0 rows (environ)
+INSERT INTO `utilisateurs` (`utilisateur_id`, `nom`, `utilisateur`, `prenom`, `email`, `token`, `code`, `password`, `isconfirm`, `create_at`, `update_at`, `confirm_at`, `expirate`) VALUES
+	(18, 'jeres', 'jeres', 'jeremies', 'jeremiemasik@gmail.com', NULL, NULL, '$2y$10$8fx5mlxSr3SxpF6tl89v5uMSwRy95aYsxnRKOUOWJVyGJwM0nUW4m', 1, '2023-01-14 13:09:42', '2023-01-14 21:27:40', '2023-01-14 13:09:59', NULL);
 
 -- Listage de la structure de table ventes_vehicules. vehicules
 CREATE TABLE IF NOT EXISTS `vehicules` (
@@ -163,7 +216,11 @@ CREATE TABLE IF NOT EXISTS `vehicules` (
   CONSTRAINT `vehicules_ibfk_2` FOREIGN KEY (`typeid`) REFERENCES `types` (`type_id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Les données exportées n'étaient pas sélectionnées.
+-- Listage des données de la table ventes_vehicules.vehicules : ~3 rows (environ)
+INSERT INTO `vehicules` (`vehicule_id`, `vehicule`, `image`, `prix`, `promo`, `star`, `typeid`, `marqueid`, `description`, `create_at`) VALUES
+	(1, 'COROLLA', '4.jpg', 2000, 1, 3, 2, 1, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci praesentium similique maiores. Facere laudantium at maiores eius id praesentium vero quam. Distinctio atque consequuntur soluta, dicta obcaecati voluptatem magnam recusandae.', '2023-01-09 14:38:38'),
+	(2, 'YARIS', '5.jpg', 1500, 1, 3, 2, 1, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci praesentium similique maiores. Facere laudantium at maiores eius id praesentium vero quam. Distinctio atque consequuntur soluta, dicta obcaecati voluptatem magnam recusandae.', '2023-01-09 14:38:38'),
+	(3, 'Louper', '6.jpg', 3000, 0, 4, 3, 4, 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci praesentium similique maiores. Facere laudantium at maiores eius id praesentium vero quam. Distinctio atque consequuntur soluta, dicta obcaecati voluptatem magnam recusandae.', '2023-01-09 14:38:38');
 
 /*!40103 SET TIME_ZONE=IFNULL(@OLD_TIME_ZONE, 'system') */;
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
