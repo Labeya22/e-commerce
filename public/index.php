@@ -75,7 +75,8 @@ define('ROUTES', [
     'admin.type-update' => '/@admin/types/update',
     'admin.marques' => '/@admin/marques',
     'admin.marque-del' => '/_admin/marques/delete',
-
+    'admin.marque-create' => '/@admin/marques/create',
+    'admin.marque-update' => '/@admin/marques/update',
     
 ]);
 
@@ -124,7 +125,8 @@ define('VIEWS', [
     'admin.type-update' => 'admin/types/update.php',
     'admin.marques' => 'admin/marques/index.php',
     'admin.marque-del' => 'admin/marques/_delete.php',
-
+    'admin.marque-create' => 'admin/marques/create.php',
+    'admin.marque-update' => 'admin/marques/update.php',
 
 ]);
 

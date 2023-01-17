@@ -73,7 +73,7 @@ vente de vehicule en ligne
         - [ok] supprimer une marque de voiture [ajax]
         - [] ajouter un type de voiture
         - [] editer une marque de voiture
-        - [] recherche un marque ou plusieurs
+        - [ok] recherche un marque ou plusieurs
 
 ## Technologie utilisée
 

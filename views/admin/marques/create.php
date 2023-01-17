@@ -1,32 +1,23 @@
 <?php
 
 
-$title = "editer le type";
+$title = "ajout d'une marque";
 
-$id = getQueryParamsInteger('marqueid');
-if (is_null($id) || empty($id)) {
-    throw new Exception("cette marque n'existe pas");
-} 
-
-$marque = getMarque($id);
-if (empty($marque)) {
-    throw new Exception("cette marque n'existe pas");
-}
-
-$errors = getErrorsMarque($_POST, $id);
+$errors = getErrorsMarque($_POST);
 
 if (empty($errors) && !empty($_POST)) {
     $redirect = generate('admin.marques');
-    $value = $_POST['marque'];
-    $update = updateMarque([$value, $id]);
-    if ($update) {
-        setFlash('success', "la marque  $value a été mis à jour.", $redirect);
+    $marque = $_POST['marque'];
+    $create = createMarque($marque);
+    if ($create) {
+        setFlash('success', "la marque $marque a été ajouté.", $redirect);
     } else {
-        setFlash('danger', "nous n'avons pas pu mettre à jour la marque {$value} à jour.", $redirect);
+        setFlash('danger', "la marque $marque n'a  pas pu être ajouté.", $redirect);
     }
 
     redirect($redirect);
 }
+
 
 ?>
 
@@ -34,7 +25,7 @@ if (empty($errors) && !empty($_POST)) {
     <div class="container">
         <div class="section">
             <div class="section-title">
-                <h2>Editer la marque #<?= $id ?></h2>
+                <h2>Ajout d'une marque</h2>
             </div>
             <div class="w-60">
                 <form action="" class="form" method="POST">
@@ -43,10 +34,10 @@ if (empty($errors) && !empty($_POST)) {
                         <?= inputField('marque', [
                         'type' => 'text',
                         'class' => 'input-form',
-                        'placeholder' => "type de vehicule"
-                    ], $_POST, $errors, $marque['marque']) ?>
+                        'placeholder' => "marque de vehicule"
+                    ], $_POST, $errors) ?>
                     </div>
-                    <button class="button button-primary"><i class="fa fa-edit"></i> editer</button>
+                    <button class="button button-primary"><i class="fa fa-add"></i> ajouté</button>
                </form>
             </div>
         </div>

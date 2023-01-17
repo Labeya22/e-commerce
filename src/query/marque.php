@@ -80,7 +80,7 @@ function deleteMarque(string $value): bool {
  * @return bool
  */
 function hasMarque(string $field, string $value, ?string $update = null): bool {
-    return !empty(getTypes($value, $field, $update));
+    return !empty(getMarque($value, $field, $update));
 }
 
 /**
@@ -90,7 +90,7 @@ function hasMarque(string $field, string $value, ?string $update = null): bool {
  */
 function createMarque(string $marque): bool {
     $pdo = DATABASE;
-    $req = $pdo->prepare("INSERT INTO marques SET type = ?, create_at = NOW()");
+    $req = $pdo->prepare("INSERT INTO marques SET marque = ?, create_at = NOW()");
     return $req->execute([$marque]);
 }
 
@@ -101,7 +101,7 @@ function createMarque(string $marque): bool {
  */
 function updateMarque(array $data): bool {
     $pdo = DATABASE;
-    $req = $pdo->prepare("UPDATE marques SET type = ?, create_at = NOW() WHERE type_id = ?");
+    $req = $pdo->prepare("UPDATE marques SET marque = ?, create_at = NOW() WHERE marque_id = ?");
     return $req->execute($data);
 }
 

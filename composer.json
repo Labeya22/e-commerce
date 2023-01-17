@@ -27,7 +27,8 @@
             "src/validator/banqueValidator.php",
             "src/validator/validator.php",
             "src/validator/contactValidator.php",
-            "src/validator/typevalidator.php",
+            "src/validator/typeValidator.php",
+            "src/validator/marqueValidator.php",
             "src/form.php"
         ]
     },
