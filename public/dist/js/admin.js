@@ -15,7 +15,7 @@ if (table) {
             const r = fetchJson(url)
             r.then(del => {
                 if (del.success) {
-                    createToast(null, 'success', 'un type a été supprimé.')
+                    createToast(null, 'success', del.message)
                     tr.remove()
                 } 
                 else createToast(null, 'danger', "nous n'avons pas pu effectuer cette action.")

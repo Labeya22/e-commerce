@@ -30,7 +30,7 @@ $admin = getSession(SESSION_ADMIN);
                 <ul class="nav-list">
                     <?=  li('Tableau de bord', generate('admin.dash')) ?>
                     <?=  li('Types', generate('admin.types')) ?>
-                    <?=  li('Marques', generate('store')) ?>
+                    <?=  li('Marques', generate('admin.marques')) ?>
                     <?=  li('Vehicules', generate('facture.all')) ?>
                 </ul>
                 <span class="fa fa-xmark close-nav-menu" id="close-nav"></span>

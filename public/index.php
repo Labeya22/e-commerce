@@ -73,6 +73,8 @@ define('ROUTES', [
     'admin.type-del' => '/_admin/types/delete',
     'admin.type-create' => '/@admin/types/create',
     'admin.type-update' => '/@admin/types/update',
+    'admin.marques' => '/@admin/marques',
+    'admin.marque-del' => '/_admin/marques/delete',
 
     
 ]);
@@ -117,9 +119,12 @@ define('VIEWS', [
     'trans.home' => 'transactions/home.php',
     'admin.dash' => 'admin/dashboard.php',
     'admin.types' => 'admin/types/index.php',
-    'admin.type-del' => '/admin/types/_delete.php',
-    'admin.type-create' => '/admin/types/create.php',
-    'admin.type-update' => '/admin/types/update.php',
+    'admin.type-del' => 'admin/types/_delete.php',
+    'admin.type-create' => 'admin/types/create.php',
+    'admin.type-update' => 'admin/types/update.php',
+    'admin.marques' => 'admin/marques/index.php',
+    'admin.marque-del' => 'admin/marques/_delete.php',
+
 
 ]);
 
