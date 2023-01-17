@@ -11,6 +11,7 @@ $types = getTypePagine(12, $page);
 
 <!-- contact -->
 <div class="container">
+    <?= flash() ?>
     <div class="section">
         <div class="section-title">
             <h2>Types de voitures</h2>
@@ -20,7 +21,14 @@ $types = getTypePagine(12, $page);
                 <tr>
                     <th>Type</th>
                     <th>Date de création</th>
-                    <th>Option</th>
+                    <th>
+                        <a 
+                            href="<?= generate('admin.type-create') ?>" 
+                            class="button button-primary button-md">
+                            <i class="fa fa-add"></i> 
+                            nouveau
+                        </a>
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -37,7 +45,7 @@ $types = getTypePagine(12, $page);
                             supprimer
                         </a>
                         <a 
-                        href="" 
+                        href="<?= generate('admin.type-update', ['typeid' => $type['type_id']]) ?>" 
                         class="button button-md button-dark">
                             <i class="fa fa-edit"></i> 
                             editer

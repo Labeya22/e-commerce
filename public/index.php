@@ -71,6 +71,8 @@ define('ROUTES', [
     'admin.dash' => '/@admin/dashboard',
     'admin.types' => '/@admin/types',
     'admin.type-del' => '/_admin/types/delete',
+    'admin.type-create' => '/@admin/types/create',
+    'admin.type-update' => '/@admin/types/update',
 
     
 ]);
@@ -116,6 +118,8 @@ define('VIEWS', [
     'admin.dash' => 'admin/dashboard.php',
     'admin.types' => 'admin/types/index.php',
     'admin.type-del' => '/admin/types/_delete.php',
+    'admin.type-create' => '/admin/types/create.php',
+    'admin.type-update' => '/admin/types/update.php',
 
 ]);
 

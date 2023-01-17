@@ -1,28 +1,18 @@
 <?php
 
 
-$title = "editer le type";
+$title = "ajout d'un type";
 
-$id = getQueryParamsInteger('typeid');
-if (is_null($id) || empty($id)) {
-    throw new Exception("ce type n'existe pas");
-} 
-
-$type = getTypes($id);
-if (empty($type)) {
-    throw new Exception("ce type n'existe pas");
-}
-
-$errors = getErrorsType($_POST, $id);
+$errors = getErrorsType($_POST);
 
 if (empty($errors) && !empty($_POST)) {
     $redirect = generate('admin.types');
-    $value = $_POST['type'];
-    $update = updateType([$value, $id]);
-    if ($update) {
-        setFlash('success', "le type $value a été mis à jour.", $redirect);
+    $type = $_POST['type'];
+    $create = createType($type);
+    if ($create) {
+        setFlash('success', "le type $type a été ajouté.", $redirect);
     } else {
-        setFlash('danger', "nous n'avons pas pu mettre à jour le type {$value} à jour.", $redirect);
+        setFlash('danger', "le type $type n'a  pas pu être ajouté.", $redirect);
     }
 
     redirect($redirect);
@@ -35,7 +25,7 @@ if (empty($errors) && !empty($_POST)) {
     <div class="container">
         <div class="section">
             <div class="section-title">
-                <h2>Editer le type #<?= $id ?></h2>
+                <h2>Ajout d'un type</h2>
             </div>
             <div class="w-60">
                 <form action="" class="form" method="POST">
@@ -45,9 +35,9 @@ if (empty($errors) && !empty($_POST)) {
                         'type' => 'text',
                         'class' => 'input-form',
                         'placeholder' => "type de vehicule"
-                    ], $_POST, $errors, $type['type']) ?>
+                    ], $_POST, $errors) ?>
                     </div>
-                    <button class="button button-primary"><i class="fa fa-edit"></i> Editer</button>
+                    <button class="button button-primary"><i class="fa fa-add"></i> Ajouter</button>
                </form>
             </div>
         </div>
