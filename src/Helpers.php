@@ -310,3 +310,20 @@ function exercept(string $string, int $limit = 50): string {
     if (strlen($string) <= $limit) return $string;
     return substr($string, 0, $limit) . '...';
 }
+
+function resultats(array $data, array $options, ?string $search = null, ?int $resultat = null) {
+    if (empty($search) || is_null($resultat)) return null;
+
+    $h2 = $resultat <= 1 ? "Résultat trouvé" : "Résultats trouvés ";
+    if (empty($data)) {
+        $message = "<h2 class=\"empty\">Aucun résultat trouvé pour \"{$search}\"</h2>";
+    } else {
+        $message = "<h2>$resultat $h2 pour \"{$search}\"</h2>";
+    }
+
+    list($label, $url) = $options;
+    return "<div class=\"resultats\">
+            $message
+            <a href=\"$url\">$label</a>
+        </div>";
+}

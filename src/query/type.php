@@ -10,20 +10,26 @@ function listingTypes(PDO $pdo): array {
     return $req->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function NTypes(PDO $pdo) {
-    $req = $pdo->query("SELECT COUNT('type_id') FROM types");
+function NTypes(PDO $pdo, $search = null) {
+    $like = is_null($search) ? '' : "WHERE type LIKE '%$search%' ";
+    $req = $pdo->query("SELECT COUNT('type_id')FROM types $like");
     return $req->fetch(PDO::FETCH_NUM)[0] ?? 0;
 }
 
 function getTypePagine(int $limit = 12, int $page = 1, ?string $search = null) : array {
     $pdo = DATABASE;
-    $count = NTypes($pdo);
+    $count = NTypes($pdo, $search);
     $pages = ceil($count / $limit);
     $page = $page >= $pages ? $pages : $page;
     $offsetValue = ceil($limit * ($page - 1));
     $offset = $offsetValue < 0 ? 0 : $offsetValue;
 
-    $query = "SELECT * FROM types LIMIT $limit OFFSET $offset";
+    if (is_null($search)) {
+        $query = "SELECT * FROM types LIMIT $limit OFFSET $offset";
+    } else  {
+        $query = "SELECT * FROM types WHERE type LIKE '%$search%' LIMIT $limit OFFSET $offset";
+    }
+    
     $req = $pdo->query($query);
     $pagines = $req->fetchAll();
 
@@ -85,4 +91,13 @@ function updateType(array $data) {
     $pdo = DATABASE;
     $req = $pdo->prepare("UPDATE types SET type = ?, create_at = NOW() WHERE type_id = ?");
     return $req->execute($data);
+}
+
+function getNResultatSearch($search): ?int {
+    if (empty($search) || is_null($search)) return null;
+    $pdo = DATABASE;
+    $query = "SELECT COUNT(type_id) FROM types WHERE type LIKE '%$search%'";
+    $req = $pdo->query($query);
+    $resultat = $req->fetch(PDO::FETCH_NUM)[0] ?? 0;
+    return $resultat;
 }

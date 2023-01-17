@@ -486,19 +486,23 @@ a.button {
 }
 
 .form .group-form .input-form {
-    background-color: var(--white);
+    background-color: var(--background);
     padding: 8px 10px;
     font-size: 15px;
     margin-bottom: 8px;
     display: block;
-    border-radius: 5px;
-    box-shadow: 0 0 1px 1px rgba(var(--shadow-dark), 0.10);
+    border-radius: 3px;
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.04);
+    border: 1px solid var(--border);
     width: 100%;
     transition: 0.6s;
+    min-height: 44px;
+    font-weight: 400;
 }
 
 .form .group-form .input-form:focus {
     box-shadow: var(--shadow-input);
+    border: 1px solid var(--border-primary) ;
 }
 
 .form .group-form .input-form:disabled {
@@ -1626,9 +1630,49 @@ a.button {
     width: 80% !important;
 }
 
-  .w-60 {
+.w-60 {
     width: 60% !important;
-  }
+}
+
+.w-40 {
+    width: 40% !important;
+}
+
+
+@media screen and (max-width: 900px) {
+    .w-80 {
+        width: 100%;
+    }
+
+    .w-60 {
+        width: 80%;
+    }
+
+    .w-40 {
+        width: 60%;
+    }
+}
+
+@media screen and (max-width: 700px) {
+
+    .w-60 {
+        width: 100%;
+    }
+
+    .w-40 {
+        width: 80%;
+    }
+}
+
+
+@media screen and (max-width: 600px) {
+
+    .w-40 {
+        width: 100%;
+    }
+}
+
+
 
   .border-none {
     border: none !important;
@@ -1930,5 +1974,31 @@ a.button {
         display: flex;
         align-items: center;
         padding: 10px;
+    }
+}
+
+.resultats {
+    margin-bottom: 25px;
+}
+
+.resultats h2 {
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #6e75a5;
+}
+
+.resultats h2.empty {
+    color: var(--red);
+}
+
+.resultats h2 a {
+    display: block;
+    font-size: 14px;
+}
+
+@media screen and (max-width: 800px) {
+    .resultats h2 {
+        font-size: 25px;
     }
 }

@@ -3,8 +3,13 @@
 $title = "types";
 
 
+
+$q = getQueryParamsString('q');
+
+$search = getNResultatSearch($q);
+
 $page = getQueryParamsInteger('page') ?? 1;
-$types = getTypePagine(12, $page);
+$types = getTypePagine(12, $page, $q);
 
 ?>
 
@@ -16,6 +21,21 @@ $types = getTypePagine(12, $page);
         <div class="section-title">
             <h2>Types de voitures</h2>
         </div>
+ 
+        <form class="form w-60 mb-4" action="" method="get">
+            <div class="group-form">
+                <?= inputField('q', [
+                    'class' => 'input-form',
+                    'placeholder' => "rechercher le type du vehicule",
+                    'type' => 'text'
+                ], $_GET) ?>
+                <button class="button button-md button-primary"><i class="fa fa-search"></i> recherche</button>
+            </div>
+        </form>
+        <?= resultats($types['data'], [
+            "afficher tous les types",
+            generate('admin.types')
+        ], $q, $search) ?>
         <table class="table" id="table-responsive">
             <thead>
                 <tr>
