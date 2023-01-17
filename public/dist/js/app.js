@@ -1,8 +1,9 @@
 import { 
     showElement,
     scrollY,
-    leaveEnter} from "./modules/dom.js";
-import { fetchJson, fetchPostJson, fetchText, fetchTextPost } from "./modules/apifetch.js"
+    leaveEnter,
+    table} from "./modules/dom.js";
+import { fetchJson, fetchText } from "./modules/apifetch.js"
 import { createToast } from "./modules/toast.js";
 
 /**
@@ -91,3 +92,5 @@ if (notifications) {
         }
     })
 }
+
+table('#table-responsive')

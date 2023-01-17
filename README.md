@@ -62,16 +62,17 @@ vente de vehicule en ligne
 - [ok] système de popnew (cas on a un message non lu ou un vehicule  ajouté)
 - [ok] nous contacter
 - [] admins
-    - [] marques
-        - [] ajouter une marque de voiture
-        - [] editer une marque de voiture
-        - [] supprimer une marque de voiture
-        - [] lister tous les marques
     - [] types
+        - [ok] lister tous les types
+        - [ok] supprimer un type de voiture [ajax]
         - [] ajouter un type de voiture
         - [] editer un type de voiture
-        - [] supprimer un type de voiture
-        - [] lister tous les types
+        - [] recherche un type ou plusieurs
+    - [] marques
+        - [] supprimer une marque de voiture
+        - [] lister tous les marques
+        - [] ajouter une marque de voiture
+        - [] editer une marque de voiture
 
 ## Technologie utilisée
 

@@ -1,17 +1,5 @@
-import { screenPrint } from "./modules/dom.js"
+import { screenPrint, table } from "./modules/dom.js"
 
-const table = document.querySelector("#table-responsive")
-if (table) {
-    const th = Array.from(table.querySelectorAll('th')).map((t) => {
-        return t.innerText
-    })
-
-    table.querySelectorAll('th').forEach(t => {
-        th.push(t.innerText)
-    })
-    table.querySelectorAll("tbody td").forEach((td, index) => {
-        td.setAttribute('data-label', th[index % th.length])
-    })
-}
+table("#table-responsive")
 
 screenPrint('#print')

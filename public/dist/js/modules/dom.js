@@ -104,3 +104,23 @@ export function screenPrint(id) {
         })
     }
 }
+
+/**
+ * 
+ * @param {string} id 
+ */
+export function table(id) {
+    const table = document.querySelector(id)
+    if (table) {
+        const th = Array.from(table.querySelectorAll('th')).map((t) => {
+            return t.innerText
+        })
+
+        table.querySelectorAll('th').forEach(t => {
+            th.push(t.innerText)
+        })
+        table.querySelectorAll("tbody td").forEach((td, index) => {
+            td.setAttribute('data-label', th[index % th.length])
+        })
+    }
+}

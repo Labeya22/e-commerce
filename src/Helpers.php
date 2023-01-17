@@ -105,10 +105,11 @@ function layout(string $route): string {
         $layout = "user.php";
     } elseif (strpos($route, '/@facture/') !== false) {
         $layout = "facture.php";
+    } elseif (strpos($route, '/@admin/') !== false) {
+        $layout = "admin.php";
     } else {
         $layout = "layout.php";
     }
-
 
     return $layout;
 }

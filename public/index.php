@@ -7,6 +7,8 @@ define("UPLOADED_PATH", dirname(dirname($_SERVER['SCRIPT_NAME']))  . "uploaded")
 define("VIEW_PATH", dirname(__DIR__) . DIRECTORY_SEPARATOR . "views");
 define("LAYOUT_PATH", dirname(__DIR__) . DIRECTORY_SEPARATOR . "templates");
 
+define('SESSION_ADMIN', 'admin__');
+
 define('SESSION_USER', 'user__');
 define('SESSION_FORGOT', 'forgot__');
 define('SESSION_FLASH', 'flash');
@@ -21,7 +23,6 @@ define('NOTIFICATION', [
  */
 define('DATABASE', getPDO());
 
-// define('SESSION_ADMIn', 'admin__');
 
 function dist($source) {
     return sprintf("%s/%s", SOURCES, $source);
@@ -67,7 +68,11 @@ define('ROUTES', [
     'notif.navbell' => '/_notification/refresh/navbell',
     'notif.optionbell' => '/_notification/refresh/optionbell',
     'trans.home' => '/transactions',
+    'admin.dash' => '/@admin/dashboard',
+    'admin.types' => '/@admin/types',
+    'admin.type-del' => '/_admin/types/delete',
 
+    
 ]);
 
 
@@ -108,6 +113,10 @@ define('VIEWS', [
     'notif.navbell' => 'notifications/navbell.php',
     'notif.optionbell' => 'notifications/optionbell.php',
     'trans.home' => 'transactions/home.php',
+    'admin.dash' => 'admin/dashboard.php',
+    'admin.types' => 'admin/types/index.php',
+    'admin.type-del' => '/admin/types/_delete.php',
+
 ]);
 
 
