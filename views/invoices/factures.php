@@ -15,7 +15,7 @@ $factures = getFacturesPaginer($userid, $page);
     <div class="section">
         <div class="container">
             <div class="section-title">
-                <h2>Tous les factures</h2>
+                <h2>Toutes les factures</h2>
             </div>
             <div class="invoices">
                 <?php require inc('invoices/_facture.php') ?>

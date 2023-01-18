@@ -186,7 +186,7 @@ function star(int $star) {
     $li = "";
     for ($index = 1; $index <= 5; $index++) {
         $li .=  $index <= $star 
-        ? "<li class=\"is\"><i class=\"fa fa-star\"></i></li>"
+        ? "<li class=\"star\"><i class=\"fa fa-star\"></i></li>"
         : "<li><i class=\"fa fa-star\"></i></li>";
     }
     return "<div class=\"stars\"><ul> $li </ul></div>";
@@ -236,3 +236,6 @@ function bell($user, $toajax = false): ?string
     </div>
     ";
 }
+
+
+?>

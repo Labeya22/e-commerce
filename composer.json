@@ -29,6 +29,7 @@
             "src/validator/contactValidator.php",
             "src/validator/typeValidator.php",
             "src/validator/marqueValidator.php",
+            "src/validator/vehiculeValidator.php",
             "src/form.php"
         ]
     },

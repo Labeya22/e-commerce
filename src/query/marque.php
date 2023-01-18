@@ -89,9 +89,10 @@ function hasMarque(string $field, string $value, ?string $update = null): bool {
  * @return bool
  */
 function createMarque(string $marque): bool {
+    $id = generateToken(60);
     $pdo = DATABASE;
-    $req = $pdo->prepare("INSERT INTO marques SET marque = ?, create_at = NOW()");
-    return $req->execute([$marque]);
+    $req = $pdo->prepare("INSERT INTO marques SET marque_id = ?, marque = ?, create_at = NOW()");
+    return $req->execute([$id, $marque]);
 }
 
 /**

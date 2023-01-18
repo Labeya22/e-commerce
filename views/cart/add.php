@@ -12,7 +12,7 @@ if (is_null($vehiculeid) || empty($vehiculeid)) {
     throw new Exception("nous n'avons pas pu trouver le vehicule #$vehiculeid");
 }
 
-$vehicule = getVehicule($pdo, 'vehicule_id', $vehiculeid);
+$vehicule = getVehicule('vehicule_id', $vehiculeid);
 
 if (empty($vehicule)) {
     throw new Exception("nous n'avons pas pu trouver le vehicule #$vehiculeid");

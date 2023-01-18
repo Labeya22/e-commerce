@@ -8,16 +8,16 @@
 
     --white: #fff;
     --primary: #696cff;
-    --border-primary: #3c3ff5e8;
+    --border-primary: #d6eaf8  ;
     --light: #f1f2f9;
     --dark: #495057;
     --primary-hover: #696cffc2;
     --black: #000;
-    --color: #1A3760;
+    --color: #34495e ;
     --color-light: #121c4299;
     --border: #d5e3ec;
     --border-light: #e6eff4;
-    --background: #f7fafb;
+    --background: #fbfcfc ;
     --shadow: #d8e1e8;
     --e: rgb(105, 108, 255);
 
@@ -57,7 +57,7 @@
 
 
     --font: 'Poppins', sans-serif;
-    --font-input: 'Inter', 'Roboto', sans-serif;
+    --font-input: 'Roboto', sans-serif;
 }
 
 *,
@@ -476,6 +476,19 @@ a.button {
     margin-bottom: 5px;
 }
 
+.form .group-form-flex {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.form .group-form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 16px;
+}
+
 .form .group-form {
     margin-bottom: 16px;
 }
@@ -488,7 +501,7 @@ a.button {
 .form .group-form .input-form {
     background-color: var(--background);
     padding: 8px 10px;
-    font-size: 15px;
+    font-size: 16px;
     margin-bottom: 8px;
     display: block;
     border-radius: 3px;
@@ -496,7 +509,22 @@ a.button {
     border: 1px solid var(--border);
     width: 100%;
     transition: 0.6s;
-    min-height: 44px;
+    min-height: 48px;
+    font-weight: 400;
+}
+
+.form .group-form .file-upload {
+    padding: 16px;
+    background-color: var(--background);
+    font-size: 15px;
+    margin-bottom: 8px;
+    display: block;
+    border-radius: 3px;
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.04);
+    border: 2px dashed var(--border);
+    width: 100%;
+    transition: 0.6s;
+    min-height: 80px;
     font-weight: 400;
 }
 
@@ -2001,4 +2029,23 @@ a.button {
     .resultats h2 {
         font-size: 25px;
     }
+}
+
+
+
+.progress-area {
+    display: block;
+    width: 100%;
+    background-color: var(--light);
+    height: 5px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+}
+
+.progress-area .progress-bar {
+    display: block;
+    background-color: var(--primary-hover);
+    height: 5px;
+    border-radius: 20px;
+    transition: 0.5s width ease;
 }

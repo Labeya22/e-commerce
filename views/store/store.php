@@ -1,10 +1,10 @@
 <?php
 $title = "stores";
-$pdo = getPDO();
 
 $types = listingTypes($pdo);
 $marques = listingMarques($pdo);
-$vehicules = VehiculesPaginer($pdo, 12, getQueryParamsInteger('page'));
+$page = getQueryParamsInteger('page') ?? 1;
+$vehicules = getVehiculesPaginer($page);
 ?>
 
     <!-- store -->

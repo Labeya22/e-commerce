@@ -1,6 +1,8 @@
 <?php
 $admin = getSession(SESSION_ADMIN);
 
+
+expirateSaveMemoryData();
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -31,7 +33,7 @@ $admin = getSession(SESSION_ADMIN);
                     <?=  li('Tableau de bord', generate('admin.dash')) ?>
                     <?=  li('Types', generate('admin.types')) ?>
                     <?=  li('Marques', generate('admin.marques')) ?>
-                    <?=  li('Vehicules', generate('facture.all')) ?>
+                    <?=  li('Vehicules', generate('admin.vehicules')) ?>
                 </ul>
                 <span class="fa fa-xmark close-nav-menu" id="close-nav"></span>
             </div>
@@ -65,6 +67,7 @@ $admin = getSession(SESSION_ADMIN);
 
     <!-- preloader -->
     <div id="preloader"></div>
+
 
 </body>
 </html>

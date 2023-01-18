@@ -51,12 +51,7 @@ function inputField(
     ?string $updateValue = null): string {
     $string = arrayToString($attributes);
     $value = getData($key, $data, $updateValue);
-
-    if (empty($errors)) {
-        return "<input name=\"$key\" id=\"$key\" value=\"$value\" {$string}>";
-    }
-
-    $error = $errors[$key] ?? '';
+    $error = $errors[$key] ?? '.';
     return "
     <input name=\"$key\" id=\"$key\" value=\"$value\" {$string}>
     <div class=\"error-field\">
@@ -86,34 +81,28 @@ function checkbox(string $key, string $checked,  array $data): string {
  *
  * @param string $key
  * @param array $options
+ * @param array $errors
  * @return string
  */
-function select(string $key, array $options): string {
-    [
-        'database' => $database,
-        'class' => $class,
-        'value' => $optionValue,
-        'view' => $optionView,
-        'data' => $data,
-        'label' => $label
-    ] = $options;
-    
+function select(string $key, array $options, $errors = []): string {    
     $generateOptions = "";
-
-    foreach ($database as $option) {
-        $v = $option[$optionValue];
-        $selected = getData($key, $data) === $v ? 'selected' : '';
+    foreach ($options['database'] as $option) {
+        $v = $option[$options['value']];
+        $selected = getData($key, $options['data']) == $v ? 'selected' : '';
         $generateOptions .= "<option 
             value=\"{$v}\" $selected>
-        {$option[$optionView]}</option>";
+        {$option[$options['view']]}</option>";
     }
+    $error = $errors[$key]  ?? '.';
+    $label = !is_null($options['label']) ? "
+    <option value=\"\">{$options['label']}</option>
+    ":  '';
 
-    return "
-    <select class=\"{$class}\" name=\"{$key}\" id=\"$key\">
-    <option value=\"\">$label</option>
-    {$generateOptions}
+    return " <select class=\"{$options['class']}\" name=\"{$key}\" id=\"$key\">
+        $label
+        {$generateOptions}
     </select>
-    ";
+    <div class=\"error-field\"> {$error}</div>";
 } 
 
 
@@ -132,6 +121,27 @@ function textarea(
     return "
     <textarea name=\"$key\" id=\"$key\" class=\"input-form\">$value</textarea>
     <div class=\"error-field\"> 
+        {$error}
+    </div>
+    ";
+}
+
+
+
+function inputFile(
+    $key, 
+    array $attributes,
+    array $errors = []): string {
+    $string = arrayToString($attributes);
+
+    if (empty($errors)) {
+        return "<input name=\"$key\" id=\"$key\" {$string}>";
+    }
+
+    $error = $errors[$key] ?? '';
+    return "
+    <input name=\"$key\" id=\"$key\" {$string}>;
+    <div class=\"error-field\">
         {$error}
     </div>
     ";

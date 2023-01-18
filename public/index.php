@@ -4,12 +4,14 @@ require dirname(__DIR__) . "/vendor/autoload.php";
 
 define("SOURCES", dirname($_SERVER['SCRIPT_NAME']) . DIRECTORY_SEPARATOR . "dist");
 define("UPLOADED_PATH", dirname(dirname($_SERVER['SCRIPT_NAME']))  . "uploaded");
+define("UPLOADER_PATH", dirname(__DIR__)  . DIRECTORY_SEPARATOR . "uploader" );
 define("VIEW_PATH", dirname(__DIR__) . DIRECTORY_SEPARATOR . "views");
 define("LAYOUT_PATH", dirname(__DIR__) . DIRECTORY_SEPARATOR . "templates");
 
 define('SESSION_ADMIN', 'admin__');
 
 define('SESSION_USER', 'user__');
+define('SESSION_SAVE_MEMORY', 'saveMemory__');
 define('SESSION_FORGOT', 'forgot__');
 define('SESSION_FLASH', 'flash');
 define('COOKIE_USER', 'cookie_user__');
@@ -77,6 +79,12 @@ define('ROUTES', [
     'admin.marque-del' => '/_admin/marques/delete',
     'admin.marque-create' => '/@admin/marques/create',
     'admin.marque-update' => '/@admin/marques/update',
+    'admin.vehicules' => '/@admin/vehicules',
+    'admin.vehicule-del' => '/_admin/vehicule/delete',
+    'admin.vehicule-create' => '/@admin/vehicule/create',
+    'admin.vehicule-upload' => '/@admin/vehicule/uploader/image',
+    'admin.vehicule-uploaded' => '/_admin/vehicule/uploader/image',
+
     
 ]);
 
@@ -127,6 +135,11 @@ define('VIEWS', [
     'admin.marque-del' => 'admin/marques/_delete.php',
     'admin.marque-create' => 'admin/marques/create.php',
     'admin.marque-update' => 'admin/marques/update.php',
+    'admin.vehicules' => 'admin/vehicules/index.php',
+    'admin.vehicule-del' => 'admin/vehicules/_delete.php',
+    'admin.vehicule-create' => 'admin/vehicules/create.php',
+    'admin.vehicule-upload' => 'admin/vehicules/upload.php',
+    'admin.vehicule-uploaded' => 'admin/vehicules/_upload.php',
 
 ]);
 

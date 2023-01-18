@@ -82,9 +82,10 @@ function hasType(string $field, string $value, ?string $update = null): bool {
 }
 
 function createType($type) {
+    $id = generateToken(60);
     $pdo = DATABASE;
-    $req = $pdo->prepare("INSERT INTO types SET type = ?, create_at = NOW()");
-    return $req->execute([$type]);
+    $req = $pdo->prepare("INSERT INTO types SET type_id = ?, type = ?, create_at = NOW()");
+    return $req->execute([$id, $type]);
 }
 
 function updateType(array $data) {

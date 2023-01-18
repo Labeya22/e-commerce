@@ -68,12 +68,12 @@ vente de vehicule en ligne
         - [ok] ajouter un type de voiture
         - [ok] editer un type de voiture
         - [x] recherche un type ou plusieurs
-    - [] marques
+    - [ok] marques
         - [ok] lister tous les marques
         - [ok] supprimer une marque de voiture [ajax]
-        - [] ajouter un type de voiture
-        - [] editer une marque de voiture
-        - [ok] recherche un marque ou plusieurs
+        - [ok] ajouter un type de voiture
+        - [ok] editer une marque de voiture
+        - [ok] recherche une marque ou plusieurs
 
 ## Technologie utilisée
 

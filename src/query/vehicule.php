@@ -1,5 +1,6 @@
 <?php
 
+
 /**
  * Permet de lister les vehicules
  * 
@@ -96,7 +97,7 @@ function querySelectVehicule(int $limit, int $offset, $filter = '') :string {
     SELECT 
     v.vehicule_id, v.prix, v.vehicule, v.star,
     v.promo, v.image, m.marque, p.auto, p.carburant,
-    p.kilometrage
+    p.kilometrage, t.type, v.create_at
     FROM vehicules v
     INNER JOIN marques m ON m.marque_id = v.marqueid
     INNER JOIN parametres p ON p.vehiculeid = v.vehicule_id 
@@ -105,16 +106,19 @@ function querySelectVehicule(int $limit, int $offset, $filter = '') :string {
     ";
 }
 
+
 /**
  * Permet de lister les vehicules + paginer les résultat
- *
- * @param PDO $pdo
- * @param integer $limit
- * @param integer $page
+ * 
+ * @param int $page
+ * @param int $limit
+ * @param string|null $search
+ * 
  * @return array
  */
-function VehiculesPaginer(PDO $pdo, $limit = 12, $page = 1) :array {
+function getVehiculesPaginer($page = 1, $limit = 12, ?string $search = null) :array {
 
+    $pdo = DATABASE;
     $count = Nproduct($pdo);
     $pages = ceil($count / $limit);
     $page = $page >= $pages ? $pages : $page;
@@ -193,15 +197,75 @@ function voirVehicule(PDO $pdo, string $id): array {
 
 
 /**
- * @param PDO $pdo
  * @param string $key
  * @param mixed $value
  * 
  * @return array
  */
-function getVehicule(PDO $pdo, string $key, mixed $value): array {
+function getVehicule(string $key, mixed $value): array {
+    $pdo = DATABASE;
     $query = "SELECT * FROM vehicules WHERE $key = ?";
     $req = $pdo->prepare($query);
     $req->execute([$value]);
-    return $req->fetch();
+    $fetch =  $req->fetch();
+    return $fetch === false ? [] : $fetch;
+}
+
+
+function getResultatSearchVehicules() {
+    if (empty($search) || is_null($search)) return null;
+    $pdo = DATABASE;
+    $query = "SELECT COUNT(vehicule_id) FROM vehicules WHERE vehicule LIKE '%$search%'";
+    $req = $pdo->query($query);
+    $resultat = $req->fetch(PDO::FETCH_NUM)[0] ?? 0;
+    return $resultat;
+}
+
+
+/**
+ * @param string $value
+ * 
+ * @return bool
+ */
+function deleteVehicule(string $value): bool {
+    $pdo = DATABASE;
+    $exist = getVehicule($pdo, 'vehicule_id', $value);
+    if (empty($exist)) return false;
+    $req = $pdo->prepare("DELETE FROM vehicules WHERE vehicule_id = ?");
+    return $req->execute([$exist['vehicule_id']]);
+}
+
+/**
+ * @param string $field
+ * @param string $value
+ * 
+ * @return bool
+ */
+function hasVehicule(string $field, string $value, ?string $update = null): bool {
+    return !empty(getVehicule($field, $value));
+}
+
+function createVehicule($data) {
+    $pdo = DATABASE;
+    $req = $pdo->prepare("INSERT INTO vehicules 
+    SET vehicule_id = :id typeid = :typeid, marqueid = :marqueid,
+    promo = :promo, image = :image,
+    star = :star, vehicule = :vehicule, description = :desc
+    create_at = NOW()");
+    return $req->execute([
+        ':id' => generateToken(60),
+        ':vehicule' => $data['vehicule'],
+        ':typeid' => $data['typeid'],
+        ':marqueid' => $data['marque'],
+        ':star' => $data['star'],
+        ':promotion' => $data['promotion'],
+        ':image' => $data['image'],
+        ':description' => $data['desc'],
+    ]);
+}
+
+function updateVehicule(array $data) {
+    $pdo = DATABASE;
+    $req = $pdo->prepare("UPDATE types SET type = ?, create_at = NOW() WHERE type_id = ?");
+    return $req->execute($data);
 }

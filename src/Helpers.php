@@ -327,3 +327,82 @@ function resultats(array $data, array $options, ?string $search = null, ?int $re
             <a href=\"$url\">$label</a>
         </div>";
 }
+
+
+function getStar() {
+    $stars = [];
+    for ($index = 1; $index <= 5; $index++) {
+        $star = $index < 2 ? "$index étoile" : "$index étoiles";
+        $stars[] = ['index' => $index, 'star' => $star];
+    }
+
+    return $stars;
+}
+
+
+function getPromotion() {
+   return [
+        ['index' => 1, 'promo' => 'mettre en promotion'],
+        ['index' => 0, 'promo' => 'ne pas mettre en promotion'],
+   ];
+}
+
+function getCarburant() {
+    return [
+        ['index' => 'essences'],
+        ['index' => 'diesel'],
+        ['index' => 'électrique'],
+    ];
+ }
+
+ 
+function getAuto() {
+    return [
+        ['index' => 'manuel'],
+        ['index' => 'automatique'],
+    ];
+ }
+
+function saveMemoryData(string $token, array $data, $expirate = 60 * 20): void {
+    setSession(SESSION_SAVE_MEMORY, [
+        $token => [$data, time() + $expirate]
+    ]);
+}
+
+function getSaveMemoryData(string $token) {
+    $session = getSession(SESSION_SAVE_MEMORY);
+    if (!isset($session[$token]) || is_null($session)) return null;
+    return $session[$token];
+}
+
+function hasSaveMemoryData(string $token): bool {
+    return !is_null(getSaveMemoryData($token));
+}
+
+function expirateSaveMemoryData(): void {
+    $session = getSession(SESSION_SAVE_MEMORY);
+    if (!is_null($session)) {
+        list($_, $expirate) = array_values($session)[0];
+        if ($expirate < time()) deleteSession(SESSION_SAVE_MEMORY);
+    }
+}
+
+function folderFormat(array $folders) {
+    return implode(DIRECTORY_SEPARATOR, $folders);
+}
+
+function createFolder(string $marque, string $type): void {
+    $directory = UPLOADER_PATH . DIRECTORY_SEPARATOR . $marque . DIRECTORY_SEPARATOR . $type;
+    if (!file_exists($directory)) mkdir($directory, 777, true);
+}
+
+function createFile($file, $generate = 60) {
+    $extension = pathinfo($file, PATHINFO_EXTENSION);
+    $name = generateToken($generate);
+    return sprintf("%s.%s", $name, $extension);
+}
+
+function move(array $folders, $temp) {
+    $folder = folderFormat($folders);
+    return move_uploaded_file($temp, $folder);
+}

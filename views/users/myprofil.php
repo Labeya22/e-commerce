@@ -2,12 +2,7 @@
 
 checkUser(generate('user'));
 
-$title = "stores";
-$pdo = getPDO();
-
-$types = listingTypes($pdo);
-$marques = listingMarques($pdo);
-$vehicules = VehiculesPaginer($pdo, 12, getQueryParamsInteger('page'));
+$title = "mon profil";
 
 $user = getSession(SESSION_USER);
 ?>

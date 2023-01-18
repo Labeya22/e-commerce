@@ -29,11 +29,12 @@ function hasFieldUser($field, $value , $id = null) {
 
 function createUser(PDO $pdo, array $data, $code): bool
 {
-    $query = "INSERT INTO utilisateurs SET nom = :nom, prenom = :prenom ,
+    $query = "INSERT INTO utilisateurs SET utilisateur_id = :id, nom = :nom, prenom = :prenom ,
     utilisateur = :utilisateur, token = :token, code = :code,
     email = :email, password = :password,
     create_at = NOW()";
     return $pdo->prepare($query)->execute([
+        ':id' => generateToken(60),
         ':nom' => $data['nom'],
         ':prenom' => $data['prenom'],
         ':utilisateur' => $data['utilisateur'],

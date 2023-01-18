@@ -37,13 +37,14 @@ function createBanque(string $userid): bool {
     $pdo = DATABASE;
     $banque = getBanque($userid);
     if (empty($banque)) {
+        $id = generateToken(60);
         $numberAccount = generateToken(8);
         $query = "INSERT INTO banques 
-        SET utilisateurid = ?, 
+        SET banque_id = ?, utilisateurid = ?, 
         numberAccount = ?,
         update_at = NOW()";
         $req = $pdo->prepare($query);
-        return $req->execute([$userid, $numberAccount]);
+        return $req->execute([$id, $userid, $numberAccount]);
     }
     return false;
 }

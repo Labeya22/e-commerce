@@ -1,6 +1,6 @@
 <?php
-$vehicules = VehiculesPaginer($pdo, 12, getQueryParamsInteger('page'));
-
+$page = getQueryParamsInteger('page') ?? 1;
+$vehicules = getVehiculesPaginer($page);
 
 ?>
 
