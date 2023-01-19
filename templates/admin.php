@@ -3,6 +3,8 @@ $admin = getSession(SESSION_ADMIN);
 
 
 expirateSaveMemoryData();
+
+createAdmin();
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -34,6 +36,7 @@ expirateSaveMemoryData();
                     <?=  li('Types', generate('admin.types')) ?>
                     <?=  li('Marques', generate('admin.marques')) ?>
                     <?=  li('Vehicules', generate('admin.vehicules')) ?>
+                    <?=  li('Utilisateurs', generate('admin.users')) ?>
                 </ul>
                 <span class="fa fa-xmark close-nav-menu" id="close-nav"></span>
             </div>

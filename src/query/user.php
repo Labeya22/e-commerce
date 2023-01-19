@@ -27,6 +27,38 @@ function hasFieldUser($field, $value , $id = null) {
 }
 
 
+function NUsers(PDO $pdo, $search = null) {
+    $like = is_null($search) ? '' : "AND utilisateur LIKE '%$search%' ";
+    $req = $pdo->query("SELECT COUNT('utilisateur_id') FROM utilisateurs WHERE role != 'admin' $like");
+    return $req->fetch(PDO::FETCH_NUM)[0] ?? 0;
+}
+
+function getUsersPagine(int $limit = 12, int $page = 1, ?string $search = null) : array {
+    $pdo = DATABASE;
+    $count = NUsers($pdo, $search);
+    $pages = ceil($count / $limit);
+    $page = $page >= $pages ? $pages : $page;
+    $offsetValue = ceil($limit * ($page - 1));
+    $offset = $offsetValue < 0 ? 0 : $offsetValue;
+
+    if (is_null($search)) {
+        $query = "SELECT * FROM utilisateurs WHERE role != 'admin' LIMIT $limit OFFSET $offset";
+    } else  {
+        $query = "SELECT * FROM utilisateurs WHERE (utilisateur LIKE '%$search%' OR nom LIKE '%$search%' OR
+        prenom LIKE '%$search%' OR email LIKE '%$search%') AND role != 'admin' LIMIT $limit OFFSET $offset";
+    }
+    
+    $req = $pdo->query($query);
+    $pagines = $req->fetchAll();
+
+    return [
+        'data' => $pagines,
+        'options' => [
+            'pages' => $pages,
+            'page' => $page
+        ]
+    ];
+}
 function createUser(PDO $pdo, array $data, $code): bool
 {
     $query = "INSERT INTO utilisateurs SET utilisateur_id = :id, nom = :nom, prenom = :prenom ,
@@ -45,7 +77,8 @@ function createUser(PDO $pdo, array $data, $code): bool
     ]);
 }
 
-function getUser($pdo, $key, $value) {
+function getUser(string $key, string $value) {
+    $pdo = DATABASE;
     $query = "SELECT * FROM utilisateurs WHERE $key = ?";
     $req = $pdo->prepare($query);
     $req->execute([$value]);
@@ -95,8 +128,9 @@ function changePasswordUser(PDO $pdo, array $data, string $id) {
 }
 
 
-function deleteUser(PDO $pdo, $id) {
-    $user = getUser($pdo, 'utilisateur_id', $id);
+function deleteUser($id) {
+   $pdo = DATABASE;
+    $user = getUser('utilisateur_id', $id);
     if (!empty($user)) {
         $query = "DELETE FROM utilisateurs WHERE utilisateur_id = ?";
         return $pdo->prepare($query)->execute([$user['utilisateur_id']]);
@@ -108,7 +142,8 @@ function deleteUser(PDO $pdo, $id) {
 
 
 function userYourMail(PDO $pdo, $email) {
-    $user = getUser($pdo, 'email', $email);
+    $pdo = DATABASE;
+    $user = getUser('email', $email);
 
     if (!empty($user)) {
         $code = generateToken(8);
@@ -137,4 +172,33 @@ function userCodeResetOk (PDO $pdo, $id, $token) {
 
 function expirate($pdo) {
 
+}
+
+function getNResultatSearchUsers($search): ?int {
+    if (empty($search) || is_null($search)) return null;
+    $pdo = DATABASE;
+    $query = "SELECT COUNT(utilisateur_id) FROM utilisateurs 
+    WHERE (utilisateur LIKE '%$search%' OR nom LIKE '%$search%' OR
+    prenom LIKE '%$search%' OR email LIKE '%$search%') AND role != 'admin'";
+    $req = $pdo->query($query);
+    $resultat = $req->fetch(PDO::FETCH_NUM)[0] ?? 0;
+    return $resultat;
+}
+
+function createAdmin() {
+    $adminExist = getUser('role', 'admin');
+    if (empty($adminExist)) {
+        $pdo = DATABASE;
+        $query = "INSERT INTO utilisateurs SET utilisateur_id = :id, nom = :nom, prenom = :prenom,
+        utilisateur = :utilisateur, isconfirm = 1, email = :email, password = :password, role = 'admin',
+        create_at = NOW()";
+        return $pdo->prepare($query)->execute([
+            ':id' => generateToken(60),
+            ':nom' => 'admin-nom',
+            ':prenom' => 'admin-prenom',
+            ':utilisateur' => "admin_username",
+            ':email' => "admin@admin.com",
+            ':password' => hashPass("admin_username"),
+        ]);
+    }
 }

@@ -33,6 +33,10 @@ $user = getSession(SESSION_USER);
                     <?=  li('Stores', generate('store')) ?>
                     <?=  li('Factures', generate('facture.all')) ?>
                     <?=  li('Contact', generate('contact')) ?>
+
+                    <?php if ($user['role'] === 'admin'): ?>
+                    <?=  li('Admin', generate('admin.dash')) ?>
+                    <?php endif ?>
                 </ul>
                 <span class="fa fa-xmark close-nav-menu" id="close-nav"></span>
             </div>

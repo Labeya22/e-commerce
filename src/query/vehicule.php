@@ -269,8 +269,10 @@ function getEyeVehicule(string $id): array {
  */
 function getVehicule(string $key, mixed $value): array {
     $pdo = DATABASE;
-    $query = "SELECT v.*, m.marque, t.type FROM vehicules v 
+    $query = "SELECT v.*, 
+    m.marque, t.type, p.* FROM vehicules v 
     INNER JOIN marques m ON m.marque_id = v.marqueid
+    INNER JOIN parametres p ON p.vehiculeid = v.vehicule_id 
     INNER JOIN types t ON t.type_id = v.typeid
     WHERE v.$key = ?";
     $req = $pdo->prepare($query);

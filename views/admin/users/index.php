@@ -1,18 +1,15 @@
 <?php
 
-$title = 'vehicules';
-
-
+$title = "utilisateurs";
 
 $q = getQueryParamsString('q');
 
-$search = getResultatSearchVehicules($q);
+$search = getNResultatSearchUsers($q);
 
 $page = getQueryParamsInteger('page') ?? 1;
-$vehicules = getVehiculePaginer($page, 12, $q);
+$users = getUsersPagine(12, $page, $q);
 
 ?>
-
 
 
 <!-- contact -->
@@ -20,34 +17,35 @@ $vehicules = getVehiculePaginer($page, 12, $q);
     <?= flash() ?>
     <div class="section">
         <div class="section-title">
-            <h2>Vehicules</h2>
+            <h2>Utilisateurs</h2>
         </div>
  
         <form class="form w-60 mb-4" action="" method="get">
             <div class="group-form">
                 <?= inputField('q', [
                     'class' => 'input-form',
-                    'placeholder' => "rechercher le type du vehicule",
+                    'placeholder' => "rechercher un utilisateur",
                     'type' => 'text'
                 ], $_GET) ?>
                 <button class="button button-md button-primary"><i class="fa fa-search"></i> recherche</button>
             </div>
         </form>
-        <?= resultats($vehicules['data'], [
-            "afficher tous les vehicules",
-            generate('admin.vehicules')
+        <?= resultats($users['data'], [
+            "afficher tous les utilisateurs",
+            generate('admin.users')
         ], $q, $search) ?>
         <table class="table" id="table-responsive">
             <thead>
                 <tr>
-                    <th>voiture</th>
-                    <th>marque</th>
-                    <th>type</th>
-                    <th>prix</th>
-                    <th>ajouté le</th>
+                    <th>nom</th>
+                    <th>prénom</th>
+                    <th>nom d'utilisateur</th>
+                    <th>email</th>
+                    <th>role</th>
+                    <th>date de création</th>
                     <th>
                         <a 
-                            href="<?= generate('admin.vehicule-create') ?>" 
+                            href="<?= generate('admin.user-create') ?>" 
                             class="button button-primary button-md">
                             <i class="fa fa-add"></i> 
                             nouveau
@@ -56,29 +54,27 @@ $vehicules = getVehiculePaginer($page, 12, $q);
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($vehicules['data'] as $vehicule): ?>
-                <tr class="tr-<?= $vehicule['vehicule_id'] ?>">
-                    <td><?= $vehicule['vehicule'] ?></td>
-                    <td><?= $vehicule['marque'] ?></td>
-                    <td><?= $vehicule['type'] ?></td>
-                    <td><?= $vehicule['prix'] ?></td>
-                    <td><?= dateFormat($vehicule['create_at']) ?></td>
+                <?php foreach ($users['data'] as $user): ?>
+                <tr class="tr-<?= $user['utilisateur_id'] ?>">
+                    <td><?= $user['nom'] ?></td>
+                    <td><?= $user['prenom'] ?></td>
+                    <td><?= $user['utilisateur'] ?></td>
+                    <td><?= $user['email'] ?></td>
+                    <td><?= $user['role'] ?></td>
+                    <td><?= dateFormat($user['create_at']) ?></td>
                     <td>
                         <a
                         id="delete-product"
-                        href="<?= generate('admin.vehicule-del', ['vehiculeid' => $vehicule['vehicule_id']]) ?>" 
+                        href="<?= generate('admin.user-del', ['userid' => $user['utilisateur_id']]) ?>" 
                         class="button button-md button-danger">
                             <i class="fa fa-minus"></i> 
+                            supprimer
                         </a>
                         <a 
-                        href="<?= generate('admin.vehicule-update', ['vehiculeid' => $vehicule['vehicule_id']]) ?>" 
+                        href="<?= generate('admin.user-update', ['userid' => $user['utilisateur_id']]) ?>" 
                         class="button button-md button-dark">
                             <i class="fa fa-edit"></i> 
-                        </a>
-                        <a 
-                        href="<?= generate('admin.vehicule-eye', ['vehiculeid' => $vehicule['vehicule_id']]) ?>" 
-                        class="button button-md button-light">
-                            <i class="fa fa-eye"></i> 
+                            editer
                         </a>
                     </td>
                 </tr>
@@ -88,7 +84,7 @@ $vehicules = getVehiculePaginer($page, 12, $q);
 
 
         <div class="pagination">
-            <?=  pagination($vehicules['options']) ?>
+            <?=  pagination($users['options']) ?>
         </div>
     </div>
 </div>

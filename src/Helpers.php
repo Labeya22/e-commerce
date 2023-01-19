@@ -238,7 +238,7 @@ function checkUser(string $redirect): void {
     } else {
         $pdo = getPDO();
         $userSession = getSession(SESSION_USER);
-        $user = getUser($pdo, 'utilisateur_id', $userSession['utilisateur_id']);
+        $user = getUser('utilisateur_id', $userSession['utilisateur_id']);
         if (is_null($user) || empty($user)) {
             deleteSession(SESSION_USER);
             denied($redirect);

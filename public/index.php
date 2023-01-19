@@ -83,8 +83,10 @@ define('ROUTES', [
     'admin.vehicule-del' => '/_admin/vehicule/delete',
     'admin.vehicule-create' => '/@admin/vehicule/create',
     'admin.vehicule-eye' => '/@admin/vehicule/eye',
+    'admin.vehicule-update' => '/@admin/vehicule/update',
+    'admin.users' => '/@admin/users',
+    'admin.user-del' => '/_admin/user/delete',
 
-    
 ]);
 
 
@@ -140,7 +142,9 @@ define('VIEWS', [
     'admin.vehicule-del' => 'admin/vehicules/_delete.php',
     'admin.vehicule-create' => 'admin/vehicules/create.php',
     'admin.vehicule-eye' => 'admin/vehicules/eye.php',
-
+    'admin.vehicule-update' => 'admin/vehicules/update.php',
+    'admin.users' => 'admin/users/index.php',
+    'admin.user-del' => 'admin/users/_delete.php',
 
 ]);
 
