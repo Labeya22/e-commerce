@@ -71,12 +71,12 @@ $vehicules = getVehiculePaginer($page, 12, $q);
                             <i class="fa fa-minus"></i> 
                         </a>
                         <a 
-                        href="<?= generate('admin.type-update', ['typeid' => $type['type_id']]) ?>" 
+                        href="<?= generate('admin.vehicule-eye', ['vehiculeid' => $vehicule['vehicule_id']]) ?>" 
                         class="button button-md button-dark">
                             <i class="fa fa-edit"></i> 
                         </a>
                         <a 
-                        href="<?= generate('admin.type-update', ['typeid' => $type['type_id']]) ?>" 
+                        href="<?= generate('admin.vehicule-eye', ['vehiculeid' => $vehicule['vehicule_id']]) ?>" 
                         class="button button-md button-light">
                             <i class="fa fa-eye"></i> 
                         </a>
