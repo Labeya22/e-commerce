@@ -1,32 +1,34 @@
 <?php
 
-checkUser(generate('user'));
 
-$title = "stores";
-$pdo = getPDO();
+$title = "editer l'utilisateur";
 
 $userid = getQueryParamsString('userid');
-if (is_null($userid) || empty($userid)) {
-    throw new Exception("Une erreur erreur est survenue");
+if (empty($userid) || is_null($userid)) {
+    throw new Exception("");
 }
 
-$user = getSession(SESSION_USER);
-if ($userid != $user['utilisateur_id']) {
-    deleteSession(SESSION_USER);
-    throw new Exception("nous avons pas trouvé cet utilisateur.");
+$user = getUser('utilisateur_id', $userid);
+
+if (empty($user)) {
+    throw new Exception("");
 }
 
-$errors = getErrorUserEdit($_POST, $user['utilisateur_id']);
+$errors = getErrorUserEdit($_POST, $userid);
+
 if (empty($errors) && !empty($_POST)) {
-    if (editUser($_POST, $user['utilisateur_id'])) {
-        $userEdit = getUser('utilisateur_id', $user['utilisateur_id']);
-        setSession(SESSION_USER, $userEdit);
-        $message = "vos informations ont été mis à jour.";
-        setFlash('success', $message , generate('user.profil'));
-
-        redirect(generate('user.profil'));
+    $redirect = generate('admin.users');
+    $name = $_POST['nom'];
+    $create = editUser($_POST, $userid);
+    if ($create) {
+        setFlash('success', "information mis à jour.", $redirect);
+    } else {
+        setFlash('danger', "une erreur est survnue.", $redirect);
     }
+
+    redirect($redirect);
 }
+
 
 ?>
 
@@ -34,17 +36,15 @@ if (empty($errors) && !empty($_POST)) {
     <div class="container">
         <div class="section">
             <div class="section-title">
-                <h2>Editer son compte</h2>
+                <h2>Editer  l'utilisateur</h2>
             </div>
-
-            <div class="myprofil shadow-none mb-4">
-               <form action="" class="form" method="POST">
+            <form action="" class="form w-80" method="POST">
+                <div class="group-form-grid">
                     <div class="group-form">
                         <label for="nom">nom</label>
                         <?= inputField('nom', [
                         'type' => 'text',
                         'class' => 'input-form',
-                        'value' => 'app',
                         'placeholder' => "nom"
                     ], $_POST, $errors, $user['nom']) ?>
                     </div>
@@ -53,31 +53,30 @@ if (empty($errors) && !empty($_POST)) {
                         <?= inputField('prenom', [
                         'type' => 'text',
                         'class' => 'input-form',
-                        'value' => 'app',
                         'placeholder' => "prenom"
                     ], $_POST, $errors, $user['prenom']) ?>
                     </div>
+                </div>
+                <div class="group-form-grid">
                     <div class="group-form">
                         <label for="utilisateur">nom d'utilisateur</label>
                         <?= inputField('utilisateur', [
                         'type' => 'text',
                         'class' => 'input-form',
-                        'value' => 'app',
                         'placeholder' => "nom d'utilisateur"
                     ], $_POST, $errors, $user['utilisateur']) ?>
                     </div>
                     <div class="group-form">
                         <label for="email">Email</label>
                         <?= inputField('email', [
-                        'type' => 'email',
+                        'type' => 'text',
                         'class' => 'input-form',
-                        'value' => 'app',
-                        'placeholder' => "email"
+                        'placeholder' => "Email"
                     ], $_POST, $errors, $user['email']) ?>
                     </div>
-                    <button class="button button-primary"><i class="fa fa-user-edit"></i> editer</button>
-               </form>
-            </div>
+                </div>
+                <button class="button button-primary"><i class="fa fa-edit"></i> Editer</button>
+            </form>
         </div>
     </div>
      <!-- profil  -->

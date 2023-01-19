@@ -81,8 +81,6 @@ $users = getUsersPagine(12, $page, $q);
                 <?php endforeach ?>
             </tbody>
         </table>
-
-
         <div class="pagination">
             <?=  pagination($users['options']) ?>
         </div>

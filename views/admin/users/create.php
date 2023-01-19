@@ -1,32 +1,23 @@
 <?php
 
-checkUser(generate('user'));
 
-$title = "stores";
-$pdo = getPDO();
+$title = "ajout d'une marque";
 
-$userid = getQueryParamsString('userid');
-if (is_null($userid) || empty($userid)) {
-    throw new Exception("Une erreur erreur est survenue");
-}
+$errors = getErrorUser($_POST);
 
-$user = getSession(SESSION_USER);
-if ($userid != $user['utilisateur_id']) {
-    deleteSession(SESSION_USER);
-    throw new Exception("nous avons pas trouvé cet utilisateur.");
-}
-
-$errors = getErrorUserEdit($_POST, $user['utilisateur_id']);
 if (empty($errors) && !empty($_POST)) {
-    if (editUser($_POST, $user['utilisateur_id'])) {
-        $userEdit = getUser('utilisateur_id', $user['utilisateur_id']);
-        setSession(SESSION_USER, $userEdit);
-        $message = "vos informations ont été mis à jour.";
-        setFlash('success', $message , generate('user.profil'));
-
-        redirect(generate('user.profil'));
+    $redirect = generate('admin.users');
+    $name = $_POST['marque'];
+    $create = createUserOk($_POST);
+    if ($create) {
+        setFlash('success', "l'utilisateur $name a été ajouté.", $redirect);
+    } else {
+        setFlash('danger', "l'utilisateur $name n'a  pas pu être ajouté.", $redirect);
     }
+
+    redirect($redirect);
 }
+
 
 ?>
 
@@ -34,50 +25,55 @@ if (empty($errors) && !empty($_POST)) {
     <div class="container">
         <div class="section">
             <div class="section-title">
-                <h2>Editer son compte</h2>
+                <h2>ajouter un utilisateur</h2>
             </div>
-
-            <div class="myprofil shadow-none mb-4">
-               <form action="" class="form" method="POST">
+            <form action="" class="form w-80" method="POST">
+                <div class="group-form-grid">
                     <div class="group-form">
                         <label for="nom">nom</label>
                         <?= inputField('nom', [
                         'type' => 'text',
                         'class' => 'input-form',
-                        'value' => 'app',
                         'placeholder' => "nom"
-                    ], $_POST, $errors, $user['nom']) ?>
+                    ], $_POST, $errors) ?>
                     </div>
                     <div class="group-form">
                         <label for="prenom">prénom</label>
                         <?= inputField('prenom', [
                         'type' => 'text',
                         'class' => 'input-form',
-                        'value' => 'app',
                         'placeholder' => "prenom"
-                    ], $_POST, $errors, $user['prenom']) ?>
+                    ], $_POST, $errors) ?>
                     </div>
+                </div>
+                <div class="group-form-grid">
                     <div class="group-form">
                         <label for="utilisateur">nom d'utilisateur</label>
                         <?= inputField('utilisateur', [
                         'type' => 'text',
                         'class' => 'input-form',
-                        'value' => 'app',
                         'placeholder' => "nom d'utilisateur"
-                    ], $_POST, $errors, $user['utilisateur']) ?>
+                    ], $_POST, $errors) ?>
                     </div>
                     <div class="group-form">
                         <label for="email">Email</label>
                         <?= inputField('email', [
-                        'type' => 'email',
+                        'type' => 'text',
                         'class' => 'input-form',
-                        'value' => 'app',
-                        'placeholder' => "email"
-                    ], $_POST, $errors, $user['email']) ?>
+                        'placeholder' => "Email"
+                    ], $_POST, $errors) ?>
                     </div>
-                    <button class="button button-primary"><i class="fa fa-user-edit"></i> editer</button>
-               </form>
-            </div>
+                </div>
+                <div class="group-form">
+                    <label for="password">Mot de passe</label>
+                    <?= inputField('password', [
+                    'type' => 'text',
+                    'class' => 'input-form',
+                    'placeholder' => "mot de passe"
+                ], $_POST, $errors) ?>
+                </div>
+                <button class="button button-primary"><i class="fa fa-add"></i> ajouté</button>
+            </form>
         </div>
     </div>
      <!-- profil  -->

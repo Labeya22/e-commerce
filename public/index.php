@@ -86,6 +86,8 @@ define('ROUTES', [
     'admin.vehicule-update' => '/@admin/vehicule/update',
     'admin.users' => '/@admin/users',
     'admin.user-del' => '/_admin/user/delete',
+    'admin.user-create' => '/@admin/user/create',
+    'admin.user-update' => '/@admin/user/update',
 
 ]);
 
@@ -145,6 +147,8 @@ define('VIEWS', [
     'admin.vehicule-update' => 'admin/vehicules/update.php',
     'admin.users' => 'admin/users/index.php',
     'admin.user-del' => 'admin/users/_delete.php',
+    'admin.user-create' => 'admin/users/create.php',
+    'admin.user-update' => 'admin/users/update.php',
 
 ]);
 

@@ -59,6 +59,21 @@ function getUsersPagine(int $limit = 12, int $page = 1, ?string $search = null) 
         ]
     ];
 }
+
+function createUserOk(array $data) {
+    $pdo = DATABASE;
+    $query = "INSERT INTO utilisateurs SET utilisateur_id = :id, nom = :n, prenom = :p,
+    utilisateur = :u ,email = :e, password = :pa , isconfirm = 1, create_at = NOW()";
+    return $pdo->prepare($query)->execute([
+        ':id' => generateToken(60),
+        ':n' => $data['nom'],
+        ':p' => $data['prenom'],
+        ':u' => $data['utilisateur'],
+        ':e' => $data['email'],
+        ':pa' => hashPass($data['password']),
+    ]);
+}
+
 function createUser(PDO $pdo, array $data, $code): bool
 {
     $query = "INSERT INTO utilisateurs SET utilisateur_id = :id, nom = :nom, prenom = :prenom ,
@@ -106,7 +121,8 @@ function confirmUser($pdo, $id) {
     return $pdo->prepare($query)->execute([$id]);
 }
 
-function editUser(PDO $pdo, array $data, string $id) {
+function editUser(array $data, string $id) {
+    $pdo = DATABASE;
     $query = "UPDATE utilisateurs SET nom = :nom, prenom = :prenom , email = :email,
     utilisateur = :utilisateur, update_at = NOW() WHERE utilisateur_id = :id";
     return $pdo->prepare($query)->execute([
