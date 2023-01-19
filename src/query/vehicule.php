@@ -269,7 +269,10 @@ function getEyeVehicule(string $id): array {
  */
 function getVehicule(string $key, mixed $value): array {
     $pdo = DATABASE;
-    $query = "SELECT * FROM vehicules WHERE $key = ?";
+    $query = "SELECT v.*, m.marque, t.type FROM vehicules v 
+    INNER JOIN marques m ON m.marque_id = v.marqueid
+    INNER JOIN types t ON t.type_id = v.typeid
+    WHERE v.$key = ?";
     $req = $pdo->prepare($query);
     $req->execute([$value]);
     $fetch =  $req->fetch();
@@ -298,10 +301,8 @@ function getResultatSearchVehicules($search) {
  */
 function deleteVehicule(string $value): bool {
     $pdo = DATABASE;
-    $exist = getVehicule($pdo, 'vehicule_id', $value);
-    if (empty($exist)) return false;
     $req = $pdo->prepare("DELETE FROM vehicules WHERE vehicule_id = ?");
-    return $req->execute([$exist['vehicule_id']]);
+    return $req->execute([$value]);
 }
 
 /**

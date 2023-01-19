@@ -68,7 +68,6 @@ function getMarque(string $value, string $field = 'marque_id'): array {
  */
 function deleteMarque(string $value): bool {
     $exist = getMarque($value);
-    if (empty($exist)) return false;
     $pdo = DATABASE;
     $req = $pdo->prepare("DELETE FROM marques WHERE marque_id = ?");
     return $req->execute([$exist['marque_id']]);

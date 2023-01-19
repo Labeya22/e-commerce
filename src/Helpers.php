@@ -439,3 +439,8 @@ function updateFolderGlobal($type) {
     $global = glob("$folder");
     return $global;
 }
+
+function removeFile(array $folder) {
+    $file = sprintf("%s/%s", UPLOADER_PATH, folderFormat($folder));
+    if (file_exists($file)) unlink($file);
+}
