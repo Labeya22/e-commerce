@@ -28,13 +28,23 @@ if (empty($errors) && !empty($_POST)) {
             </div>
             <div class="mb-2">
                 <form action="" class="form" method="post">
-                    <div class="group-form">
-                        <label for="nom">vehicule</label>
-                        <?= inputField('vehicule', [
-                        'type' => 'text',
-                        'class' => 'input-form',
-                        'placeholder' => "nom du vehicule"
-                    ], $_POST, $errors) ?>
+                    <div class="group-form-grid">
+                        <div class="group-form">
+                            <label for="nom">vehicule</label>
+                            <?= inputField('vehicule', [
+                            'type' => 'text',
+                            'class' => 'input-form',
+                            'placeholder' => "nom du vehicule"
+                        ], $_POST, $errors) ?>
+                        </div>
+                        <div class="group-form">
+                            <label for="prix">prix</label>
+                            <?= inputField('prix', [
+                            'type' => 'number',
+                            'class' => 'input-form',
+                            'placeholder' => "prix du vehicule"
+                        ], $_POST, $errors) ?>
+                        </div>
                     </div>
                     <div class="group-form-grid">
                         <div class="group-form">

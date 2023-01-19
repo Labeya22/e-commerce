@@ -248,20 +248,27 @@ function hasVehicule(string $field, string $value, ?string $update = null): bool
 function createVehicule($data) {
     $pdo = DATABASE;
     $req = $pdo->prepare("INSERT INTO vehicules 
-    SET vehicule_id = :id typeid = :typeid, marqueid = :marqueid,
-    promo = :promo, image = :image,
-    star = :star, vehicule = :vehicule, description = :desc
-    create_at = NOW()");
-    return $req->execute([
-        ':id' => generateToken(60),
+        SET vehicule_id = :id, typeid = :typeid, marqueid = :marqueid,
+        promo = :promo, image = :image, prix = :prix,
+        star = :star, vehicule = :vehicule, description = :desc,create_at = NOW()"
+    );
+    $generatId = generateToken(60);
+    $create =  $req->execute([
+        ':id' => $generatId,
         ':vehicule' => $data['vehicule'],
-        ':typeid' => $data['typeid'],
+        ':typeid' => $data['type'],
         ':marqueid' => $data['marque'],
         ':star' => $data['star'],
-        ':promotion' => $data['promotion'],
+        ':promo' => $data['promotion'],
+        ':prix' => $data['prix'],
         ':image' => $data['image'],
-        ':description' => $data['desc'],
+        ':desc' => $data['desc'],
     ]);
+    if ($create) {
+        createSock($generatId, $data['stock']);
+    }
+
+    return $create;
 }
 
 function updateVehicule(array $data) {

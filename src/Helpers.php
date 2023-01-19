@@ -391,9 +391,11 @@ function folderFormat(array $folders) {
     return implode(DIRECTORY_SEPARATOR, $folders);
 }
 
-function createFolder(string $marque, string $type): void {
+function createFolder(string $marque, string $type): string {
     $directory = UPLOADER_PATH . DIRECTORY_SEPARATOR . $marque . DIRECTORY_SEPARATOR . $type;
     if (!file_exists($directory)) mkdir($directory, 777, true);
+
+    return $directory;
 }
 
 function createFile($file, $generate = 60) {

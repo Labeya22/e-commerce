@@ -50,6 +50,16 @@ function getErrorVehicule(array $data): array{
         }
     }
 
+    if (empty($data['prix'])) {
+        $errors['prix'] = "est obligatoire.";
+    } else {
+        $prix = $data['prix'];
+        $regex = regex($prix, "/^[0-9]/");
+        if (!$regex) {
+            $errors['prix'] = "contient des caractères invalide."; 
+        }
+    }
+
     if (empty($data['desc'])) {
         $errors['desc'] = "est obligatoire.";
     }

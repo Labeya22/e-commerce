@@ -23,12 +23,13 @@ if (empty($token) || is_null($token)) {
             if (empty($marque) || empty($type)) {
                 echo json_encode(['errors' => "une erreur est survenue, merci de réessayer."]);
             }  else {
-                createFolder($marque['marque'], $type['type']);
+                $folder = createFolder($marque['marque'], $type['type']);
                 $image = createFile($file, 30);
                 $post['image'] = $image;
                 $create = createVehicule($post);
                 if ($create) {
-                    move([$marque['marque'], $type['type'], $image], $temp);
+                    $stockId = generateToken(60);
+                    move([$folder, $image], $temp);
                     echo json_encode(['errors' => "ok"]);
 
                 } else {
