@@ -15,13 +15,13 @@ function hasFieldOrField($value, ...$fields) {
 
 function hasFieldUser($field, $value , $id = null) {
     $pdo = getPDO();
-    if (!is_null($id)) {
-        $req = $pdo->prepare("SELECT * FROM utilisateurs WHERE $field = ? AND utilisateur_id != $id");
+    if (is_null($id)) {
+        $req = $pdo->prepare("SELECT * FROM utilisateurs WHERE $field = ?");
         $req->execute([$value]);
-        return !empty($req->fetch());
+    } else {
+        $req = $pdo->prepare("SELECT * FROM utilisateurs WHERE $field = ? AND utilisateur_id != ?");
+        $req->execute([$value, $id]);
     }
-    $req = $pdo->prepare("SELECT * FROM utilisateurs WHERE $field = ?");
-    $req->execute([$value]);
     return !empty($req->fetch());
 
 }

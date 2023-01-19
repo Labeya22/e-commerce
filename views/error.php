@@ -4,7 +4,9 @@
             <h2>Page introuvable</h2>
         </div>
         <div class="container">
-            <p><img src="<?= dist("images/page-error.png") ?>" alt="page-error" srcset="" height="300" width="250"></p>
+            <p>
+                <img class="d-block page-error" src="<?= dist("images/404.gif") ?>" alt="page-error"  >
+            </p>
         </div>
     </div>
 </main>

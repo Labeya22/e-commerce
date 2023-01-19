@@ -20,6 +20,7 @@ if (empty($errors) && !empty($_POST)) {
     $value = $_POST['marque'];
     $update = updateMarque([$value, $id]);
     if ($update) {
+        updateFolder($marque['marque'], $_POST['marque']);
         setFlash('success', "la marque  $value a été mis à jour.", $redirect);
     } else {
         setFlash('danger', "nous n'avons pas pu mettre à jour la marque {$value} à jour.", $redirect);

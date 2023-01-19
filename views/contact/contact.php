@@ -23,6 +23,7 @@ if (empty($errors) && !empty($_POST)) {
                 <div class="section-title">
                     <h2>Nous contacter</h2>
                 </div>
+                <?= flash() ?>
                 <div class="contact">
                     <form 
                     action="" 

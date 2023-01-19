@@ -24,7 +24,9 @@ function getNotifcation(string $notifid): array {
     $query = "SELECT * FROM notifications WHERE notif_id = ?";
     $req = $pdo->prepare($query);
     $req->execute([$notifid]);
-    return $req->fetch();
+    $fetch = $req->fetch();
+    return $fetch === false ? [] : $fetch;
+
 }
 
 function getNotificationAll(string $user): array {
@@ -32,7 +34,8 @@ function getNotificationAll(string $user): array {
     $query = "SELECT * FROM notifications WHERE utilisateurid = ? ORDER BY create_at DESC ";
     $req = $pdo->prepare($query);
     $req->execute([$user]);
-    return $req->fetchAll();
+    $fetch = $req->fetchAll();
+    return $fetch === false ? [] : $fetch;
 }
 
 function createNotification(array $params) {

@@ -5,7 +5,7 @@ checkUser('user');
 
 $user = getSession(SESSION_USER);
 
-$notif = getQueryParamsInteger('notifid');
+$notif = getQueryParamsString('notifid');
 if (is_null($notif)) {
     throw new Exception("notification introuvable");
 }

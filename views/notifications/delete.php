@@ -6,7 +6,7 @@ $pdo = DATABASE;
 
 $user = getSession(SESSION_USER);
 
-$notif = getQueryParamsInteger('notifid');
+$notif = getQueryParamsString('notifid');
 if (is_null($notif)) {
     echo json_encode(['danger' => "impossible de supprimer la notification."]);
 } else {

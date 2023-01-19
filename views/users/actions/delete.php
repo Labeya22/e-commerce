@@ -3,7 +3,7 @@
 
 checkUser(generate('user'));
 
-$title = "stores";
+$title = "mon profil";
 $pdo = getPDO();
 
 $userid = getQueryParamsString('userid');

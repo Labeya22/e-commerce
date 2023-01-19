@@ -1210,7 +1210,7 @@ a.button {
 /* filter */
 .filter {
     width: 100%;
-    height: 380px;
+    height: 400px;
     background-color: var(--light);
     padding: 20px;
     border-radius: 5px;
@@ -2048,4 +2048,13 @@ a.button {
     height: 5px;
     border-radius: 20px;
     transition: 0.5s width ease;
+}
+
+.page-error {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    object-fit: contain;
+    width: 600px;
+    height: 600px;
 }

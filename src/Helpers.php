@@ -408,7 +408,27 @@ function createFile($file, $generate = 60) {
     return sprintf("%s.%s", $name, $extension);
 }
 
-function move(array $folders, $temp) {
+/**
+ * @param array $folders
+ * @param string $temp
+ * 
+ * @return bool
+ */
+function move(array $folders, string $temp): bool {
     $folder = folderFormat($folders);
     return move_uploaded_file($temp, $folder);
+}
+
+
+/**
+ * @param string $folder
+ * @param string $update
+ * 
+ * @return void
+ */
+function updateFolder(string $folder, string $update): void {
+    $from = sprintf("%s/%s", UPLOADER_PATH, $folder);
+
+    $to = sprintf("%s/%s", UPLOADER_PATH, $update);
+    if (file_exists($from) && !file_exists($to)) rename($from, $to);
 }

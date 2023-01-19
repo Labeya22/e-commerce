@@ -50,7 +50,8 @@ function getFactureEye(array $data) {
     WHERE fac.utilisateurid = ? AND fac.facture_id = ?";
     $req = $pdo->prepare($query);
     $req->execute($data);
-    return $req->fetch();
+    $fetch = $req->fetch();
+    return $fetch === false ? [] : $fetch;
 }
 
 function  Nfacture(string $userid): int {
