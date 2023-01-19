@@ -40,15 +40,16 @@ if (formUploaded) {
             progress.style.width = `${load}%`
         })
 
-
-        
         httpRequest.addEventListener('load', () => {
             if (httpRequest.status === 200 && httpRequest.readyState === 4) {
-                console.log(httpRequest.response);
-                // const response = JSON.parse(httpRequest.response)
-                // if (response.errors) {
-                //     createToast(null, 'danger', response.errors)
-                // }  else if (response.expirate) window.location.reload()
+                try {
+                    const response = JSON.parse(httpRequest.response)
+                    if (response.errors) {
+                        createToast(null, 'danger', response.errors)
+                    }  else if (response.expirate) window.location.reload()
+                } catch (error) {
+                    createToast(null, "danger", error)
+                } 
             }
         })
 

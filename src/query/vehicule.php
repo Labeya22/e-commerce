@@ -167,12 +167,12 @@ function getMedia(PDO $pdo, mixed $id): array {
  * 
  * @return array
  */
-function voirVehicule(PDO $pdo, string $id): array {
-
+function getEyeVehicule(string $id): array {
+    $pdo = DATABASE;
     $query = "    SELECT 
     v.vehicule_id, v.prix, v.vehicule, 
     v.promo, v.image, m.marque, p.auto, p.carburant,
-    p.kilometrage, v.description
+    p.kilometrage, v.description, t.type
     FROM vehicules v
     INNER JOIN marques m ON m.marque_id = v.marqueid
     INNER JOIN parametres p ON p.vehiculeid = v.vehicule_id 
@@ -186,12 +186,7 @@ function voirVehicule(PDO $pdo, string $id): array {
         throw new Exception("nous n'avons pas pu trouver le vehicule #$id");
     }
 
-    $medias = getMedia($pdo, $product['vehicule_id']);
-
-    return [
-        'product' => $product,
-        'media' => $medias
-    ];
+   return $product;
 
 }
 
@@ -266,6 +261,7 @@ function createVehicule($data) {
     ]);
     if ($create) {
         createSock($generatId, $data['stock']);
+        createParameters($generatId, $data);
     }
 
     return $create;

@@ -7,8 +7,10 @@ function createFacture(array $data)  {
      * @var PDO
      */
     $pdo = DATABASE;
-    $query = "INSERT INTO factures SET cart = ?, total = ?, utilisateurid = ?, create_at = NOW()";
+    $generateid = generateToken(6);
+    $query = "INSERT INTO factures SET cart = ?, total = ?, utilisateurid = ?, facture_id = ?, create_at = NOW()";
     $req = $pdo->prepare($query);
+    $data[] = $generateid;
     return $req->execute($data);
 }
 
@@ -53,7 +55,6 @@ function getFactureEye(array $data) {
 
 function  Nfacture(string $userid): int {
     $pdo = DATABASE;
-
     $req = $pdo->prepare("SELECT COUNT(facture_id)
     FROM factures WHERE utilisateurid = ?");
     $req->execute([$userid]);
@@ -62,7 +63,6 @@ function  Nfacture(string $userid): int {
 
 function getFacturesPaginer($userid, $page = 1, $limit = 24): array {
     $pdo = DATABASE;
-   
     $count = Nfacture($userid);
     $pages = ceil($count / $limit);
     $page = $page >= $pages ? $pages : $page;

@@ -27,7 +27,7 @@ if (!empty($_POST)) {
             $paye = $solde - $total;
             $ok = updateSoldeBanque($userid, $paye);
             if ($ok) {
-                $products = getCartAll($pdo, 'utilisateurid', $userid);
+                $products = getCartAll('utilisateurid', $userid);
                 foreach ($products as $product) {
                     stockUpdate($product['vehiculeid'], $product['quantite']);
                 }

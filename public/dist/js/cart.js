@@ -117,7 +117,7 @@ const checkout = document.querySelector('#carts')
 if (checkout) {
     checkout.addEventListener('submit', (e) => {
         e.preventDefault()
-        const yes = confirm("Êtes-vous sûr ?")
+        const yes = confirm("Vous voulez vraiment effectuer cette action.")
         if (!yes) return
         const url = checkout.getAttribute('action')
         const data = new FormData(checkout)
@@ -147,6 +147,8 @@ if (cartShop) {
             } else {
                 cartShop.classList.remove('no-eye')
             }
+        }).catch(err => {
+            console.log(err);
         })
 
     }, 1000)

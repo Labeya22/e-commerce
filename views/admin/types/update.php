@@ -3,7 +3,8 @@
 
 $title = "editer le type";
 
-$id = getQueryParamsInteger('typeid');
+$id = getQueryParamsString('typeid');
+
 if (is_null($id) || empty($id)) {
     throw new Exception("ce type n'existe pas");
 } 
@@ -35,7 +36,7 @@ if (empty($errors) && !empty($_POST)) {
     <div class="container">
         <div class="section">
             <div class="section-title">
-                <h2>Editer le type #<?= $id ?></h2>
+                <h2>Editer le type</h2>
             </div>
             <div class="w-60">
                 <form action="" class="form" method="POST">

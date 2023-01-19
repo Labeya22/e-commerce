@@ -1,15 +1,13 @@
 <?php
 $title = 'voir le vehicule';
 
-$pdo = getPDO();
 $id = getQueryParamsString('vehicule');
 
-['product' => $product, 'media' => $medias] = voirVehicule($pdo, $id);
-
+$product = getEyeVehicule($id);
 $user = getSession(SESSION_USER);
 
-if (is_null($user)) $isAdd = false;
-$isAdd = hasPanier($pdo, $id, $user['utilisateur_id']);
+$isAdd = is_null($user) ? false : hasPanier($id, $user['utilisateur_id']);
+
 
 ?>
 
@@ -21,7 +19,7 @@ $isAdd = hasPanier($pdo, $id, $user['utilisateur_id']);
                     <h2>Les informations du véhicule</h2>
             </div>
             <div class="product-info">
-                    <img src="<?= dist("images/vehicules/{$product['image']}") ?>" alt="">
+                    <img src="<?= Image($product['marque'], $product['type'], $product['image']) ?>" alt="">
                     <div class="product-details">
                         <h2><?= sprintf('%s %s', $product['marque'], $product['vehicule']) ?></h2>
                     
@@ -58,18 +56,6 @@ $isAdd = hasPanier($pdo, $id, $user['utilisateur_id']);
                     <div class="box">
                         <h2>Description</h2>
                         <p><?= $product['description'] ?></p>
-                    </div>
-                    <div class="box">
-                        <h2>Images</h2>
-                        <div class="images">
-                            <?php foreach ($medias as $media): ?>
-                            <img src="<?= media(
-                                $product['marque'],
-                                $product['vehicule_id'],
-                                $media['media']
-                            ) ?>" alt="" srcset="">
-                            <?php endforeach ?>
-                        </div>
                     </div>
             </div>
         </div>

@@ -1,6 +1,6 @@
 <?php
 
-$typeid = getQueryParamsInteger('typeid');
+$typeid = getQueryParamsString('typeid');
 if (is_null($typeid) || empty($typeid)) {
     echo json_encode(['error' => "l'identifiant envoyé est incorrect."]);
 } else {

@@ -36,14 +36,17 @@ function getNotificationAll(string $user): array {
 }
 
 function createNotification(array $params) {
+    $generateId = generateToken(60);
     $pdo = DATABASE;
     $query = "INSERT INTO notifications 
     SET title = :ti,
+    notif_id = :id,
     utilisateurid = :us,
     content = :co, 
     create_at = NOW()";
     $req = $pdo->prepare($query);
     return $req->execute([
+        ':id' => $generateId,
         ':us' => $params['user'],
         ':ti' => $params['title'],
         ':co' => $params['content'],
@@ -77,7 +80,14 @@ function setEyeAll($user) {
 }
 
 
-function getNotificationNoEye($user) {
+/**
+ * Permet de récupèré les notifications non vu
+ * 
+ * @param string $user
+ * 
+ * @return bool
+ */
+function getNotificationNoEye(string $user): bool {
     $pdo = DATABASE;
     $query = "SELECT * FROM notifications WHERE utilisateurid = ? AND eye = 0 ";
     $req = $pdo->prepare($query);

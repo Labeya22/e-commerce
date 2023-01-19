@@ -21,11 +21,12 @@ function  Ncart(PDO $pdo, string $userid): int {
 function querySelectCart(int $limit, int $offset) :string {
     return "SELECT p.panier_id, v.vehicule_id,
     v.prix, v.vehicule, mr.marque,
-    v.image, s.stock, v.star, p.quantite
+    v.image, s.stock, v.star, p.quantite, t.type
     FROM paniers p
     INNER JOIN vehicules v ON v.vehicule_id = p.vehiculeid
     INNER JOIN stocks s ON s.vehiculeid = v.vehicule_id
     INNER JOIN marques mr ON v.marqueid = mr.marque_id
+    INNER JOIN types t ON t.type_id = v.typeid
     WHERE p.utilisateurid = :id ORDER BY p.create_at DESC LIMIT $limit OFFSET $offset";
 }
 
@@ -91,7 +92,8 @@ function getCart(PDO $pdo, string $key, mixed $value): array {
     return $fetch;
 }
 
-function getCartAll(PDO $pdo, string $key, mixed $value): array {
+function getCartAll(string $key, mixed $value): array {
+    $pdo = DATABASE;
     $query = "SELECT * FROM paniers WHERE $key = ?";
     $req = $pdo->prepare($query);
     $req->execute([$value]);
@@ -114,7 +116,8 @@ function deleteCart(PDO $pdo, mixed $userid, mixed $id): bool {
 }
 
 
-function addCart(PDO $pdo, array $options): array {
+function addCart(array $options): array {
+    $pdo = DATABASE;
     $product = $options['product'];
     $user = $options['user'];
     $queryExist = "SELECT * FROM paniers WHERE  utilisateurid = ? AND vehiculeid = ?";
@@ -124,9 +127,10 @@ function addCart(PDO $pdo, array $options): array {
 
 
     if (empty($exist)) {
-        $query = "INSERT INTO paniers SET utilisateurid = ? , vehiculeid = ?, create_at = NOW()";
+        $generateId = generateToken(60);
+        $query = "INSERT INTO paniers SET panier_id = ?, utilisateurid = ? , vehiculeid = ?, create_at = NOW()";
         $req = $pdo->prepare($query);
-        $ok = $req->execute([$user, $product]);
+        $ok = $req->execute([$generateId, $user, $product]);
         return ['query' => 'INSERT', 'ok' => $ok];
 
     } else {
@@ -145,7 +149,8 @@ function getPanier(PDO $pdo, $vehicule, $user): array {
     return $fetch === false ? [] : $fetch;
 }
 
-function hasPanier(PDO $pdo, $vehicule, $user): bool {
+function hasPanier($vehicule, $user): bool {
+    $pdo = DATABASE;
     $fetch = getPanier($pdo, $vehicule, $user);
     return !empty($fetch);
 }

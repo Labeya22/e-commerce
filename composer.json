@@ -20,6 +20,7 @@
             "src/query/taux.php",
             "src/query/stock.php",
             "src/query/notification.php",
+            "src/query/parameters.php",
             "src/query/facture.php",
             "src/query/cart.php",
             "src/query/marque.php",

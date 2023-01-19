@@ -48,13 +48,12 @@ function getTypePagine(int $limit = 12, int $page = 1, ?string $search = null) :
  * 
  * @return array
  */
-function getTypes(string $value, string $field = 'type_id', $update = null): array {
+function getTypes(string $value, string $field = 'type_id'): array {
     $pdo = DATABASE;
-    $query = "SELECT * FROM types WHERE $field = ?";
-    if (!is_null($update)) $query .=  "AND type_id != $update";
-    $req = $pdo->prepare($query);
+    $req = $pdo->prepare("SELECT * FROM types WHERE $field = ?");
     $req->execute([$value]);
     $fetch = $req->fetch();
+
     return $fetch === false ? [] : $fetch;
 }
 
@@ -78,7 +77,16 @@ function deleteType(string $value): bool {
  * @return bool
  */
 function hasType(string $field, string $value, ?string $update = null): bool {
-    return !empty(getTypes($value, $field, $update));
+    $pdo = DATABASE;
+    if (is_null($update)) {
+        $req = $pdo->prepare("SELECT * FROM types WHERE $field = ?");
+        $req->execute([$value]);
+    } else {
+        $req = $pdo->prepare("SELECT * FROM types WHERE $field = ? AND type_id != ?");
+        $req->execute([$value, $update]);
+    }
+    
+    return !empty($req->fetch());
 }
 
 function createType($type) {
@@ -90,8 +98,9 @@ function createType($type) {
 
 function updateType(array $data) {
     $pdo = DATABASE;
-    $req = $pdo->prepare("UPDATE types SET type = ?, create_at = NOW() WHERE type_id = ?");
-    return $req->execute($data);
+    list($type, $id) = $data;
+    $req = $pdo->prepare("UPDATE types SET type = :t, create_at = NOW() WHERE type_id = :id");
+    return $req->execute([':t' => $type, ':id' => $id]);
 }
 
 function getNResultatSearch($search): ?int {

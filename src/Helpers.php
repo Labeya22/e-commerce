@@ -356,7 +356,7 @@ function getCarburant() {
  }
 
  
-function getAuto() {
+function getTransmission() {
     return [
         ['index' => 'manuel'],
         ['index' => 'automatique'],
@@ -367,6 +367,10 @@ function saveMemoryData(string $token, array $data, $expirate = 60 * 20): void {
     setSession(SESSION_SAVE_MEMORY, [
         $token => [$data, time() + $expirate]
     ]);
+}
+
+function Image($marque, $type, $file) {
+    return folderFormat([UPLOADED_PATH, $marque, $type, $file]);
 }
 
 function getSaveMemoryData(string $token) {

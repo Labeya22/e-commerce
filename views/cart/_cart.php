@@ -1,7 +1,7 @@
 <?php foreach ($carts['data'] as $cart): ?>
     <div class="card card-xs" id="cart">
         <div class="thumb">
-            <img src="<?= dist("images/vehicules/{$cart['image']}") ?>" alt="">
+            <img src="<?= Image($cart['marque'], $cart['type'], $cart['image']) ?>" alt="">
         </div>
         <div class="details">
             <div class="box">

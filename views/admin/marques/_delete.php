@@ -1,6 +1,6 @@
 <?php
 
-$marqueid = getQueryParamsInteger('marqueid');
+$marqueid = getQueryParamsString('marqueid');
 if (is_null($marqueid) || empty($marqueid)) {
     echo json_encode(['error' => "l'identifiant envoyé est incorrect."]);
 } else {

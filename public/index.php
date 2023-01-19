@@ -3,7 +3,7 @@
 require dirname(__DIR__) . "/vendor/autoload.php";
 
 define("SOURCES", dirname($_SERVER['SCRIPT_NAME']) . DIRECTORY_SEPARATOR . "dist");
-define("UPLOADED_PATH", dirname(dirname($_SERVER['SCRIPT_NAME']))  . "uploaded");
+define("UPLOADED_PATH", dirname(dirname($_SERVER['SCRIPT_NAME']))  . "uploader" . DIRECTORY_SEPARATOR);
 define("UPLOADER_PATH", dirname(__DIR__)  . DIRECTORY_SEPARATOR . "uploader" );
 define("VIEW_PATH", dirname(__DIR__) . DIRECTORY_SEPARATOR . "views");
 define("LAYOUT_PATH", dirname(__DIR__) . DIRECTORY_SEPARATOR . "templates");

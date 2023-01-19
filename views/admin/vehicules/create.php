@@ -113,6 +113,27 @@ if (empty($errors) && !empty($_POST)) {
                             ], $_POST, $errors) ?>
                         </div>
                     </div>
+                    <div class="group-form-grid">
+                        <div class="group-form">
+                            <label for="nom">kilometrage</label>
+                            <?= inputField('kilometrage', [
+                            'type' => 'text',
+                            'class' => 'input-form',
+                            'placeholder' => ""
+                        ], $_POST, $errors) ?>
+                        </div>
+                        <div class="group-form">
+                            <label for="transmission">transmission</label>
+                            <?= select('transmission', [
+                                'data' => $_POST,
+                                'database' => getTransmission(),
+                                'value' => 'index',
+                                'view' => 'index',
+                                'class' => 'input-form',
+                                'label' => 'transmission'
+                            ], $errors) ?>
+                        </div>
+                    </div>
             
                     <div class="group-form">
                         <label for="description">description</label>

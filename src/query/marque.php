@@ -50,15 +50,16 @@ function getMarquePagine(int $limit = 12, int $page = 1, ?string $search = null)
  * 
  * @return array
  */
-function getMarque(string $value, string $field = 'marque_id', $update = null): array {
+function getMarque(string $value, string $field = 'marque_id'): array {
     $pdo = DATABASE;
-    $query = "SELECT * FROM marques WHERE $field = ?";
-    if (!is_null($update)) $query .=  "AND marque_id != $update";
-    $req = $pdo->prepare($query);
+    $req = $pdo->prepare("SELECT * FROM marques WHERE $field = ?");
     $req->execute([$value]);
     $fetch = $req->fetch();
+
     return $fetch === false ? [] : $fetch;
 }
+
+
 
 /**
  * @param string $value
@@ -69,7 +70,7 @@ function deleteMarque(string $value): bool {
     $exist = getMarque($value);
     if (empty($exist)) return false;
     $pdo = DATABASE;
-    $req = $pdo->prepare("DELETE FROM types WHERE type_id = ?");
+    $req = $pdo->prepare("DELETE FROM marques WHERE marque_id = ?");
     return $req->execute([$exist['marque_id']]);
 }
 
@@ -80,7 +81,16 @@ function deleteMarque(string $value): bool {
  * @return bool
  */
 function hasMarque(string $field, string $value, ?string $update = null): bool {
-    return !empty(getMarque($value, $field, $update));
+    $pdo = DATABASE;
+    if (is_null($update)) {
+        $req = $pdo->prepare("SELECT * FROM marques WHERE $field = ?");
+        $req->execute([$value]);
+    } else {
+        $req = $pdo->prepare("SELECT * FROM marques WHERE $field = ? AND marque_id != ?");
+        $req->execute([$value, $update]);
+    }
+    
+    return !empty($req->fetch());
 }
 
 /**
@@ -102,8 +112,10 @@ function createMarque(string $marque): bool {
  */
 function updateMarque(array $data): bool {
     $pdo = DATABASE;
+    list($marque, $id) = $data;
+    
     $req = $pdo->prepare("UPDATE marques SET marque = ?, create_at = NOW() WHERE marque_id = ?");
-    return $req->execute($data);
+    return $req->execute([$marque, $id]);
 }
 
 /**

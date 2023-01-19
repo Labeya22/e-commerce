@@ -18,7 +18,7 @@ if (empty($vehicule)) {
     throw new Exception("nous n'avons pas pu trouver le vehicule #$vehiculeid");
 }
 
-$add = addCart($pdo, [
+$add = addCart([
     'user' => $user['utilisateur_id'],
     'product' => $vehicule['vehicule_id']
 ]);

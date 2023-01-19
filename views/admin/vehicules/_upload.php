@@ -29,8 +29,11 @@ if (empty($token) || is_null($token)) {
                 $create = createVehicule($post);
                 if ($create) {
                     $stockId = generateToken(60);
-                    move([$folder, $image], $temp);
-                    echo json_encode(['errors' => "ok"]);
+                    $move = move([$folder, $image], $temp);
+                    if ($move) {
+                        deleteSession(SESSION_SAVE_MEMORY);
+                    }
+                    echo json_encode(['success' => true, 'redirect' => generate('admin.vehicules')]);
 
                 } else {
                     echo json_encode(['errors' => "nous n'avons pas pu enregistré le vehicule"]);

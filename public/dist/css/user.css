@@ -203,7 +203,7 @@ body {
     transition: 0.3s;
     display: block;
     width: 100%;
-    margin-bottom: 20px;
+    margin: 20px 0;
 }
 
 .container .form .form-btn button:hover {

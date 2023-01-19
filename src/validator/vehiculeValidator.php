@@ -40,6 +40,14 @@ function getErrorVehicule(array $data): array{
         $errors['carburant'] = "est obligatoire.";
     }
 
+    if (empty($data['kilometrage'])) {
+        $errors['kilometrage'] = "est obligatoire.";
+    }
+
+    if (empty($data['transmission'])) {
+        $errors['transmission'] = "est obligatoire.";
+    }
+
     if (empty($data['stock'])) {
         $errors['stock'] = "est obligatoire.";
     } else {
