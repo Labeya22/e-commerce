@@ -149,6 +149,76 @@ function getVehiculesPaginer($page = 1, $limit = 12, ?string $search = null) :ar
 
 
 /**
+ * @param int $page
+ * @param int $limit
+ * @param string|null $search
+ * 
+ * @return array
+ */
+function getVehiculePaginer(int $page, int $limit = 12, ?string $search = null): array
+{  
+    $pdo = DATABASE;
+    $count = NVehicule($search);
+    $pages = ceil($count / $limit);
+    $page = $page >= $pages ? $pages : $page;
+    $offsetValue = ceil($limit * ($page - 1));
+    $offset = $offsetValue < 0 ? 0 : $offsetValue;
+    $query = getQueryPagine($limit, $offset, $search);
+    $req = $pdo->query($query);
+    $fetch = $req->fetchAll();
+    return [
+        'data' => $fetch,
+        'options' => [
+            'pages' => $pages,
+            'page' => $page
+        ]
+    ];
+}
+
+
+/**
+ * @param int $limit
+ * @param int $offset
+ * @param string|null $search
+ * 
+ * @return string
+ */
+function getQueryPagine(int $limit, int $offset, ?string $search = null): string {
+    if (is_null($search) || empty($search)) {
+        $query = "SELECT v.vehicule_id, v.prix, v.vehicule, v.star,
+        v.promo, v.image, m.marque, t.type, v.create_at FROM vehicules v
+        INNER JOIN marques m ON m.marque_id = v.marqueid
+        INNER JOIN types t ON t.type_id = v.typeid LIMIT $limit OFFSET $offset";
+    } else {
+        $query = "SELECT v.vehicule_id, v.prix, v.vehicule, v.star,
+        v.promo, v.image, m.marque, t.type, v.create_at
+        FROM vehicules v INNER JOIN marques m ON m.marque_id = v.marqueid
+        INNER JOIN types t ON t.type_id = v.typeid
+        WHERE (v.vehicule LIKE '%$search%') OR (m.marque LIKE '%$search%') OR 
+        (t.type LIKE '%$search%')  LIMIT $limit OFFSET $offset";
+    }
+
+    return $query;
+}
+
+function NVehicule(?string $search = null) {
+    $pdo = DATABASE;
+    if (is_null($search) || empty($search)) {
+        $req = $pdo->query("SELECT COUNT(v.vehicule_id)
+        FROM vehicules v INNER JOIN marques m ON m.marque_id = v.marqueid
+        INNER JOIN types t ON t.type_id = v.typeid");
+    } else {
+        $req = $pdo->query("SELECT COUNT(v.vehicule_id)
+        FROM vehicules v INNER JOIN marques m ON m.marque_id = v.marqueid
+        INNER JOIN types t ON t.type_id = v.typeid 
+        WHERE (v.vehicule LIKE '%$search%') OR 
+        (m.marque LIKE '%$search%') OR (t.type LIKE '%$search%')   ");
+    }
+    return $req->fetch(PDO::FETCH_NUM)[0] ?? 0;
+}
+
+
+/**
  * @param PDO $pdo
  * @param mixed $id
  * 
@@ -207,10 +277,14 @@ function getVehicule(string $key, mixed $value): array {
 }
 
 
-function getResultatSearchVehicules() {
+function getResultatSearchVehicules($search) {
     if (empty($search) || is_null($search)) return null;
     $pdo = DATABASE;
-    $query = "SELECT COUNT(vehicule_id) FROM vehicules WHERE vehicule LIKE '%$search%'";
+    $query = "SELECT COUNT(v.vehicule_id) FROM vehicules v
+    INNER JOIN marques m ON m.marque_id = v.marqueid
+    INNER JOIN types t ON t.type_id = v.typeid
+    WHERE (v.vehicule LIKE '%$search%') OR 
+        (m.marque LIKE '%$search%') OR (t.type LIKE '%$search%')";
     $req = $pdo->query($query);
     $resultat = $req->fetch(PDO::FETCH_NUM)[0] ?? 0;
     return $resultat;

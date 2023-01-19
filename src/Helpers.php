@@ -369,8 +369,8 @@ function saveMemoryData(string $token, array $data, $expirate = 60 * 20): void {
     ]);
 }
 
-function Image($marque, $type, $file) {
-    return folderFormat([UPLOADED_PATH, $marque, $type, $file]);
+function Image($marque, $file) {
+    return folderFormat([UPLOADED_PATH, $marque, $file]);
 }
 
 function getSaveMemoryData(string $token) {
@@ -395,8 +395,8 @@ function folderFormat(array $folders) {
     return implode(DIRECTORY_SEPARATOR, $folders);
 }
 
-function createFolder(string $marque, string $type): string {
-    $directory = UPLOADER_PATH . DIRECTORY_SEPARATOR . $marque . DIRECTORY_SEPARATOR . $type;
+function createFolder(string $marque): string {
+    $directory = UPLOADER_PATH . DIRECTORY_SEPARATOR . $marque;
     if (!file_exists($directory)) mkdir($directory, 777, true);
 
     return $directory;
@@ -431,4 +431,11 @@ function updateFolder(string $folder, string $update): void {
 
     $to = sprintf("%s/%s", UPLOADER_PATH, $update);
     if (file_exists($from) && !file_exists($to)) rename($from, $to);
+}
+
+
+function updateFolderGlobal($type) {
+    $folder = sprintf("%s/%s", UPLOADED_PATH, $type);
+    $global = glob("$folder");
+    return $global;
 }

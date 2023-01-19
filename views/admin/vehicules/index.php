@@ -9,7 +9,7 @@ $q = getQueryParamsString('q');
 $search = getResultatSearchVehicules($q);
 
 $page = getQueryParamsInteger('page') ?? 1;
-$vehicules = getVehiculesPaginer($page);
+$vehicules = getVehiculePaginer($page, 12, $q);
 
 ?>
 

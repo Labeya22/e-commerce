@@ -3,19 +3,30 @@
 $pdo = DATABASE;
 $title = "ajout d'un vehicule";
 
-$errors = getErrorVehicule($_POST);
-
-
 $types = listingTypes($pdo);
 $marques = listingMarques($pdo);
+$uploader = $_FILES['uploader'] ?? [];
+$errors = getErrorVehicule(array_merge($_POST, ['uploader' => $uploader]));
 
-
-if (empty($errors) && !empty($_POST)) {
-    $token = generateToken(60);
-    saveMemoryData($token, $_POST);
-    redirect(generate('admin.vehicule-upload', ['token' => $token]));
+if (empty($errors) && !empty($_POST) && $uploader['error'] === 0) {
+    $post = $_POST;
+    $filename = $uploader['name'];
+    $temp = $uploader['tmp_name'];
+    $basename = pathinfo($filename, PATHINFO_BASENAME);
+    $marque = getMarque($post['marque']);
+    if (empty($marque)) throw new Exception("une erreur est survenue.");
+    $folder = createFolder($marque['marque']);
+    $image = createFile($filename, 30);
+    $post['image'] = $image;
+    $create = createVehicule($post);
+    if ($create) {
+        $stockId = generateToken(60);
+        move([$folder, $image], $temp);
+        $redirect =generate('admin.vehicules');
+        setFlash("success", "une voiture ajouté", $redirect);
+        redirect($redirect);
+    }
 }
-
 
 ?>
 
@@ -27,7 +38,7 @@ if (empty($errors) && !empty($_POST)) {
                 <h2>Ajout d'un vehicule</h2>
             </div>
             <div class="mb-2">
-                <form action="" class="form" method="post">
+                <form action="" class="form" method="post" enctype="multipart/form-data">
                     <div class="group-form-grid">
                         <div class="group-form">
                             <label for="nom">vehicule</label>
@@ -134,7 +145,13 @@ if (empty($errors) && !empty($_POST)) {
                             ], $errors) ?>
                         </div>
                     </div>
-            
+                    <div class="group-form">
+                        <label for="nom">image</label>
+                        <?= inputField('uploader', [
+                            'type' => 'file',
+                            'class' => 'input-form'
+                        ], $_POST, $errors) ?>
+                    </div>
                     <div class="group-form">
                         <label for="description">description</label>
                         <?= textarea('desc', $_POST, $errors) ?>
