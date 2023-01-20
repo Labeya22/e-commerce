@@ -6,7 +6,7 @@ if (is_null($vehiculeid) || empty($vehiculeid)) {
 } else {
     $vehicule = getVehicule('vehicule_id', $vehiculeid);
     if (!empty($vehicule)) {
-        removeFile([$vehicule['marque'], $vehicule['image']]);
+        removeFile($vehicule['image']);
         $delete = deleteVehicule($vehiculeid);
         echo json_encode([
             'success' => $delete,

@@ -10,7 +10,8 @@ function listingTypes(PDO $pdo): array {
     return $req->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function NTypes(PDO $pdo, $search = null) {
+function NTypes($search = null) {
+    $pdo = DATABASE;
     $like = is_null($search) ? '' : "WHERE type LIKE '%$search%' ";
     $req = $pdo->query("SELECT COUNT('type_id')FROM types $like");
     return $req->fetch(PDO::FETCH_NUM)[0] ?? 0;
@@ -18,7 +19,7 @@ function NTypes(PDO $pdo, $search = null) {
 
 function getTypePagine(int $limit = 12, int $page = 1, ?string $search = null) : array {
     $pdo = DATABASE;
-    $count = NTypes($pdo, $search);
+    $count = NTypes($search);
     $pages = ceil($count / $limit);
     $page = $page >= $pages ? $pages : $page;
     $offsetValue = ceil($limit * ($page - 1));

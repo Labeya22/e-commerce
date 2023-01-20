@@ -95,7 +95,6 @@ define('ROUTES', [
 
 
 
-
 /**
  * Tableau de views 
  * le fichier à charger si la route existe

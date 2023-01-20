@@ -441,22 +441,8 @@ function updateFolderGlobal($type) {
     return $global;
 }
 
-function removeFile(array $folder) {
-    $file = sprintf("%s/%s", UPLOADER_PATH, folderFormat($folder));
+function removeFile(string $file) {
+    $file = sprintf("%s/%s", UPLOADER_PATH, $file);
     if (file_exists($file)) return  unlink($file);
-    return false;
-}
-
-function changeFolder(string $from, string $file, string $to) {
-    removeFile([$from, $file]);
-
-    $fromFolder = folderFormat([UPLOADER_PATH, $from, $file]);
-
-    $toFolder = folderFormat([UPLOADER_PATH, $to]);
-    if (file_exists($fromFolder)) {
-        createFolder($toFolder);
-        return rename($fromFolder, sprintf("%s/%s", $toFolder, $file));
-    }
-
     return false;
 }

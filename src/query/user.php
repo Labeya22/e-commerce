@@ -27,7 +27,8 @@ function hasFieldUser($field, $value , $id = null) {
 }
 
 
-function NUsers(PDO $pdo, $search = null) {
+function NUsers($search = null) {
+    $pdo = DATABASE;
     $like = is_null($search) ? '' : "AND utilisateur LIKE '%$search%' ";
     $req = $pdo->query("SELECT COUNT('utilisateur_id') FROM utilisateurs WHERE role != 'admin' $like");
     return $req->fetch(PDO::FETCH_NUM)[0] ?? 0;
@@ -35,7 +36,7 @@ function NUsers(PDO $pdo, $search = null) {
 
 function getUsersPagine(int $limit = 12, int $page = 1, ?string $search = null) : array {
     $pdo = DATABASE;
-    $count = NUsers($pdo, $search);
+    $count = NUsers($search);
     $pages = ceil($count / $limit);
     $page = $page >= $pages ? $pages : $page;
     $offsetValue = ceil($limit * ($page - 1));

@@ -80,6 +80,7 @@ body {
     background-color: var(--white);
     font-family: var(--font);
     color: var(--color);
+    letter-spacing: 1.4px;
 }
 
 

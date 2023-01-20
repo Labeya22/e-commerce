@@ -12,7 +12,8 @@ function listingMarques(PDO $pdo): array {
 }
 
 
-function NMarque(PDO $pdo, $search = null) {
+function NMarque($search = null) {
+    $pdo = DATABASE;
     $like = is_null($search) ? '' : "WHERE marque LIKE '%$search%' ";
     $req = $pdo->query("SELECT COUNT('marque_id')FROM marques $like");
     return $req->fetch(PDO::FETCH_NUM)[0] ?? 0;
@@ -20,7 +21,7 @@ function NMarque(PDO $pdo, $search = null) {
 
 function getMarquePagine(int $limit = 12, int $page = 1, ?string $search = null) : array {
     $pdo = DATABASE;
-    $count = NMarque($pdo, $search);
+    $count = NMarque($search);
     $pages = ceil($count / $limit);
     $page = $page >= $pages ? $pages : $page;
     $offsetValue = ceil($limit * ($page - 1));

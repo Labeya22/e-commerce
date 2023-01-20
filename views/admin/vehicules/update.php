@@ -25,6 +25,7 @@ if (empty($errors) && !empty($post)) {
         $create = updateVehiculeWithImage($post, $id);
         if ($create) {
             $stockId = generateToken(60);
+            removeFile($vehicule['image']);
             move($image, $temp);
             $redirect =generate('admin.vehicules');
             setFlash("success", "une voiture a été mis à jour.", $redirect);

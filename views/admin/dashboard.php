@@ -2,6 +2,8 @@
 
 $title = "tableau de board";
 
+
+
 ?>
 
 <!-- contact -->
@@ -18,20 +20,20 @@ $title = "tableau de board";
             <!-- <p class="block-tag"><i class="fa fa-tag"></i> <a href="">aller sur mon compte</a></p> -->
         </div>
         <div class="invoices">
-            <a href="<?= generate('admin.users') ?>" class="invoice">
-                <h2 class="invoice-title">15 types des voitures</h2>
+            <a href="<?= generate('admin.vehicules') ?>" class="invoice">
+                <h2 class="invoice-title"><?= NVehicule() ?> vehicules</h2>
                 <p class="invoice-date"><?= '' ?></p>
             </a>
             <a href="<?= generate('admin.users') ?>" class="invoice">
-                <h2 class="invoice-title">15 utilisateurs</h2>
+                <h2 class="invoice-title"><?= NUsers(); ?> utilisateurs</h2>
                 <p class="invoice-date"><?= '' ?></p>
             </a>
-            <a href="<?= generate('admin.users') ?>" class="invoice">
-                <h2 class="invoice-title">15 vehicules</h2>
+            <a href="<?= generate('admin.types') ?>" class="invoice">
+                <h2 class="invoice-title"><?= NTypes() ?> types de voitures</h2>
                 <p class="invoice-date"><?= '' ?></p>
             </a>
-            <a href="<?= generate('admin.users') ?>" class="invoice">
-                <h2 class="invoice-title">15 marque de voiture</h2>
+            <a href="<?= generate('admin.marques') ?>" class="invoice">
+                <h2 class="invoice-title"><?= NMarque() ?>  marque de voiture</h2>
                 <p class="invoice-date"><?= '' ?></p>
             </a>
           

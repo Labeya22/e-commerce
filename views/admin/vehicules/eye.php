@@ -14,7 +14,7 @@ $product = getEyeVehicule($id);
                     <h2>Les informations du véhicule</h2>
             </div>
             <div class="product-info">
-                    <img src="<?= Image($product['marque'], $product['image']) ?>" alt="">
+                    <img src="<?= Image($product['image']) ?>" alt="">
                     <div class="product-details">
                         <h2><?= sprintf('%s %s', $product['marque'], $product['vehicule']) ?></h2>
                     

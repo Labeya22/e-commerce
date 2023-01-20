@@ -1,6 +1,8 @@
 <?php
-$admin = getSession(SESSION_ADMIN);
 
+checkUser(generate('user'));
+
+$user = getSession(SESSION_USER);
 
 expirateSaveMemoryData();
 
@@ -41,7 +43,17 @@ createAdmin();
                 <span class="fa fa-xmark close-nav-menu" id="close-nav"></span>
             </div>
             <div class="nav-options">
-             <?php if (hasSession(SESSION_ADMIN)) : ?>
+             <?php if (hasSession(SESSION_USER)) : ?>
+           
+                <div class="nav-option">
+                    <?= linkOption(
+                        generate('cart'), 
+                        'fa fa-shopping-cart', 
+                        [
+                            'id' => 'cart-shop',
+                            'url' => generate('cart.news')
+                        ], '') ?>
+                </div>
                 
                 <?= bell($user['utilisateur_id']) ?>
              
