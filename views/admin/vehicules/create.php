@@ -1,5 +1,7 @@
 <?php
 
+createFolder();
+
 $pdo = DATABASE;
 $title = "ajout d'un vehicule";
 
@@ -13,15 +15,12 @@ if (empty($errors) && !empty($_POST) && $uploader['error'] === 0) {
     $filename = $uploader['name'];
     $temp = $uploader['tmp_name'];
     $basename = pathinfo($filename, PATHINFO_BASENAME);
-    $marque = getMarque($post['marque']);
-    if (empty($marque)) throw new Exception("une erreur est survenue.");
-    $folder = createFolder($marque['marque']);
     $image = createFile($filename, 30);
     $post['image'] = $image;
     $create = createVehicule($post);
     if ($create) {
         $stockId = generateToken(60);
-        move([$folder, $image], $temp);
+        move($image, $temp);
         $redirect =generate('admin.vehicules');
         setFlash("success", "une voiture ajouté", $redirect);
         redirect($redirect);

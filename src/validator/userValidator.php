@@ -258,7 +258,8 @@ function getErrorUserPass($data) {
             if ($lenMinPass) {
                 $errors['password'] = "doit avoir au moins 8 caractères.";
             } else {
-                $equal = isEqual($pass, $confirm);
+                $equal = isEquals($pass, $confirm);
+
                 if (!$equal && !empty($confirm)) {
                     $errors['password'] = "les deux mot de passe ne correspondent pas.";
                 }

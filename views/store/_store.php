@@ -7,7 +7,7 @@ $vehicules = getVehiculesPaginer($page);
 <?php  foreach ($vehicules['data'] as $vehicule): ?>
     <div class="card card-xs">
         <div class="thumb">
-            <img src="<?= Image($vehicule['marque'], $vehicule['image']) ?>" alt="">
+            <img src="<?= Image($vehicule['image']) ?>" alt="">
         </div>
         <div class="details">
             <div class="box">

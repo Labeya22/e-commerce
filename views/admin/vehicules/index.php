@@ -2,6 +2,7 @@
 
 $title = 'vehicules';
 
+checkUser(generate('user'));
 
 
 $q = getQueryParamsString('q');

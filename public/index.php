@@ -25,13 +25,13 @@ define('NOTIFICATION', [
  */
 define('DATABASE', getPDO());
 
-
 function dist($source) {
     return sprintf("%s/%s", SOURCES, $source);
 }
 
 $route = explode("?", $_SERVER['REQUEST_URI'])[0] ?? '/';
 
+createFolder();
 
 /**
  * tableau des routes
@@ -88,8 +88,10 @@ define('ROUTES', [
     'admin.user-del' => '/_admin/user/delete',
     'admin.user-create' => '/@admin/user/create',
     'admin.user-update' => '/@admin/user/update',
-
+    'admin.user-eye' => '/@admin/user/eye',
+    'admin.user-change' => '/@admin/user/change-password',
 ]);
+
 
 
 
@@ -149,6 +151,8 @@ define('VIEWS', [
     'admin.user-del' => 'admin/users/_delete.php',
     'admin.user-create' => 'admin/users/create.php',
     'admin.user-update' => 'admin/users/update.php',
+    'admin.user-eye' => 'admin/users/eye.php',
+    'admin.user-change' => 'admin/users/change.php',
 
 ]);
 

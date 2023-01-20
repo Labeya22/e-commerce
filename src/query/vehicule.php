@@ -270,9 +270,10 @@ function getEyeVehicule(string $id): array {
 function getVehicule(string $key, mixed $value): array {
     $pdo = DATABASE;
     $query = "SELECT v.*, 
-    m.marque, t.type, p.* FROM vehicules v 
+    m.marque, t.type, p.*, s.stock FROM vehicules v 
     INNER JOIN marques m ON m.marque_id = v.marqueid
     INNER JOIN parametres p ON p.vehiculeid = v.vehicule_id 
+    INNER JOIN stocks s ON s.vehiculeid = v.vehicule_id 
     INNER JOIN types t ON t.type_id = v.typeid
     WHERE v.$key = ?";
     $req = $pdo->prepare($query);
@@ -314,7 +315,19 @@ function deleteVehicule(string $value): bool {
  * @return bool
  */
 function hasVehicule(string $field, string $value, ?string $update = null): bool {
-    return !empty(getVehicule($field, $value));
+    $pdo = DATABASE;
+    if (is_null($update)) {
+        $query = "SELECT * FROM vehicules WHERE $field = ?";
+        $req = $pdo->prepare($query);
+        $req->execute([$value]);
+
+    } else {
+        $query = "SELECT * FROM vehicules WHERE $field = ? AND vehicule_id != ?";
+        $req = $pdo->prepare($query);
+        $req->execute([$value, $update]);
+    }
+    $fetch = $req->fetch();
+    return $fetch === false ? false : !empty($fetch);
 }
 
 function createVehicule($data) {
@@ -344,8 +357,43 @@ function createVehicule($data) {
     return $create;
 }
 
-function updateVehicule(array $data) {
+function updateVehiculeWithImage(array $data, $id) {
     $pdo = DATABASE;
-    $req = $pdo->prepare("UPDATE types SET type = ?, create_at = NOW() WHERE type_id = ?");
-    return $req->execute($data);
+    $req = $pdo->prepare("UPDATE vehicules 
+        SET typeid = :typeid, marqueid = :marqueid,
+        promo = :promo, prix = :prix, image = :image,
+        star = :star, vehicule = :vehicule, 
+        description = :desc,create_at = NOW() WHERE vehicule_id = :id"
+    );
+    return  $req->execute([
+        ':id' => $id,
+        ':vehicule' => $data['vehicule'],
+        ':typeid' => $data['type'],
+        ':marqueid' => $data['marque'],
+        ':star' => $data['star'],
+        ':promo' => $data['promotion'],
+        ':prix' => $data['prix'],
+        ':image' => $data['image'],
+        ':desc' => $data['desc'],
+    ]);
+}
+
+
+function updateVehicule(array $data, $id) {
+    $pdo = DATABASE;
+    $req = $pdo->prepare("UPDATE vehicules 
+        SET typeid = :typeid, marqueid = :marqueid,
+        promo = :promo, prix = :prix,
+        star = :star, vehicule = :vehicule, description = :desc,create_at = NOW() WHERE vehicule_id = :id"
+    );
+    return  $req->execute([
+        ':id' => $id,
+        ':vehicule' => $data['vehicule'],
+        ':typeid' => $data['type'],
+        ':marqueid' => $data['marque'],
+        ':star' => $data['star'],
+        ':promo' => $data['promotion'],
+        ':prix' => $data['prix'],
+        ':desc' => $data['desc'],
+    ]);
 }

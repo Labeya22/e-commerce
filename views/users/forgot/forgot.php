@@ -10,7 +10,7 @@ if (is_null($token)) {
     throw new Exception("l'utilisateur #$token n'existe pas");
 }
 
-$user = getUser($pdo, 'token', $token);
+$user = getUser('token', $token);
 
 if (empty($user)) {
     throw new Exception("l'utilisateur #$token n'existe pas");

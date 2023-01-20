@@ -10,7 +10,7 @@ $userid = getSession(SESSION_FORGOT);
 
 if (is_null($userid)) redirect(generate('user.your-mail'));
 
-$user = getUser($pdo, 'utilisateur_id', $userid);
+$user = getUser('utilisateur_id', $userid);
 
 if (empty($user)) {
     throw new Exception("nous avons pas trouvé l'utilisateur #$userid");
@@ -42,7 +42,6 @@ if (empty($errors) && !empty($_POST)) {
                 ], $_POST, $errors) ?>
             </div>
             <button type="submit">vérifier</button>
-
         </form>
 
         <div class="options">

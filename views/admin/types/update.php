@@ -14,7 +14,6 @@ if (empty($type)) {
     throw new Exception("ce type n'existe pas");
 }
 
-var_dump(updateFolderGlobal($type['type'])); die();
 
 $errors = getErrorsType($_POST, $id);
 

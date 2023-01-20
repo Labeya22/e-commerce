@@ -76,6 +76,12 @@ $users = getUsersPagine(12, $page, $q);
                             <i class="fa fa-edit"></i> 
                             editer
                         </a>
+                        <a 
+                        href="<?= generate('admin.user-eye', ['id' => $user['utilisateur_id']]) ?>" 
+                        class="button button-md button-light">
+                            <i class="fa fa-eye"></i> 
+                            détails
+                        </a>
                     </td>
                 </tr>
                 <?php endforeach ?>

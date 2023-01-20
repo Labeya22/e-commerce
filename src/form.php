@@ -88,7 +88,8 @@ function select(string $key, array $options, $errors = []): string {
     $generateOptions = "";
     foreach ($options['database'] as $option) {
         $v = $option[$options['value']];
-        $selected = getData($key, $options['data']) == $v ? 'selected' : '';
+        $selected = (isset($options['update']) && $options['update'] == $v) ||
+        (getData($key, $options['data']) == $v)? 'selected' : '';
         $generateOptions .= "<option 
             value=\"{$v}\" $selected>
         {$option[$options['view']]}</option>";

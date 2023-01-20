@@ -9,28 +9,36 @@ $title = "editer le vehicule #$id";
 $types = listingTypes($pdo);
 $marques = listingMarques($pdo);
 $uploader = $_FILES['uploader'] ?? [];
-$errors = getErrorVehicule(array_merge($_POST, ['uploader' => $uploader]));
+$post = $_POST;
+$errors = getErrorVehiculeUpdate($post, $uploader, $id);
 
-if (empty($errors) && !empty($_POST) && $uploader['error'] === 0) {
-    $post = $_POST;
-    $filename = $uploader['name'];
-    $temp = $uploader['tmp_name'];
-    $basename = pathinfo($filename, PATHINFO_BASENAME);
+if (empty($errors) && !empty($post)) {
     $marque = getMarque($post['marque']);
     if (empty($marque)) throw new Exception("une erreur est survenue.");
-    $folder = createFolder($marque['marque']);
-    $image = createFile($filename, 30);
-    $post['image'] = $image;
-    $create = createVehicule($post);
-    if ($create) {
-        $stockId = generateToken(60);
-        move([$folder, $image], $temp);
-        $redirect =generate('admin.vehicules');
-        setFlash("success", "une voiture ajouté", $redirect);
-        redirect($redirect);
+    // dump($post, $uploader);
+    if (!empty($uploader['name'])) {
+        $filename = $uploader['name'];
+        $temp = $uploader['tmp_name'];
+        $basename = pathinfo($filename, PATHINFO_BASENAME);
+        $image = createFile($filename, 30);
+        $post['image'] = $image;
+        $create = updateVehiculeWithImage($post, $id);
+        if ($create) {
+            $stockId = generateToken(60);
+            move($image, $temp);
+            $redirect =generate('admin.vehicules');
+            setFlash("success", "une voiture a été mis à jour.", $redirect);
+            redirect($redirect);
+        }
+    } else {
+        $update = updateVehicule($post, $id);
+        if ($update) {
+            $redirect = generate('admin.vehicules');
+            setFlash("success", "une voiture a été mis à jour.", $redirect);
+            redirect($redirect);
+        }
     }
 }
-
 ?>
 
     <!-- profil -->
@@ -38,7 +46,7 @@ if (empty($errors) && !empty($_POST) && $uploader['error'] === 0) {
         <?= flash() ?>
         <div class="section">
             <div class="section-title">
-                <h2>Ajout d'un vehicule</h2>
+                <h2>Editer le vehicule #...</h2>
             </div>
             <div class="mb-2">
                 <form action="" class="form" method="post" enctype="multipart/form-data">
@@ -68,6 +76,7 @@ if (empty($errors) && !empty($_POST) && $uploader['error'] === 0) {
                                 'database' => $types,
                                 'value' => 'type_id',
                                 'view' => 'type',
+                                'update' => $vehicule['typeid'],
                                 'class' => 'input-form',
                                 'label' => 'type de voiture'
                             ], $errors, $vehicule['type']) ?>
@@ -79,6 +88,7 @@ if (empty($errors) && !empty($_POST) && $uploader['error'] === 0) {
                                 'database' => $marques,
                                 'value' => 'marque_id',
                                 'view' => 'marque',
+                                'update' => $vehicule['marqueid'],
                                 'class' => 'input-form',
                                 'label' => 'marque de voiture',
                             ], $errors, $vehicule['marque']) ?>
@@ -92,6 +102,7 @@ if (empty($errors) && !empty($_POST) && $uploader['error'] === 0) {
                                 'database' => getStar(),
                                 'value' => 'index',
                                 'view' => 'star',
+                                'update' => $vehicule['star'],
                                 'class' => 'input-form',
                                 'label' => 'evaluation du vehicule',
                             ], $errors, $vehicule['star']) ?>
@@ -102,9 +113,10 @@ if (empty($errors) && !empty($_POST) && $uploader['error'] === 0) {
                                 'data' => $_POST,
                                 'database' => getPromotion(),
                                 'value' => 'index',
+                                'update' => $vehicule['promo'],
                                 'view' => 'promo',
                                 'class' => 'input-form',
-                                'label' => 'status du  vehicule'
+                                'label' => 'promotion'
                             ], $errors) ?>
                         </div>
                     </div>
@@ -116,6 +128,7 @@ if (empty($errors) && !empty($_POST) && $uploader['error'] === 0) {
                                 'database' => getCarburant(),
                                 'value' => 'index',
                                 'view' => 'index',
+                                'update' => $vehicule['carburant'],
                                 'class' => 'input-form',
                                 'label' => 'carburant du vehicule',
                             ], $errors) ?>
@@ -124,7 +137,7 @@ if (empty($errors) && !empty($_POST) && $uploader['error'] === 0) {
                             <label for="stock">stock</label>
                             <?= inputField('stock', [
                                 'class' => 'input-form',
-                            ], $_POST, $errors) ?>
+                            ], $_POST, $errors, $vehicule['stock']) ?>
                         </div>
                     </div>
                     <div class="group-form-grid">
@@ -144,6 +157,7 @@ if (empty($errors) && !empty($_POST) && $uploader['error'] === 0) {
                                 'value' => 'index',
                                 'view' => 'index',
                                 'class' => 'input-form',
+                                'update' => $vehicule['auto'],
                                 'label' => 'transmission'
                             ], $errors) ?>
                         </div>
@@ -159,7 +173,7 @@ if (empty($errors) && !empty($_POST) && $uploader['error'] === 0) {
                         <label for="description">description</label>
                         <?= textarea('desc', $_POST, $errors, $vehicule['description']) ?>
                     </div>
-                    <button class="button button-primary"><i class="fa fa-add"></i> ajouté</button>
+                    <button class="button button-primary"><i class="fa fa-edit"></i> Editer</button>
                </form>
             </div>
         </div>

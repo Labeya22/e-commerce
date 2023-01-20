@@ -236,13 +236,15 @@ function checkUser(string $redirect): void {
         // on fait une redirection (header location)
         denied($redirect);
     } else {
-        $pdo = getPDO();
         $userSession = getSession(SESSION_USER);
         $user = getUser('utilisateur_id', $userSession['utilisateur_id']);
         if (is_null($user) || empty($user)) {
-            deleteSession(SESSION_USER);
+            deleteSession(SESSION_USER); 
             denied($redirect);
-        } 
+        } else {
+            $isAdmin = strpos($_SERVER['REQUEST_URI'], "@admin");
+            if ($user['role'] !== 'admin' && $isAdmin !== false) denied($redirect);
+        }
     }
 }
 
@@ -342,8 +344,8 @@ function getStar() {
 
 function getPromotion() {
    return [
-        ['index' => 1, 'promo' => 'mettre en promotion'],
-        ['index' => 0, 'promo' => 'ne pas mettre en promotion'],
+        ['index' => 'yes', 'promo' => 'Oui'],
+        ['index' => 'no', 'promo' => 'Non'],
    ];
 }
 
@@ -369,8 +371,8 @@ function saveMemoryData(string $token, array $data, $expirate = 60 * 20): void {
     ]);
 }
 
-function Image($marque, $file) {
-    return folderFormat([UPLOADED_PATH, $marque, $file]);
+function Image($file) {
+    return folderFormat([UPLOADED_PATH, $file]);
 }
 
 function getSaveMemoryData(string $token) {
@@ -395,11 +397,10 @@ function folderFormat(array $folders) {
     return implode(DIRECTORY_SEPARATOR, $folders);
 }
 
-function createFolder(string $marque): string {
-    $directory = UPLOADER_PATH . DIRECTORY_SEPARATOR . $marque;
-    if (!file_exists($directory)) mkdir($directory, 777, true);
-
-    return $directory;
+function createFolder(): void {
+    if (!file_exists(UPLOADER_PATH)) {
+        mkdir(UPLOADER_PATH);
+    } 
 }
 
 function createFile($file, $generate = 60) {
@@ -414,8 +415,8 @@ function createFile($file, $generate = 60) {
  * 
  * @return bool
  */
-function move(array $folders, string $temp): bool {
-    $folder = folderFormat($folders);
+function move(string $file, string $temp): bool {
+    $folder = folderFormat([UPLOADER_PATH, $file]);
     return move_uploaded_file($temp, $folder);
 }
 
@@ -442,5 +443,20 @@ function updateFolderGlobal($type) {
 
 function removeFile(array $folder) {
     $file = sprintf("%s/%s", UPLOADER_PATH, folderFormat($folder));
-    if (file_exists($file)) unlink($file);
+    if (file_exists($file)) return  unlink($file);
+    return false;
+}
+
+function changeFolder(string $from, string $file, string $to) {
+    removeFile([$from, $file]);
+
+    $fromFolder = folderFormat([UPLOADER_PATH, $from, $file]);
+
+    $toFolder = folderFormat([UPLOADER_PATH, $to]);
+    if (file_exists($fromFolder)) {
+        createFolder($toFolder);
+        return rename($fromFolder, sprintf("%s/%s", $toFolder, $file));
+    }
+
+    return false;
 }

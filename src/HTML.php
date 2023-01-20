@@ -193,11 +193,14 @@ function star(int $star) {
 }
 
 function dump(...$vars) {
-    echo "<pre>";
+   
     foreach ($vars as $var) {
-        print_r($var);
+        echo "<pre>";
+        var_dump($var);
+        echo "<pre>";
     }
-    echo "<pre>";
+
+    die();
 }
 
 
