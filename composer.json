@@ -19,6 +19,7 @@
             "src/query/banque.php",
             "src/query/taux.php",
             "src/query/stock.php",
+            "src/query/stat.php",
             "src/query/notification.php",
             "src/query/parameters.php",
             "src/query/facture.php",

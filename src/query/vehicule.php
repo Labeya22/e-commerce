@@ -186,13 +186,15 @@ function getVehiculePaginer(int $page, int $limit = 12, ?string $search = null):
 function getQueryPagine(int $limit, int $offset, ?string $search = null): string {
     if (is_null($search) || empty($search)) {
         $query = "SELECT v.vehicule_id, v.prix, v.vehicule, v.star,
-        v.promo, v.image, m.marque, t.type, v.create_at FROM vehicules v
+        v.promo, v.image, m.marque, t.type, v.create_at, s.stock FROM vehicules v
         INNER JOIN marques m ON m.marque_id = v.marqueid
+        INNER JOIN stocks s ON s.vehiculeid = v.vehicule_id
         INNER JOIN types t ON t.type_id = v.typeid LIMIT $limit OFFSET $offset";
     } else {
         $query = "SELECT v.vehicule_id, v.prix, v.vehicule, v.star,
-        v.promo, v.image, m.marque, t.type, v.create_at
+        v.promo, v.image, m.marque, t.type, v.create_at, s.stock
         FROM vehicules v INNER JOIN marques m ON m.marque_id = v.marqueid
+        INNER JOIN stocks s ON s.vehiculeid = v.vehicule_id
         INNER JOIN types t ON t.type_id = v.typeid
         WHERE (v.vehicule LIKE '%$search%') OR (m.marque LIKE '%$search%') OR 
         (t.type LIKE '%$search%')  LIMIT $limit OFFSET $offset";

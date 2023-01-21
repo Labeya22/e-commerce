@@ -189,7 +189,9 @@ function star(int $star) {
         ? "<li class=\"star\"><i class=\"fa fa-star\"></i></li>"
         : "<li><i class=\"fa fa-star\"></i></li>";
     }
-    return "<div class=\"stars\"><ul> $li </ul></div>";
+    return "<div class=\"stars\">
+        <ul>$li</ul>
+    </div>";
 }
 
 function dump(...$vars) {

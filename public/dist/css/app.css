@@ -56,8 +56,8 @@
 
 
 
-    --font: 'Poppins', sans-serif;
-    --font-input: 'Roboto', sans-serif;
+    --font: 'Inter', sans-serif;
+    --font-input: 'Inter', sans-serif;
 }
 
 *,
@@ -80,9 +80,7 @@ body {
     background-color: var(--white);
     font-family: var(--font);
     color: var(--color);
-    letter-spacing: 1.4px;
 }
-
 
 img {
     display: inline-block;
@@ -546,7 +544,7 @@ a.button {
     top: 0;
     display: block;
     width: 100%;
-    background-color: var(--white);
+    background-color: var(--background);
     height: 70px;
     padding-left: 25px;
     padding-right: 25px;
@@ -557,7 +555,6 @@ a.button {
 
 .header.active {
     background-color: var(--background);
-
     box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
 }
 
@@ -1042,6 +1039,10 @@ a.button {
     color: var(--yellow);
 }
 
+.star {
+    color: var(--yellow);
+}
+
 
 .card .details .c-footer,
 .card .details .c-options {
@@ -1208,6 +1209,10 @@ a.button {
     margin-bottom: 28px;
 }
 
+
+.mb-10 {
+    margin-bottom: 100px;
+}
 /* filter */
 .filter {
     width: 100%;
@@ -1826,7 +1831,8 @@ a.button {
     transition: 0.4s box-shadow ease;
 }
 
-.invoices .invoice:hover {
+.invoices .invoice:hover,
+.invoices .invoice.active {
     box-shadow: var(--shadow-input);
 }
 

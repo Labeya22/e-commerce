@@ -45,7 +45,8 @@ $vehicules = getVehiculePaginer($page, 12, $q);
                     <th>marque</th>
                     <th>type</th>
                     <th>prix</th>
-                    <th>ajouté le</th>
+                    <th>stock</th>
+                    <th>date</th>
                     <th>
                         <a 
                             href="<?= generate('admin.vehicule-create') ?>" 
@@ -63,6 +64,7 @@ $vehicules = getVehiculePaginer($page, 12, $q);
                     <td><?= $vehicule['marque'] ?></td>
                     <td><?= $vehicule['type'] ?></td>
                     <td><?= $vehicule['prix'] ?></td>
+                    <td><?= $vehicule['stock'] ?></td>
                     <td><?= dateFormat($vehicule['create_at']) ?></td>
                     <td>
                         <a
@@ -80,6 +82,11 @@ $vehicules = getVehiculePaginer($page, 12, $q);
                         href="<?= generate('admin.vehicule-eye', ['vehiculeid' => $vehicule['vehicule_id']]) ?>" 
                         class="button button-md button-light">
                             <i class="fa fa-eye"></i> 
+                        </a>
+                        <a 
+                        href="<?= generate('admin.vehicule-chart', ['id' => $vehicule['vehicule_id']]) ?>" 
+                        class="button button-md button-light">
+                            <i class="fa fa-chart-simple"></i> 
                         </a>
                     </td>
                 </tr>

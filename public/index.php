@@ -20,6 +20,21 @@ define('NOTIFICATION', [
     'account' => 'compte',
     'checkout' => 'compte banquaire'
 ]);
+
+define("MONTH", [
+    '01' => 'Janvier',
+    '02' => 'Février',
+    '03' => 'Mars',
+    '04' => 'Avril',
+    '05' => 'Mai',
+    '06' => 'Juin',
+    '07' => 'Juillet',
+    '08' => 'Aôut',
+    '09' => 'Septembre',
+    '10' => 'Octobre',
+    '11' => 'Novembre',
+    '12' => 'Décembre',
+]);
 /**
  * @var PDO
  */
@@ -32,6 +47,8 @@ function dist($source) {
 $route = explode("?", $_SERVER['REQUEST_URI'])[0] ?? '/';
 
 createFolder();
+
+createAdmin();
 
 /**
  * tableau des routes
@@ -84,6 +101,7 @@ define('ROUTES', [
     'admin.vehicule-create' => '/@admin/vehicule/create',
     'admin.vehicule-eye' => '/@admin/vehicule/eye',
     'admin.vehicule-update' => '/@admin/vehicule/update',
+    'admin.vehicule-chart' => '/@admin/vehicule/chart',
     'admin.users' => '/@admin/users',
     'admin.user-del' => '/_admin/user/delete',
     'admin.user-create' => '/@admin/user/create',
@@ -146,6 +164,7 @@ define('VIEWS', [
     'admin.vehicule-create' => 'admin/vehicules/create.php',
     'admin.vehicule-eye' => 'admin/vehicules/eye.php',
     'admin.vehicule-update' => 'admin/vehicules/update.php',
+    'admin.vehicule-chart' => 'admin/vehicules/chart.php',
     'admin.users' => 'admin/users/index.php',
     'admin.user-del' => 'admin/users/_delete.php',
     'admin.user-create' => 'admin/users/create.php',

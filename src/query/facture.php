@@ -89,3 +89,15 @@ function getFacturesPaginer($userid, $page = 1, $limit = 24): array {
         ]
     ];
 }
+
+function getFactures() {
+    $pdo = DATABASE;
+    $req = $pdo->query("SELECT * FROM factures");
+    $data = $req->fetchAll();
+    if ($data === false || empty($data)) return 0;
+    $total = 0;
+    foreach ($data as $d) {
+        $total += $d['total'];
+    }
+    return $total;
+}

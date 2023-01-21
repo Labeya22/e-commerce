@@ -38,6 +38,7 @@ if (!empty($_POST)) {
                     'title' => NOTIFICATION['checkout'],
                     'content' => $success
                 ]);
+                createStat($product['vehiculeid']);
                 echo json_encode(['success' => generate('facture')]);
             } else {
                 echo json_encode(['danger' => "nous n'avons pas pu effectuer l'achat, merci de réessayer."]);

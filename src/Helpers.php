@@ -446,3 +446,37 @@ function removeFile(string $file) {
     if (file_exists($file)) return  unlink($file);
     return false;
 }
+
+function getSortingMonth($params) {
+    $sorting = "";
+    list($r, $id) = $params;
+    $month = getQueryParamsString('month') ?? '01';
+    foreach (MONTH as $key => $value) {
+        $route = generate($r, ['id' => $id, 'month' => $key]);
+        $active = $key == $month ? 'active' : '';
+        $sorting .= "<a href=\"$route\" class=\"invoice $active\">
+            <h2 class=\"invoice-title\">$value</h2>
+        </a>";
+    }
+    return $sorting;
+}
+
+function getSortingYear($params) {
+    $sorting = "";
+    list($r, $id) = $params;
+    $year = getQueryParamsString('year') ?? date('Y');
+    $month = getQueryParamsString('month') ?? date('m');
+    for ($i= 0; $i < 4 ; $i++) {
+        $Y = (int)date('Y') - $i;
+        if (is_null($month) || empty($month)) {
+            $route = generate($r, ['id' => $id, 'year' => $Y]);
+        } else {
+            $route = generate($r, ['id' => $id, 'year' => $Y, 'month' => $month]);
+        }
+        $active = $Y == $year ? 'active' : '';
+        $sorting .= "<a href=\"$route\" class=\"invoice $active\">
+            <h2 class=\"invoice-title\">$Y</h2>
+        </a>";
+    }
+    return $sorting;
+}
