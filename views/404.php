@@ -1,13 +1,12 @@
 <main class="main">
     <div class="section">
         <div class="section-title">
-            <h2>Une erreur est survenue</h2>
+            <h2>Page introuvable</h2>
         </div>
         <div class="container">
-            <p class="mb-4">
+            <p>
                 <img class="d-block page-error" src="<?= dist("images/404.gif") ?>" alt="page-error"  >
             </p>
-            <p class="text-center"><?= $errors ?></p>
         </div>
     </div>
 </main>

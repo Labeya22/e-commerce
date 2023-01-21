@@ -10,7 +10,7 @@
                     ou introduction, au développement avec le cahier des charges et les différents diagrammes
                     demandés, avant de chuter avec une conclusion en bonne et due forme.
                 </p>
-                <a href="#" class="button button-outline-primary"><i class="fa fa-shopping-cart"></i> découvrir</a>
+                <a href="<?= generate('store') ?>" class="button button-outline-primary"><i class="fa fa-shopping-cart"></i> découvrir</a>
             </div>
             <img src="<?= dist("images/home.svg") ?>" alt="" class="hero-image">
         </div>

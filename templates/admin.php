@@ -1,6 +1,6 @@
 <?php
 
-checkUser(generate('user'));
+checkUser(generate('user'), true);
 
 $user = getSession(SESSION_USER);
 

@@ -179,26 +179,34 @@ define('VIEWS', [
  * page introuvable
  * Erreur des routes
  */
-$notFound = "error.php";
+$notFound = "404.php";
+
+$error = 'error.php';
 
 /**
  * on démarre la buff
  */
 ob_start();
 $pdo = getPDO();
-if (in_array($route, ROUTES)) {
-    foreach (ROUTES as $name => $value) {
-        if ($route === $value) {
-            require sprintf("%s/%s", VIEW_PATH, VIEWS[$name]);
+try {
+    if (in_array($route, ROUTES)) {
+        foreach (ROUTES as $name => $value) {
+            if ($route === $value) {
+                require sprintf("%s/%s", VIEW_PATH, VIEWS[$name]);
+            }
         }
+    } else {
+        http_response_code(404);
+        require sprintf("%s/%s", VIEW_PATH, $notFound);
     }
-} else {
-    http_response_code(404);
-    require sprintf("%s/%s", VIEW_PATH, $notFound);
-}
 
-if (strpos($route, '_') === false) {
+    if (strpos($route, '_') === false) {
+        $content = ob_get_clean();
+        require sprintf("%s/%s", LAYOUT_PATH, layout($route));
+    }
+} catch (Exception $e) {
+    $errors = $e->getMessage();
+    require sprintf("%s/%s", VIEW_PATH, $error);
     $content = ob_get_clean();
     require sprintf("%s/%s", LAYOUT_PATH, layout($route));
 }
-

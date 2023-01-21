@@ -230,7 +230,7 @@ function deleteSession(string $key) {
  * 
  * @return void
  */
-function checkUser(string $redirect): void {
+function checkUser(string $redirect, $isAdmin = false): void {
     //  on vérifie que l'utilisateur est enregistré dans la session.
     if (!hasSession(SESSION_USER)) {
         // on fait une redirection (header location)
@@ -241,9 +241,9 @@ function checkUser(string $redirect): void {
         if (is_null($user) || empty($user)) {
             deleteSession(SESSION_USER); 
             denied($redirect);
-        } else {
-            $isAdmin = strpos($_SERVER['REQUEST_URI'], "@admin");
-            if ($user['role'] !== 'admin' && $isAdmin !== false) denied($redirect);
+        } elseif ($isAdmin && $user['role'] != 'admin') {
+            deleteSession(SESSION_USER); 
+            denied($redirect);
         }
     }
 }

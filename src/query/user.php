@@ -176,7 +176,14 @@ function userYourMail(PDO $pdo, $email) {
     return null;
 }
 
-function userCodeResetOk (PDO $pdo, $id, $token) {
+/**
+ * @param PDO $pdo
+ * @param string $id
+ * @param string $token
+ * 
+ * @return bool
+ */
+function userCodeResetOk (PDO $pdo, string $id, string $token): bool {
     $query = "UPDATE utilisateurs SET  code = NULL, 
     expirate = NULL, token = :token
     WHERE utilisateur_id = :id ";
@@ -191,7 +198,12 @@ function expirate($pdo) {
 
 }
 
-function getNResultatSearchUsers($search): ?int {
+/**
+ * @param string $search
+ * 
+ * @return int|null
+ */
+function getNResultatSearchUsers(?string $search = null): ?int {
     if (empty($search) || is_null($search)) return null;
     $pdo = DATABASE;
     $query = "SELECT COUNT(utilisateur_id) FROM utilisateurs 
@@ -202,7 +214,10 @@ function getNResultatSearchUsers($search): ?int {
     return $resultat;
 }
 
-function createAdmin() {
+/**
+ * @return bool
+ */
+function createAdmin(): bool {
     $adminExist = getUser('role', 'admin');
     if (empty($adminExist)) {
         $pdo = DATABASE;
@@ -211,11 +226,13 @@ function createAdmin() {
         create_at = NOW()";
         return $pdo->prepare($query)->execute([
             ':id' => generateToken(60),
-            ':nom' => 'admin-nom',
-            ':prenom' => 'admin-prenom',
-            ':utilisateur' => "admin_username",
+            ':nom' => 'admin',
+            ':prenom' => 'admin',
+            ':utilisateur' => "admin",
             ':email' => "admin@admin.com",
-            ':password' => hashPass("admin_username"),
+            ':password' => hashPass("admin123456"),
         ]);
     }
+
+    return false;
 }

@@ -12,9 +12,6 @@ $vehicules = getVehiculesPaginer($page);
         <div class="section">
             <div class="section-title">
                 <h1>Boutique</h1>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci praesentium similique maiores. Facere laudantium at maiores eius id praesentium vero quam. Distinctio atque consequuntur soluta, dicta obcaecati voluptatem magnam recusandae.
-                </p>
             </div>
             <?= flash() ?>
             <div class="products" id="js-filter">

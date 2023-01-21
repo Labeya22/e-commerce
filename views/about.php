@@ -7,10 +7,7 @@
                 </div>
                 <div class="about">
                     <p>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae, asperiores soluta eaque quae at libero? Pariatur soluta atque, reprehenderit vel alias sit praesentium sint ex totam tempora suscipit illo corrupti.
-                        Harum porro explicabo provident alias quos obcaecati distinctio quisquam fugit, veritatis, repellat maxime totam. Tempore ex alias eveniet nulla cumque, quidem dolore nisi iusto velit, sed animi iste fuga optio?
-                        Adipisci animi, quisquam commodi dicta asperiores recusandae eligendi debitis nemo sapiente dolore doloribus mollitia explicabo vel minima quis repellat ut iure nihil nobis, nam quasi nisi incidunt aliquam. Eos, officia?
-                        Molestias, culpa nisi ipsa, veniam laborum, ex explicabo enim doloribus illo possimus ipsum. Illo, consequatur quis quas, est voluptatem odit ipsum quos, nobis doloremque harum sint velit omnis quae praesentium.
+                    dans le cadre de notre cours d’UML, il nous a été donné un travail pratique réunissant les différentes leçons vécus pendant ledit cours. Ainsi, dans la suite de notre travail, nous traiterons sur le fonctionnement d’un bureau d’études en passant par les problématiques ou introduction, au développement avec le cahier des charges et les différents diagrammes demandés, avant de chuter avec une conclusion en bonne et due forme.
                     </p>
                 </div>
             </div>
