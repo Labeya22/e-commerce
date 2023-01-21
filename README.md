@@ -15,65 +15,65 @@ vente de vehicule en ligne
 
 ## Etapes
 
-- [ok] lister les marques
-- [ok] lister les types
-- [ok] lister les vehicules
-- [ok] lister tous les vehicules + pagination
-- [ok] filtrer les résultats
-    - [ok] recherche
-    - [ok] type de vehicule
-    - [ok] marque
-    - [ok] promotion
-- [ok] voir le détail du produit
-- [ok] utilisateur
-    - [ok] créer un utilisateur
-    - [ok] confirmer l'utlisateur
-    - [ok] connecter
-    - [ok] affiche les informations de l'utilisateur
-    - [ok] déconnnecter
-    - [ok] editer son compte
-        - [ok] change ces informations
-        - [ok] change le mot de passe
-    - [ok] supprimer son compte
-    - [ok] mot de passe oublier
-        - [ok] trouver le compte de l'utilisateur à l'aide de son email
-        - [ok] envoi code
-        - [ok] modifier le mot de passe
-    - [ok] message flash
-- [ok] panier
-    - [ok] voir le detail du produit
-    - [ok] calcul du montant à payer
-    - [ok] lister les produits dans le panier
-    - [ok] paginer les résultats
-    - [ok] supprimer un ou plusieurs produit dans le panier (AJAX)
-    - [ok] ajouter le produit dans le panier
-    - [ok] modifier la quantité (AJAX)
-    - [ok] calculer les résultats à payer + options de payment
-- [ok] mode de paiement par banque [simulation]
-- [ok] système de facturation.
-    - [ok] lister tous les factures
-    - [ok] voir une facture 
-    - [ok] voir tous les factures
-- [ok] système de notifications
-    - [ok] lister les notifications dans le header
-    - [ok] supprimer une notification [ajax]
-    - [ok] voir une notification
-    - [ok] detecter les nouvelles notifications [ajax]
-- [ok] système de popnew (cas on a un message non lu ou un vehicule  ajouté)
-- [ok] nous contacter
+- [x] lister les marques
+- [x] lister les types
+- [x] lister les vehicules
+- [x] lister tous les vehicules + pagination
+- [x] filtrer les résultats
+    - [x] recherche
+    - [x] type de vehicule
+    - [x] marque
+    - [x] promotion
+- [x] voir le détail du produit
+- [x] utilisateur
+    - [x] créer un utilisateur
+    - [x] confirmer l'utlisateur
+    - [x] connecter
+    - [x] affiche les informations de l'utilisateur
+    - [x] déconnnecter
+    - [x] editer son compte
+        - [x] change ces informations
+        - [x] change le mot de passe
+    - [x] supprimer son compte
+    - [x] mot de passe oublier
+        - [x] trouver le compte de l'utilisateur à l'aide de son email
+        - [x] envoi code
+        - [x] modifier le mot de passe
+    - [x] message flash
+- [x] panier
+    - [x] voir le detail du produit
+    - [x] calcul du montant à payer
+    - [x] lister les produits dans le panier
+    - [x] paginer les résultats
+    - [x] supprimer un ou plusieurs produit dans le panier (AJAX)
+    - [x] ajouter le produit dans le panier
+    - [x] modifier la quantité (AJAX)
+    - [x] calculer les résultats à payer + options de payment
+- [x] mode de paiement par banque [simulation]
+- [x] système de facturation.
+    - [x] lister tous les factures
+    - [x] voir une facture 
+    - [x] voir tous les factures
+- [x] système de notifications
+    - [x] lister les notifications dans le header
+    - [x] supprimer une notification [ajax]
+    - [x] voir une notification
+    - [x] detecter les nouvelles notifications [ajax]
+- [x] système de popnew (cas on a un message non lu ou un vehicule  ajouté)
+- [x] nous contacter
 - [] admins
-    - [ok] types
-        - [ok] lister tous les types
-        - [ok] supprimer un type de voiture [ajax]
-        - [ok] ajouter un type de voiture
-        - [ok] editer un type de voiture
+    - [x] types
+        - [x] lister tous les types
+        - [x] supprimer un type de voiture [ajax]
+        - [x] ajouter un type de voiture
+        - [x] editer un type de voiture
         - [x] recherche un type ou plusieurs
-    - [ok] marques
-        - [ok] lister tous les marques
-        - [ok] supprimer une marque de voiture [ajax]
-        - [ok] ajouter un type de voiture
-        - [ok] editer une marque de voiture
-        - [ok] recherche une marque ou plusieurs
+    - [x] marques
+        - [x] lister tous les marques
+        - [x] supprimer une marque de voiture [ajax]
+        - [x] ajouter un type de voiture
+        - [x] editer une marque de voiture
+        - [x] recherche une marque ou plusieurs
 
 ## Technologie utilisée
 
