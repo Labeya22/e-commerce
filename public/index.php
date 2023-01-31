@@ -187,7 +187,6 @@ $error = 'error.php';
  * on démarre la buff
  */
 ob_start();
-$pdo = getPDO();
 try {
     if (in_array($route, ROUTES)) {
         foreach (ROUTES as $name => $value) {

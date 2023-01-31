@@ -1,6 +1,6 @@
 <?php
 $title = "stores";
-
+$pdo = DATABASE;
 $types = listingTypes($pdo);
 $marques = listingMarques($pdo);
 $page = getQueryParamsInteger('page') ?? 1;

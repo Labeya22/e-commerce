@@ -14,7 +14,7 @@ function hasFieldOrField($value, ...$fields) {
 }
 
 function hasFieldUser($field, $value , $id = null) {
-    $pdo = getPDO();
+    $pdo = DATABASE;
     if (is_null($id)) {
         $req = $pdo->prepare("SELECT * FROM utilisateurs WHERE $field = ?");
         $req->execute([$value]);

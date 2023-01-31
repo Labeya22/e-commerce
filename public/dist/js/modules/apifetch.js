@@ -5,8 +5,9 @@
  */
 export async function fetchJson(url) {
     const r = await fetch(url)
-    if (r.redirected) return null
-    if (r.ok) return r.json()
+    if (r.ok) {
+        return r.json()
+    }
     throw new Error("une erreur est survenue")
 }
 

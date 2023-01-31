@@ -12,8 +12,13 @@ function stockUpdate($productid, int $quantity) {
     $pdo = DATABASE;
     $stock = getStock($productid);
     $reste = ($stock['stock'] - $quantity);
-    $req = $pdo->prepare("UPDATE stocks SET stock = ?  WHERE vehiculeid = ?");
-    return $req->execute([$reste, $stock['vehiculeid']]);
+    if ($stock['stock'] < $reste) {
+        $req = $pdo->prepare("UPDATE stocks SET stock = ?  WHERE vehiculeid = ? AND stock >=");
+        return $req->execute([$reste, $stock['vehiculeid']]);
+    }
+
+    return false;
+    
 }
 
 function createSock($product, $stock): bool {

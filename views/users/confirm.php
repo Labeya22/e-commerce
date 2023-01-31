@@ -8,7 +8,7 @@ if (is_null($username) || empty($username)) {
     throw new Exception("une erreur est survenue, merci de réessayer plus tard.");
 }
 
-$user = getUser($pdo, 'utilisateur', $username);
+$user = getUser('utilisateur', $username);
 if (empty($user)) {
     throw new Exception("L'utilisateur '$username' n'existe pas");
 }

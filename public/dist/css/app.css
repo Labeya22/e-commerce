@@ -2065,3 +2065,8 @@ a.button {
     width: 600px;
     height: 600px;
 }
+
+
+.text-danger {
+    color: var(--red) !important;
+}

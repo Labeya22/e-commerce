@@ -17,17 +17,24 @@
             </div>
             <div class="c-options">
                 <div class="c-option">
+                    <?php if ($cart['stock'] <= 0): ?>
+                    <p id="stock" stock="<?= $cart['stock'] ?>" class="text-danger"><?= $cart['stock'] ?> dans le stock</p>
+
+                    <?php else: ?>
                     <p id="stock" stock="<?= $cart['stock'] ?>"><?= $cart['stock'] ?> dans le stock</p>
+                    <?php endif ?>
                 </div>
                 <div class="c-option">
-                    <label for="quantity">quantité</label>
-                    <input
+                    <?php if ($cart['stock'] > 0): ?>
+                        <label for="quantity">quantité</label>
+                        <input
                     reqFetch="<?= generate('cart.quantity', [
                         'cartid' => $cart['panier_id']
                     ]) ?>"
                     type="text"
                     class="quantity" 
                     value="<?= $cart['quantite'] ?>" >
+                    <?php endif ?>
                 </div>
                 <div class="c-option"><span id="price-total"></span></div>
         

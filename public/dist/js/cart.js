@@ -47,7 +47,7 @@ if (carts && totalElement && prices) {
        if (cartRemove) {
            cartRemove.addEventListener('click', (e) => {
                e.preventDefault()
-               const ok = confirm('Êtes-vous sûr ?')
+               const ok = confirm('Vous voulez vraiment effectuer cette action ?')
                if (!ok) return
                const url = cartRemove.getAttribute('href')
                const r = fetchJson(url)
@@ -79,20 +79,20 @@ if (addProduct) {
         e.preventDefault()
         const url = addProduct.getAttribute('href')
         const r = fetchJson(url)
-        if (r === null) {
-            createToast(null, 'warning', "vous devez être connecté.")
-            return 
-        } 
+        
+        console.log(r);
         r.then(response => {
+            console.log(response);
             if (response.ok === true && response.query === 'INSERT') {
                 addProduct.innerHTML = `<i class="fa fa-check-double"></i> est dans le panier`
                 createToast(null, 'success', 'le produit a été ajouté dans le panier.')
+            } else if (response.redirect) {
+                window.location.href = response.redirect
+            } else if (response.error) {
+                createToast(null, 'danger', response.error)  
             }
         }).catch(error => {
-            createToast(null, 'danger', `
-            une erreur est survenue, merci de réessayer.
-            (${error})
-            `)
+            createToast(null, 'danger', error)  
         })
     })
 }
